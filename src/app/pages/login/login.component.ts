@@ -7,24 +7,24 @@ import { AuthLogin } from 'src/app/modules/auth/store/auth.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
-  public loading$: Observable<boolean>;
-  public data: LoginModel = new LoginModel();
+	public loading$: Observable<boolean>;
+	public data: LoginModel = new LoginModel();
 
-  constructor(
-      private store: Store<{ auth: IAuthState }>,
-  ) {	}
+	constructor(
+			private store: Store<{ auth: IAuthState }>,
+	) {	}
 
-  public ngOnInit(): void {
-    this.loading$ = this.store.select(getIsLoading);
-  }
+	public ngOnInit(): void {
+		this.loading$ = this.store.select(getIsLoading);
+	}
 
-  public onSubmit(): void {
-    this.store.dispatch(new AuthLogin(this.data));
-  }
+	public onSubmit(): void {
+		this.store.dispatch(new AuthLogin(this.data));
+	}
 }

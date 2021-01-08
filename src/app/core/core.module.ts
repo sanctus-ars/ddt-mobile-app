@@ -6,15 +6,15 @@ import { LoadingComponent } from 'src/app/core/loading/loading.component';
 
 
 @NgModule({
-  declarations: [
-      LoadingComponent,
-      LoadingDirective,
-  ],
-  imports: [
-      CommonModule
-  ],
-    exports: [
-        LoadingDirective
-    ]
+	declarations: [
+			LoadingComponent,
+			LoadingDirective,
+	],
+	imports: [
+			CommonModule
+	],
+		exports: [
+				LoadingDirective
+		]
 })
 export class CoreModule { }

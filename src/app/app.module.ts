@@ -22,64 +22,76 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { AuthModule } from './modules/auth/auth.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UserEffects } from 'src/app/modules/user/store/user.effects';
 import { userReducer } from 'src/app/modules/user/store/user.reducers';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient ) {
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 const store  = {
-  auth: authReducer,
-  user: userReducer,
-  loading: loadingReducer,
-  history: historyReducer,
+	auth: authReducer,
+	user: userReducer,
+	loading: loadingReducer,
+	history: historyReducer,
 };
 
 const effects = [
-  AuthEffects,
-  UserEffects,
-  LoadingEffects,
-  HistoryEffects,
+	AuthEffects,
+	UserEffects,
+	LoadingEffects,
+	HistoryEffects,
 ];
 const services = [
-  HistoryService,
+	HistoryService,
 ];
 
 const modules = [
-  BrowserModule,
-  AppRoutingModule,
-  CoreModule,
-  PagesModule,
-  SharedModule,
-  IonicModule.forRoot(),
-  HttpClientModule,
+	BrowserModule,
+	AppRoutingModule,
+	CoreModule,
+	PagesModule,
+	SharedModule,
+	IonicModule.forRoot(),
+	HttpClientModule,
+	TranslateModule.forRoot({
+		loader: {
+			provide: TranslateLoader,
+			useFactory: (createTranslateLoader),
+			deps: [ HttpClient ]
+		}
+	}),
+	ReactiveFormsModule,
+	ToastContainerModule,
+	AuthModule.forRoot(),
+	ToastrModule.forRoot(),
+	StoreModule.forRoot(store),
+	EffectsModule.forRoot([ ...effects ]),
 
-  ReactiveFormsModule,
-  ToastContainerModule,
-  AuthModule.forRoot(),
-  ToastrModule.forRoot(),
-  StoreModule.forRoot(store),
-  EffectsModule.forRoot([ ...effects ]),
-
-  StoreDevtoolsModule.instrument({
-    maxAge: 25,
-    logOnly: environment.production,
-  }),
+	StoreDevtoolsModule.instrument({
+		maxAge: 25,
+		logOnly: environment.production,
+	}),
 ];
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [
-      ...modules
-  ],
-  providers: [
-    ...services,
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  ],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent],
+	entryComponents: [],
+	imports: [
+			...modules
+	],
+	providers: [
+		...services,
+		StatusBar,
+		SplashScreen,
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule {}

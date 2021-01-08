@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class JwtService {
-	private key: string = 'jwtToken';
-	public schema: string = 'Bearer';
+	private key = 'jwtToken';
+	public schema = 'Bearer';
 
 	public static decodeToken<T>(token: string): T {
 		return jwtDecode(token) as T;

@@ -31,7 +31,7 @@ export class HistoryService implements OnDestroy {
 				const routeConfig = this.activatedRoute.root.firstChild.routeConfig;
 
 				const routeUrl = urlAfterRedirects;
-				const routeLabel = routeConfig && routeConfig.data ? routeConfig.data['label'] : 'Home';
+				const routeLabel = routeConfig && routeConfig.data ? routeConfig.data.label : 'Home';
 				const routePath = url;
 
 				const historyItem = new HistoryRouterModel(routeUrl, routeLabel, routePath);

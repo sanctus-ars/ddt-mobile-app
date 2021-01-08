@@ -1,0 +1,15 @@
+<form [formGroup]="settingsForm" class="setting-page">
+  <ion-item>
+    <ion-label position="floating">{{ 'PAGES.SETTINGS.FORM.SELECT_LANGUAGE' | translate }}</ion-label>
+    <ion-select
+            formControlName="language"
+            okText="{{ 'SHARED.BUTTONS.OK' | translate }}"
+            cancelText="{{ 'SHARED.BUTTONS.CANCEL' | translate }}"
+            placeholder="{{ 'PAGES.BUTTONS.SELECT_ONE' | translate }}">
+      <ion-select-option *ngFor="let lang of languagesList">
+        {{ lang }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</form>
+

@@ -1,11 +1,11 @@
 export class AnswerModel {
 	public status: number;
 
-	public data?: object;
+	public data?: any;
 	public token?: string;
 	public errors?: string[] = [];
 	public message?: string;
-	public hasErrors?: boolean = false;
+	public hasErrors = false;
 
 	constructor(
 		status: number,

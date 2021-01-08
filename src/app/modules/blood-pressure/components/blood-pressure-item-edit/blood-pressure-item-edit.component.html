@@ -1,0 +1,19 @@
+<form [formGroup]="bloodPressureForm" >
+  <ion-item>
+    <ion-label position="floating">{{ 'PAGES.BLOOD_PRESSURE.ITEM_NEW.PRESSURE_LOW' | translate }}</ion-label>
+    <ion-input type="number" formControlName="low"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">{{ 'PAGES.BLOOD_PRESSURE.ITEM_NEW.PRESSURE_HEIGHT' | translate }}</ion-label>
+    <ion-input type="number" formControlName="height"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">{{ 'PAGES.BLOOD_PRESSURE.ITEM_NEW.DATA' | translate }}</ion-label>
+    <ion-datetime formControlName="data" displayFormat="DD MMMM YYYY" placeholder="{{ 'PAGES.BUTTONS.SELECT_DATA' | translate }}" min="1950" max="2022"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="saveBloodPressureAction()">
+      {{'SHARED.BUTTONS.SAVE' | translate }}
+    </ion-button>
+  </ion-item>
+</form>

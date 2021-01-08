@@ -1,55 +1,62 @@
 <ion-content [fullscreen]="true" class="login">
   <ion-header>
-    <h3>Registration <span>or <a routerLink="/pages/login">Login</a></span></h3>
+    <h3>{{ 'PAGES.REGISTRATION.TITLE' | translate }}
+      <span>{{ 'SHARED.WORDS.OR' | translate }} <a routerLink="/pages/login">{{ 'PAGES.REGISTRATION.LOGIN' | translate }}</a></span>
+    </h3>
   </ion-header>
 
   <form [appLoading]="loading$ | async">
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.EMAIL' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">First Name</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.FIRST_NAME' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Last Name</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.LAST_NAME' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.PASSWORD' | translate }}</ion-label>
       <ion-input type="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Confirmation Password</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.CONFIRMATION_PASSWORD' | translate }}</ion-label>
       <ion-input type="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Country</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.COUNTRY' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">City</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.CITY' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Phone</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.PHONE' | translate }}</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Birthday</ion-label>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.BIRTHDAY' | translate }} </ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Transplant Organ</ion-label>
-      <ion-select placeholder="Select One">
-        <ion-select-option value="f">Kidney</ion-select-option>
-        <ion-select-option value="m">Heart</ion-select-option>
+      <ion-label position="floating">{{ 'PAGES.REGISTRATION.TRANSPLANT_ORGAN' | translate }}</ion-label>
+      <ion-select
+              okText="{{ 'SHARED.BUTTONS.OK' | translate }}"
+              cancelText="{{ 'SHARED.BUTTONS.CANCEL' | translate }}"
+              placeholder="{{ 'PAGES.BUTTONS.SELECT_ONE' | translate }}">
+        >
+        <ion-select-option *ngFor="let organ of transplantOrgansList" value="{{ organ }}">
+          {{ organ}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Transplant Organ Data</ion-label>
-      <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Select Date" min="1950" max="2022"></ion-datetime>
+      <ion-datetime displayFormat="DD MMMM YYYY" placeholder="{{ 'PAGES.BUTTONS.SELECT_DATA' | translate }}" min="1950" max="2022"></ion-datetime>
     </ion-item>
 
     <ion-footer>
