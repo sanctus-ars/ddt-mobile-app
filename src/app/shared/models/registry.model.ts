@@ -12,6 +12,8 @@ export class RegistryModel extends SecurityModel {
 	public phone: string;
 	public organTransplant: string;
 	public organTransplantData: string;
+	public sex: string;
+	public doctor: string;
 
 	constructor(
 		email?: string,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { GoogleChartInterface } from 'ng2-google-charts';
 import { BloodPressureModel } from 'src/app/modules/blood-pressure/models/blood-pressure.model';
 
@@ -6,34 +6,43 @@ import { BloodPressureModel } from 'src/app/modules/blood-pressure/models/blood-
 	selector: 'app-blood-pressure-chart',
 	templateUrl: './blood-pressure-chart.component.html',
 	styleUrls: ['./blood-pressure-chart.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BloodPressureChartComponent implements OnInit {
-	@Input() public chartData: BloodPressureModel[] = [];
+export class BloodPressureChartComponent implements OnInit, OnChanges {
+	@Input() public bloodPressureList: BloodPressureModel[];
 	public chartConfig: GoogleChartInterface;
 
-	constructor() { }
+	constructor(
+		private cd: ChangeDetectorRef,
+	) { }
 
 	ngOnInit() {
 		this.initData();
 	}
 
+	ngOnChanges(changes) {
+		if (changes.bloodPressureList && changes.bloodPressureList?.currentValue) {
+			this.bloodPressureList = changes.bloodPressureList?.currentValue;
+			this.initData();
+		}
+	}
+
 	public initData() {
+		const dataTableValue = this.bloodPressureList.map(( item) => {
+			return [item.date, item.lowPressure, item.heightPressure];
+		});
 		this.chartConfig = {
 			chartType: 'LineChart',
 			dataTable: [[Date, 'Low', 'Height'],
-				[new Date(-10), 80, 120],
-				[new Date(-9), 70, 110],
-				[new Date(-8), 90, 120],
-				[new Date(-7), 60, 100],
-				[new Date(-6), 70, 120],
-				[new Date(-5), 80, 110],
+				...dataTableValue
 			],
 			// firstRowIsData: true,
 			options: {
+				allowHtml: true,
 				height: '100%',
 				width: '100%',
 				hAxis: {
-					title: 'Data'
+					title: 'Date'
 				},
 				vAxis: {
 					title: 'Blood Pressure'
@@ -41,6 +50,7 @@ export class BloodPressureChartComponent implements OnInit {
 				backgroundColor: '#fff'
 			},
 		};
+		this.cd.markForCheck();
 	}
 
 

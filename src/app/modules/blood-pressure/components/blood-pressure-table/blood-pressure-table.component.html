@@ -1,18 +1,18 @@
 <ion-title>{{ 'PAGES.BLOOD_PRESSURE.TABLE.TITLE' | translate }}</ion-title>
 <ion-grid class="ion-margin">
   <ion-row>
-    <ion-col>{{ 'PAGES.BLOOD_PRESSURE.TABLE.DATA' | translate }}</ion-col>
-    <ion-col>{{ 'PAGES.BLOOD_PRESSURE.TABLE.LOW_PRESSURE' | translate }}</ion-col>
-    <ion-col>{{ 'PAGES.BLOOD_PRESSURE.TABLE.HEIGHT_PRESSURE' | translate }}</ion-col>
+    <ion-col align="center">{{ 'PAGES.BLOOD_PRESSURE.TABLE.DATA' | translate }}</ion-col>
+    <ion-col align="center">{{ 'PAGES.BLOOD_PRESSURE.TABLE.LOW_PRESSURE' | translate }}</ion-col>
+    <ion-col align="center">{{ 'PAGES.BLOOD_PRESSURE.TABLE.HEIGHT_PRESSURE' | translate }}</ion-col>
     <ion-col></ion-col>
   </ion-row>
   <ion-row *ngFor="let bp of bloodPressureList; index as i">
-    <ion-col>{{ bp.data | date: 'DD MM YYYY'}}</ion-col>
-    <ion-col>{{ bp.low }}</ion-col>
-    <ion-col>{{ bp.height }}</ion-col>
+    <ion-col align="center">{{ bp.date | date: 'dd/MM/yyyy'}}</ion-col>
+    <ion-col align="center">{{ bp.lowPressure }}</ion-col>
+    <ion-col align="center">{{ bp.heightPressure }}</ion-col>
     <ion-col>
-      <button (click)="editBloodPressureAction(bp)">
-        <ion-icon name="pencil-outline"></ion-icon>
+      <button (click)="removeBloodPressureAction(bp)">
+        <ion-icon name="close-circle-outline"></ion-icon>
       </button>
     </ion-col>
   </ion-row>

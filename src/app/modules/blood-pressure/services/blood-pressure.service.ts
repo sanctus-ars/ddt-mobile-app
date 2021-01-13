@@ -28,6 +28,23 @@ export class BloodPressureService  {
 			.pipe(pluck('data'));
 	}
 
+	public remove(id: number): Observable<BloodPressureModel> {
+		const resultUri = `${BASE_URL}/${id}`;
+		return this.apiClient
+			.delete<AnswerModel>(resultUri)
+			.pipe(
+				pluck('data'),
+			);
+	}
+
+	public getAll(): Observable<BloodPressureModel[]> {
+		return this.apiClient
+			.get<AnswerModel>(BASE_URL)
+			.pipe(
+				pluck('data'),
+			);
+	}
+
 	public getById(id: string): Observable<BloodPressureModel> {
 		const resultUri = `${BASE_URL}/${id}`;
 		return this.apiClient

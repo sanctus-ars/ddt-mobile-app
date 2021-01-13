@@ -1,50 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { LanguagesShortEnum } from 'src/app/shared/enum/languages-short.enum';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { GoogleChartInterface } from 'ng2-google-charts';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BloodPressureModel } from 'src/app/modules/blood-pressure/models/blood-pressure.model';
+import { BloodPressureService } from 'src/app/modules/blood-pressure/services/blood-pressure.service';
 
 @Component({
-  selector: 'app-blood-pressure',
-  templateUrl: './blood-pressure.component.html',
-  styleUrls: ['./blood-pressure.component.scss'],
+	selector: 'app-blood-pressure',
+	templateUrl: './blood-pressure.component.html',
+	styleUrls: ['./blood-pressure.component.scss'],
 })
 export class BloodPressureComponent implements OnInit {
+	public bloodPressureList: BloodPressureModel[] = [];
+	constructor(
+		private bloodPressureService: BloodPressureService,
+		private cd: ChangeDetectorRef,
+	) { }
 
-  public chartData: GoogleChartInterface;
-  public bloodPressureList: BloodPressureModel[];
-  public bloodPressureForm: FormGroup;
-  public bloodPressureLowControl: FormControl = new FormControl();
-  public bloodPressureDataControl: FormControl = new FormControl();
-  public bloodPressureHeightControl: FormControl = new FormControl();
+	public ngOnInit() {
+		this.initData();
+	}
 
+	private initData() {
+		this.bloodPressureService.getAll().subscribe((result) => {
+			this.bloodPressureList = result;
+			this.cd.markForCheck();
+		});
+	}
 
-  constructor(
-      private activatedRoute: ActivatedRoute,
-  ) { }
+	public removeBloodPressureAction($event: BloodPressureModel) {
+		this.bloodPressureList = this.bloodPressureList.filter(x => x.bloodPressure_id !== $event.bloodPressure_id);
+		this.bloodPressureService.remove($event.bloodPressure_id).subscribe();
+		this.cd.markForCheck();
+	}
 
-  ngOnInit() {
-    this.initData();
-    this.buildForm();
-  }
-
-  private initData(): void {
-
-
-  }
-
-  private buildForm(): void {
-    this.bloodPressureDataControl.setValue(new Date());
-    this.bloodPressureForm = new FormGroup({
-      low: this.bloodPressureLowControl,
-      data: this.bloodPressureDataControl,
-      height: this.bloodPressureHeightControl,
-    });
-  }
-
-  public saveBloodPressure() {
-    console.log(this.bloodPressureForm.value);
-  }
+	public saveBloodPressureAction($event: BloodPressureModel) {
+		this.bloodPressureList = this.bloodPressureList.reduce((acum, item) => {
+			acum.push(item);
+			return acum;
+		}, [$event]);
+		this.bloodPressureService.create($event).subscribe();
+		this.cd.markForCheck();
+	}
 }

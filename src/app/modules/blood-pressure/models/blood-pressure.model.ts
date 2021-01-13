@@ -1,8 +1,10 @@
 export class BloodPressureModel {
-	id: number;
-	low: number;
-	data: Date;
-	userId: number;
-	height: number;
+	date: Date;
+	// tslint:disable-next-line:variable-name
+	user_id: number;
+	lowPressure: number;
+	heightPressure: number;
+	// tslint:disable-next-line:variable-name
+	bloodPressure_id: number;
 }
 

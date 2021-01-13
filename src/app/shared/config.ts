@@ -9,7 +9,7 @@ export class Config {
 			}
 		},
 		api: {
-			uri: 'http://localhost:4000',
+			uri: 'https://localhost:4000',
 			prefix: 'api',
 			version: 'v1',
 		},
