@@ -9,16 +9,10 @@ import { PagesRoutingModule } from 'src/app/pages/pages-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { SettingsComponent } from 'src/app/pages/settings/settings.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { BloodPressureComponent } from 'src/app/pages/blood-pressure/blood-pressure.component';
-import { TabletsComponent } from 'src/app/pages/tablets/tablets.component';
 import { PagesComponent } from 'src/app/pages/pages.component';
-import { AppComponent } from 'src/app/app.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-import { BloodPressureModule } from 'src/app/modules/blood-pressure/blood-pressure.module';
-
-
+import { DiaryModule } from 'src/app/pages/diary/diary.module';
 
 @NgModule({
 	declarations: [
@@ -26,11 +20,10 @@ import { BloodPressureModule } from 'src/app/modules/blood-pressure/blood-pressu
 		SettingsComponent,
 		NoContentComponent,
 		RegistrationComponent,
-		TabletsComponent,
-		BloodPressureComponent,
-		PagesComponent
+		PagesComponent,
 	],
 	imports: [
+		DiaryModule,
 		CoreModule,
 		IonicModule.forRoot(),
 		CommonModule,
@@ -39,7 +32,6 @@ import { BloodPressureModule } from 'src/app/modules/blood-pressure/blood-pressu
 		TranslateModule,
 		ReactiveFormsModule,
 		SharedModule,
-		BloodPressureModule,
 	],
 	providers: [
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

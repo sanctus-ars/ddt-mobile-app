@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+<div class="weight-research">
+  <div class="weight-research-header">
+    <div class="weight-research-header_initial">
+      <div>
+        <strong>Начальный</strong>
+      </div>
+      <div>
+        68.2 kg
+      </div>
+    </div>
+    <div class="weight-research-header_current">
+      <div>
+        <strong>Текущий</strong>
+      </div>
+      <div>
+        <span class="color-blue">
+          <strong>92.2 kg</strong>
+        </span>
+      </div>
+    </div>
+    <div class="weight-research-header_target">
+      <div>
+        <strong>Целевой</strong>
+      </div>
+      <div>
+        77.2 kg
+      </div>
+    </div>
+  </div>
+  <div class="weight-research-content">
+    <canvas #lineCanvas ></canvas>
+  </div>
+  <div class="weight-research-footer">
+    <div class="weight-research-footer_changes">
+      <div>
+        <strong>Изменения</strong>
+      </div>
+      <div>
+        - 2.0 kg
+      </div>
+    </div>
+    <div class="weight-research-footer_new">
+      <button mat-fab color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="weight-research-footer_stock">
+      <div>
+        <strong>Осталось</strong>
+      </div>
+      <div>
+        + 3.0 kg
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>

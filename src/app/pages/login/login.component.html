@@ -1,21 +1,33 @@
 <ion-content [fullscreen]="true" class="login">
-  <ion-header>
-    <h3>{{ 'PAGES.LOGIN.TITLE' | translate }}
-      <span class="login_link">{{ 'SHARED.PHRASES.OR' | translate }} <a  routerLink="/pages/registration">{{ 'PAGES.LOGIN.REGISTRATION' | translate }}</a></span>
+  <ion-header class="login-header">
+    <h3>
+      {{ 'PAGES.LOGIN.TITLE' | translate }}
+      <span class="login_link">{{ 'SHARED.PHRASES.OR' | translate }} </span>
+      <a  routerLink="/pages/registration" class="login-header_registration">{{ 'PAGES.LOGIN.REGISTRATION' | translate }}</a>
     </h3>
   </ion-header>
   <form [appLoading]="loading$ | async">
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.LOGIN.EMAIL' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.LOGIN.PASSWORD' | translate }}</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
+    <div class="login-content">
+      <div class="login-content_form-field">
+        <mat-form-field appearance="outline" class="login-content_form-field">
+          <mat-label>{{ 'PAGES.LOGIN.EMAIL' | translate }}</mat-label>
+          <input matInput type="text" placeholder="{{ 'PAGES.LOGIN.EMAIL' | translate }}">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="login-content_form-field">
+        <mat-form-field appearance="outline" class="login-content_form-field">
+          <mat-label>{{ 'PAGES.LOGIN.PASSWORD' | translate }}</mat-label>
+          <input matInput type="password" placeholder="{{ 'PAGES.LOGIN.PASSWORD' | translate }}">
+          <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
 
-    <ion-footer>
-      <ion-button color="primary">{{ 'PAGES.LOGIN.SIGNIN' | translate }}</ion-button>
+
+    <ion-footer class="login-footer">
+      <button mat-raised-button color="primary">{{ 'PAGES.LOGIN.SIGNIN' | translate }}</button>
+      <span class="login_link">{{ 'SHARED.PHRASES.OR' | translate }}</span>
       <a routerLink="/pages/forgot-password">{{ 'PAGES.LOGIN.FORGOT_PASSWORD' | translate }}</a>
     </ion-footer>
   </form>

@@ -1,74 +1,72 @@
-<ion-content [fullscreen]="true" class="login">
-  <ion-header>
-    <h3>{{ 'PAGES.REGISTRATION.TITLE' | translate }}
-      <span>{{ 'SHARED.WORDS.OR' | translate }} <a routerLink="/pages/login">{{ 'PAGES.REGISTRATION.LOGIN' | translate }}</a></span>
+<ion-content [fullscreen]="true" class="registration">
+  <ion-header class="registration-header">
+    <h3>
+      {{ 'PAGES.REGISTRATION.TITLE' | translate }}
+      <span>{{ 'SHARED.WORDS.OR' | translate }} </span>
+      <a routerLink="/pages/login">{{ 'PAGES.REGISTRATION.LOGIN' | translate }}</a>
     </h3>
   </ion-header>
+  <form [appLoading]="loading$ | async" >
+    <div class="registration-content">
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.FIRST_NAME' | translate }}</mat-label>
+          <input matInput type="text" placeholder="{{ 'PAGES.REGISTRATION.FIRST_NAME' | translate }}">
+          <fa-icon class="registration-form_icon" matSuffix icon="user-alt"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.LAST_NAME' | translate }}</mat-label>
+          <input matInput type="text" placeholder="{{ 'PAGES.REGISTRATION.LAST_NAME' | translate }}">
+          <fa-icon class="registration-form_icon" matSuffix icon="user-alt"></fa-icon>
+        </mat-form-field>
+      </div>
 
-  <form [appLoading]="loading$ | async">
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.EMAIL' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.FIRST_NAME' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.LAST_NAME' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.PASSWORD' | translate }}</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.CONFIRMATION_PASSWORD' | translate }}</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.COUNTRY' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.CITY' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.PHONE' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.BIRTHDAY' | translate }} </ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.SEX' | translate }} </ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.YOUR_DOCTOR' | translate }} </ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">{{ 'PAGES.REGISTRATION.TRANSPLANT_ORGAN' | translate }}</ion-label>
-      <ion-select
-              okText="{{ 'SHARED.BUTTONS.OK' | translate }}"
-              cancelText="{{ 'SHARED.BUTTONS.CANCEL' | translate }}"
-              placeholder="{{ 'PAGES.BUTTONS.SELECT_ONE' | translate }}">
-        >
-        <ion-select-option *ngFor="let organ of transplantOrgansList" value="{{ organ }}">
-          {{ organ}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Transplant Organ Data</ion-label>
-      <ion-datetime displayFormat="DD MMMM YYYY" placeholder="{{ 'PAGES.BUTTONS.SELECT_DATA' | translate }}" min="1950" max="2022"></ion-datetime>
-    </ion-item>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.EMAIL' | translate }}</mat-label>
+          <input matInput type="text" placeholder="{{ 'PAGES.REGISTRATION.EMAIL' | translate }}">
+          <fa-icon class="registration-form_icon" matSuffix icon="envelope"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.PASSWORD' | translate }}</mat-label>
+          <input matInput type="password" placeholder="{{ 'PAGES.REGISTRATION.PASSWORD' | translate }}">
+          <fa-icon class="registration-form_icon" matSuffix icon="key"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.CONFIRMATION_PASSWORD' | translate }}</mat-label>
+          <input matInput type="password" placeholder="{{ 'PAGES.REGISTRATION.CONFIRMATION_PASSWORD' | translate }}">
+          <fa-icon class="registration-form_icon" matSuffix icon="key"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.TRANSPLANT_ORGAN' | translate }}</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let organ of transplantOrgansList" value="{{ organ }}">
+              {{ organ }}
+            </mat-option>
+          </mat-select>
+          <fa-icon class="registration-form_icon" matSuffix icon="lungs"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="registration-content_form-field">
+        <mat-form-field appearance="outline" class="registration-form_field">
+          <mat-label>{{ 'PAGES.REGISTRATION.TRANSPLANT_ORGAN_DATE' | translate }}</mat-label>
+          <input matInput [matDatepicker]="datepicker">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+  </div>
 
-    <ion-footer>
-      <ion-button color="primary">Registration</ion-button>
+    <ion-footer class="registration-footer">
+      <button mat-raised-button color="primary">{{ 'PAGES.REGISTRATION.REGISTRATION_BUTTON' | translate }}</button>
     </ion-footer>
   </form>
 </ion-content>

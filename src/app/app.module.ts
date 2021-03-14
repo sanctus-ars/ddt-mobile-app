@@ -31,6 +31,12 @@ import { userReducer } from 'src/app/modules/user/store/user.reducers';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 export function createTranslateLoader(http: HttpClient ) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -60,6 +66,7 @@ const modules = [
 	SharedModule,
 	IonicModule.forRoot(),
 	HttpClientModule,
+	FontAwesomeModule,
 	TranslateModule.forRoot({
 		loader: {
 			provide: TranslateLoader,
@@ -84,7 +91,8 @@ const modules = [
 	declarations: [AppComponent],
 	entryComponents: [],
 	imports: [
-			...modules
+			...modules,
+			BrowserAnimationsModule
 	],
 	providers: [
 		...services,
@@ -94,4 +102,8 @@ const modules = [
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+	constructor(iconLibrary: FaIconLibrary) {
+		iconLibrary.addIconPacks(fas, fab, far);
+	}
+}

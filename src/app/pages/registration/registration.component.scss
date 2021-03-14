@@ -1,0 +1,46 @@
+.registration {
+  &-form {
+    &_icon {
+      font-size: 24px;
+      display: flex;
+    }
+
+    &_field {
+      width: 100%;
+      padding: 0 10px
+    }
+  }
+  &-header {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+    }
+
+    span, a {
+      font-size: 12px;
+    }
+  }
+  &-footer {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &_form-field {
+      width: 100%;
+      padding: 0 10px
+    }
+  }
+}
+

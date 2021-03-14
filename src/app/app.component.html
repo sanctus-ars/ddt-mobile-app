@@ -1,17 +1,46 @@
-<ion-app>
+<ion-app class="main">
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" menu-id="main" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Inbox</ion-list-header>
           <ion-note>hi@ionicframework.com</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+            <div  *ngFor="let page of appPages; let i = index">
+              <ion-item
+                      lines="none"
+                      detail="false"
+                      routerDirection="root"
+                      [class.selected]="selectedIndex == i"
+                      (click)="menuItemClickAction(i)">
+                <div class="main-menu_icon">
+                  <fa-icon icon="{{ page.icon }}"></fa-icon>
+                </div>
+                <ion-label>{{ page.title }}</ion-label>
+
+                <div *ngIf="page.subPages?.length > 0">
+                  <fa-icon *ngIf="page.isOpen" icon="arrow-down"></fa-icon>
+                  <fa-icon *ngIf="!page.isOpen" icon="arrow-right"></fa-icon>
+                </div>
+
+              </ion-item>
+
+              <div *ngIf="page.subPages?.length > 0 && page.isOpen" class="main-menu_sub-item">
+                <div *ngFor="let sub of page.subPages ">
+                  <ion-item
+                          lines="none"
+                          detail="false"
+                          routerDirection="root"
+                          [class.selected]="selectedIndex == i"
+                          (click)="menuSubItemClickAction(sub.url)">
+                    <div class="main-menu_icon">
+                      <fa-icon icon="{{ sub.icon }}"></fa-icon>
+                    </div>
+                    <ion-label>{{ sub.title }}</ion-label>
+                  </ion-item>
+                </div>
+              </div>
+            </div>
         </ion-list>
       </ion-content>
     </ion-menu>
