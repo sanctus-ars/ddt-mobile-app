@@ -1,3 +1,10 @@
+.inbox-list-header {
+  padding: 10px;
+
+  span {
+    padding: 0 10px;
+  }
+}
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }

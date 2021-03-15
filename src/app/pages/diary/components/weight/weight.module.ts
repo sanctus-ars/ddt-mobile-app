@@ -8,13 +8,11 @@ import { BodyTemperatureComponent } from 'src/app/pages/diary/components/body-te
 import { DiaryComponent } from 'src/app/pages/diary/diary.component';
 import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { WeightHistoryComponent } from 'src/app/pages/diary/components/weight/components/weight-history/weight-history.component';
-import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
 import { WeightResearchComponent } from 'src/app/pages/diary/components/weight/components/weight-research/weight-research.component';
 
 
 const declarations = [
 	WeightComponent,
-	WeightStatisticComponent,
 	WeightResearchComponent,
 	WeightHistoryComponent,
 ];

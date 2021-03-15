@@ -13,7 +13,6 @@ import { UrineComponent } from 'src/app/pages/diary/components/urine/urine.compo
 import { WellBeingComponent } from 'src/app/pages/diary/components/well-being/well-being.component';
 import { WeightHistoryComponent } from 'src/app/pages/diary/components/weight/components/weight-history/weight-history.component';
 import { WeightResearchComponent } from 'src/app/pages/diary/components/weight/components/weight-research/weight-research.component';
-import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
 
 const routes: Routes = [
 		{
@@ -34,10 +33,6 @@ const routes: Routes = [
 									{
 										path: 'research',
 										component: WeightResearchComponent,
-									},
-									{
-										path: 'statistic',
-										component: WeightStatisticComponent
 									},
 									{
 										path: 'history',

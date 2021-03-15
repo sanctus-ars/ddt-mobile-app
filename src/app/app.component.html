@@ -3,7 +3,11 @@
     <ion-menu contentId="main-content" menu-id="main" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
+          <ion-list-header class="inbox-list-header">
+            <fa-icon icon="birthday-cake"></fa-icon>
+            <span>23 года</span>
+          </ion-list-header>
+
           <ion-note>hi@ionicframework.com</ion-note>
 
             <div  *ngFor="let page of appPages; let i = index">

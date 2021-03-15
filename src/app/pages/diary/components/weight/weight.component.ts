@@ -14,4 +14,8 @@ export class WeightComponent implements OnInit {
   ngOnInit() {
   }
 
+  public tabClick() {
+    console.log('s');
+  }
+
 }
