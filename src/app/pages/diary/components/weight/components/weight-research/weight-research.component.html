@@ -5,8 +5,8 @@
       <div>
         <strong>Начальный</strong>
       </div>
-      <div>
-        68.2 kg
+      <div *ngIf="firstItem?.weight">
+        {{ firstItem?.weight }} kg
       </div>
     </div>
     <div class="weight-research-header_current">
@@ -14,17 +14,17 @@
         <strong>Текущий</strong>
       </div>
       <div>
-        <span class="color-blue">
-          <strong>92.2 kg</strong>
+        <span class="color-blue" *ngIf="lastItem?.weight">
+          <strong>{{ lastItem?.weight}} kg</strong>
         </span>
       </div>
     </div>
     <div class="weight-research-header_target">
       <div>
-        <strong>Целевой</strong>
+        <strong>Цель</strong>
       </div>
-      <div>
-        77.2 kg
+      <div *ngIf="weightSettings?.plannedWeight">
+        {{ weightSettings?.plannedWeight }} kg
       </div>
     </div>
   </div>
@@ -36,12 +36,12 @@
       <div>
         <strong>Изменения</strong>
       </div>
-      <div>
-        - 2.0 kg
+      <div *ngIf="lastItem?.diff" [style.color]="lastItem?.diff > 0 ? 'red' : 'green' ">
+        {{ lastItem?.diff }} kg
       </div>
     </div>
     <div class="weight-research-footer_new">
-      <button mat-fab color="primary">
+      <button mat-fab color="primary" (click)="openDialog()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -49,8 +49,8 @@
       <div>
         <strong>Осталось</strong>
       </div>
-      <div>
-        + 3.0 kg
+      <div *ngIf="weightSettings?.plannedWeight && lastItem?.weight" [style.color]="weightSettings?.plannedWeight - lastItem?.weight > 0 ? 'red' : 'green' ">
+        {{ weightSettings?.plannedWeight - lastItem?.weight}} kg
       </div>
     </div>
   </div>

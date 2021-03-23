@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true" class="weight-statistic">
+  <ion-header class="weight-statistic-header">
+    <h3> Статистика </h3>
+  </ion-header>
+  <div class="weight-statistic-content">
+    <div class="weight-statistic-content_item">
+      <div class="weight-statistic-content_item-title">Тенденция</div>
+      <mat-divider></mat-divider>
+      <div class="weight-statistic-content_item-content">
+        <div class="weight-statistic-content_item-content-field">
+          <div>Динамика за посл. 7 дней:</div>
+          <div> {{ dynamic7days}} kg</div>
+        </div>
+        <div class="weight-statistic-content_item-content-field">
+          <div>Динамика за посл. 30 дней: </div>
+          <div> {{ dynamic30days}} kg</div>
+        </div>
+      </div>
+    </div>
+    <div class="weight-statistic-content_item">
+      <div class="weight-statistic-content_item-title">ИМТ</div>
+      <mat-divider></mat-divider>
+      <div class="weight-statistic-content_item-content">
+        <div class="weight-statistic-content_item-content-field">
+          <div>Категория: </div>
+          <div>{{ imtCategory }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="weight-statistic-content_item">
+      <div class="weight-statistic-content_item-title">Прогресс</div>
+      <mat-divider></mat-divider>
+      <div class="weight-statistic-content_item-content">
+        <div class="weight-statistic-content_item-content-field">
+          <div>Среднее изменение за неделю: </div>
+          <div>{{ progress7days}} kg</div>
+        </div>
+        <div class="weight-statistic-content_item-content-field">
+          <div>Среднее изменение за месяц: </div>
+          <div>{{ progress30days}} kg</div>
+        </div>
+      </div>
+    </div>
+    <div class="weight-statistic-content_item">
+      <div class="weight-statistic-content_item-title">В среднем</div>
+      <mat-divider></mat-divider>
+      <div class="weight-statistic-content_item-content">
+        <div class="weight-statistic-content_item-content-field">
+          <div>Средний: </div>
+          <div>{{ middleWeight}} kg</div>
+        </div>
+        <div class="weight-statistic-content_item-content-field">
+          <div>Рекорд (максимум): </div>
+          <div>{{ recordMax}} kg</div>
+        </div>
+        <div class="weight-statistic-content_item-content-field">
+          <div>Рекорд (минимум): </div>
+          <div>{{ recordMin}} kg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-footer class="weight-statistic-footer">
+
+  </ion-footer>
+</ion-content>

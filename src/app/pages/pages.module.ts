@@ -13,6 +13,7 @@ import { PagesComponent } from 'src/app/pages/pages.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DiaryModule } from 'src/app/pages/diary/diary.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
 	declarations: [
@@ -32,6 +33,7 @@ import { DiaryModule } from 'src/app/pages/diary/diary.module';
 		TranslateModule,
 		ReactiveFormsModule,
 		SharedModule,
+		FontAwesomeModule,
 	],
 	providers: [
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

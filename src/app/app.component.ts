@@ -6,6 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguagesShortEnum } from 'src/app/shared/enum/languages-short.enum';
 import { Router } from '@angular/router';
+import { SettingsService } from 'src/app/pages/settings/services/settings.service';
+import * as moment from 'moment';
+import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
 
 @Component({
 	selector: 'app-root',
@@ -13,65 +16,48 @@ import { Router } from '@angular/router';
 	styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+	public settings: ISettings;
+	public afterTransplantationYear: number;
+	public afterTransplantationMonth: number;
+
 	public selectedIndex = 0;
 	public appPages = [
 		{
-			title: 'Diary',
+			title: 'Дневник',
 			url: 'diary',
 			icon: 'book-medical',
 			isOpen: false,
 			subPages: [
 				{
-					title: 'Weight',
+					title: 'Вес',
 					url: 'pages/diary/weight',
 					icon:	'weight'
 				},
 				{
-					title: 'Blood Pressure',
+					title: 'Давление',
 					url: 'pages/diary/blood-pressure',
 					icon: 'hand-holding-water',
 				},
 				{
-					title: 'Analysis of urine',
+					title: 'Диузер',
 					url: 'pages/diary/urine',
 					icon: 'tint'
 				},
 				{
-					title: 'Body temperature',
+					title: 'Температура',
 					url: 'pages/diary/body-temperature',
 					icon: 'thermometer-half'
 				},
 				{
-					title: 'Well being',
+					title: 'Самочувствие',
 					url: 'pages/diary/well-being',
 					icon: 'smile'
 				},
 			]
 		},
-
-
 		{
-			title: 'Doctor',
-			url: 'pages/doctor',
-			icon: 'user-nurse'
-		},
-		{
-			title: 'Pills',
-			url: 'pages/pills',
-			icon: 'pills'
-		},
-		{
-			title: 'Login',
-			url: 'pages/login',
-			icon: 'sign-in-alt'
-		},
-		{
-			title: 'Registration',
-			url: 'pages/registration',
-			icon: 'registered'
-		},
-		{
-			title: 'Settings',
+			title: 'Настройки',
 			url: 'pages/settings',
 			icon: 'tools'
 		},
@@ -83,6 +69,7 @@ export class AppComponent implements OnInit {
 		private platform: Platform,
 		private statusBar: StatusBar,
 		private splashScreen: SplashScreen,
+		private settingsService: SettingsService,
 		private translateService: TranslateService,
 	) {
 		this.initializeApp();
@@ -96,11 +83,22 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.initData();
 		this.initTranslate();
 		const path = window.location.pathname.split('folder/')[1];
 		if (path !== undefined) {
 			this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
 		}
+	}
+
+	private initData(): void {
+		this.settingsService.getSettings().then((settings) => {
+			this.settings = settings;
+			const dateAfterTransplantation: moment.Moment = moment(moment(new Date()).diff(moment(settings.transplantDate)));
+			// tslint:disable-next-line:radix
+			this.afterTransplantationYear = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
+			this.afterTransplantationMonth = Number.parseInt(dateAfterTransplantation.format('MM'));
+		});
 	}
 
 	public menuSubItemClickAction(url: string): void {

@@ -1,4 +1,4 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 export class SecurityModel {
 	public token: string;
@@ -13,7 +13,7 @@ export class SecurityModel {
 		token?: string,
 		provider?: string
 	) {
-		this.token = token || uuid();
+		this.token = token || uuidv4();
 		this.provider = provider || 'local';
 	}
 }

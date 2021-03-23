@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true" class="weight-item-dialog">
+  <ion-header class="weight-item-dialog-header">
+    <h3>
+      Вес
+    </h3>
+  </ion-header>
+  <form [formGroup]="weightFormGroup" (ngSubmit)="saveAction()">
+    <div class="weight-item-dialog-content">
+      <div class="weight-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="weight-item-dialog-content_form-field">
+          <mat-label>Вес</mat-label>
+          <input matInput type="number" placeholder="Ваш текущий вес" [formControl]="weightControl">
+          <fa-icon matSuffix icon="weight"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div class="weight-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="weight-item-dialog-content_form-field">
+          <mat-label>Дата</mat-label>
+          <input matInput [matDatepicker]="datepicker" [formControl]="dateControl">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ion-footer class="weight-item-dialog-footer">
+      <button mat-stroked-button (click)="cancelAction()">Закрыть</button>
+      <button mat-raised-button color="warn" *ngIf="this.data.mode === 'edit'" (click)="removeAction()">Удалить</button>
+      <button mat-raised-button color="primary" (click)="saveAction()">Сохранить</button>
+    </ion-footer>
+  </form>
+</ion-content>

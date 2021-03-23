@@ -30,7 +30,6 @@ import { UserEffects } from 'src/app/modules/user/store/user.effects';
 import { userReducer } from 'src/app/modules/user/store/user.reducers';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';

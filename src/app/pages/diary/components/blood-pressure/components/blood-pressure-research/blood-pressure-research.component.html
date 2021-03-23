@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="blood-pressure-research">
+    <div class="blood-pressure-research-header">
+      <div class="blood-pressure-research-header_initial">
+        <div>
+          <strong>Минимальное</strong>
+        </div>
+        <div>
+          50 / 90
+        </div>
+      </div>
+      <div class="blood-pressure-research-header_current">
+        <div>
+          <strong>Среднее</strong>
+        </div>
+        <div>
+        <span class="color-blue">
+          <strong>90 / 60</strong>
+        </span>
+        </div>
+      </div>
+      <div class="blood-pressure-research-header_target">
+        <div>
+          <strong>Максимальное</strong>
+        </div>
+        <div>
+          120 / 90
+        </div>
+      </div>
+    </div>
+    <div class="blood-pressure-research-content">
+      <canvas #lineCanvas ></canvas>
+    </div>
+    <div class="blood-pressure-research-footer">
+    <!--  <div class="blood-pressure-research-footer_changes">
+        <div>
+          <strong>Изменения</strong>
+        </div>
+        <div>
+          - 2.0 kg
+        </div>
+      </div>-->
+      <div class="blood-pressure-research-footer_new">
+        <button mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <!--<div class="blood-pressure-research-footer_stock">
+        <div>
+          <strong>Осталось</strong>
+        </div>
+        <div>
+          + 3.0 kg
+        </div>
+      </div>-->
+    </div>
+  </div>
+</ion-content>

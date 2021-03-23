@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="urine-research">
+    <div class="urine-research-header">
+      <div class="urine-research-header_initial">
+        <div>
+          <strong>Минимальное</strong>
+        </div>
+        <div>
+         1500 мл
+        </div>
+      </div>
+      <div class="urine-research-header_current">
+        <div>
+          <strong>Текущее</strong>
+        </div>
+        <div>
+        <span class="color-blue">
+          <strong>1600 мл</strong>
+        </span>
+        </div>
+      </div>
+      <div class="urine-research-header_target">
+        <div>
+          <strong>Максимальное</strong>
+        </div>
+        <div>
+          1700 мл
+        </div>
+      </div>
+    </div>
+    <div class="urine-research-content">
+      <canvas #lineCanvas ></canvas>
+    </div>
+    <div class="urine-research-footer">
+      <div class="urine-research-footer_changes">
+        <div>
+          <strong>Изменения</strong>
+        </div>
+        <div>
+          - 200 мл
+        </div>
+      </div>
+      <div class="urine-research-footer_new">
+        <button mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="urine-research-footer_stock">
+        <div>
+          <strong>Норма</strong>
+        </div>
+        <div>
+          1500 мл
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

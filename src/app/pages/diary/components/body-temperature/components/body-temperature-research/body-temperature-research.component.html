@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="body-temperature-research">
+    <div class="body-temperature-research-header">
+      <div class="body-temperature-research-header_initial">
+        <div>
+          <strong>Минимальное</strong>
+        </div>
+        <div>
+          36.5 &#176;
+        </div>
+      </div>
+      <div class="body-temperature-research-header_current">
+        <div>
+          <strong>Текущее</strong>
+        </div>
+        <div>
+        <span class="color-blue">
+          <strong>36.6 &#176;</strong>
+        </span>
+        </div>
+      </div>
+      <div class="body-temperature-research-header_target">
+        <div>
+          <strong>Максимальное</strong>
+        </div>
+        <div>
+          39.2 &#176;
+        </div>
+      </div>
+    </div>
+    <div class="body-temperature-research-content">
+      <canvas #lineCanvas ></canvas>
+    </div>
+    <div class="body-temperature-research-footer">
+      <div class="body-temperature-research-footer_changes">
+        <div>
+          <strong>Изменения</strong>
+        </div>
+        <div>
+          - 0.1 &#176;
+        </div>
+      </div>
+      <div class="body-temperature-research-footer_new">
+        <button mat-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="body-temperature-research-footer_stock">
+        <div>
+          <strong>Норма</strong>
+        </div>
+        <div>
+          36.7 &#176;
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

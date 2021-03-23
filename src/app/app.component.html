@@ -5,10 +5,10 @@
         <ion-list id="inbox-list">
           <ion-list-header class="inbox-list-header">
             <fa-icon icon="birthday-cake"></fa-icon>
-            <span>23 года</span>
+            <span>{{ afterTransplantationYear }} лет {{ afterTransplantationMonth }} месяцев<br/> после трансплантации</span>
           </ion-list-header>
 
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-note>{{ settings?.name }}</ion-note>
 
             <div  *ngFor="let page of appPages; let i = index">
               <ion-item

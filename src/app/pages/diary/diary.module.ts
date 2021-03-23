@@ -8,18 +8,22 @@ import { BodyTemperatureComponent } from 'src/app/pages/diary/components/body-te
 import { DiaryComponent } from 'src/app/pages/diary/diary.component';
 import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { WeightModule } from 'src/app/pages/diary/components/weight/weight.module';
+import { BloodPressureModule } from 'src/app/pages/diary/components/blood-pressure/blood-pressure.module';
+import { UrineModule } from 'src/app/pages/diary/components/urine/urine.module';
+import { BodyTemperatureModule } from 'src/app/pages/diary/components/body-temperature/body-temperature.module';
 
 
 const declarations = [
 	DiaryComponent,
-	BloodPressureComponent,
-	BodyTemperatureComponent,
 ];
 @NgModule({
 	declarations: [
 		...declarations
 	],
 	imports: [
+		UrineModule,
+		BodyTemperatureModule,
+		BloodPressureModule,
 		WeightModule,
 		IonicModule.forRoot(),
 	  CoreModule,
