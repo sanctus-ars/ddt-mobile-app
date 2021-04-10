@@ -1,19 +1,23 @@
-  <form (ngSubmit)="saveSettingsAction()">
-    <div class="app-settings">
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+<ion-content [fullscreen]="true" class="app-settings">
+  <ion-header class="app-settings-header">
+    <h3> Настройки </h3>
+  </ion-header>
+  <form>
+    <div class="app-settings-content">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Имя</mat-label>
           <input matInput type="text" placeholder="Ваше имя" [formControl]="nameControl">
         </mat-form-field>
       </div>
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Рост</mat-label>
           <input matInput type="number" placeholder="Ваш рост в см" [formControl]="growthControl">
         </mat-form-field>
       </div>
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Пол</mat-label>
           <mat-select [formControl]="sexControl">
             <mat-option value="man">Мужской</mat-option>
@@ -21,16 +25,16 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Дата рождения</mat-label>
           <input matInput [matDatepicker]="datepickerBirthday" [formControl]="birthdayControl">
           <mat-datepicker-toggle matSuffix [for]="datepickerBirthday"></mat-datepicker-toggle>
           <mat-datepicker #datepickerBirthday></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Пересаженный орган</mat-label>
           <mat-select [formControl]="transplantOrganControl">
             <mat-option value="Kidney">Почка</mat-option>
@@ -41,8 +45,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="app-settings_form-field">
-        <mat-form-field appearance="outline" class="app-settings_form-field">
+      <div class="app-settings-content_form-field">
+        <mat-form-field appearance="outline" class="app-settings-content_form-field">
           <mat-label>Дата трансплантации</mat-label>
           <input matInput [matDatepicker]="datepickerTransplantDate" [formControl]="transplantDateControl">
           <mat-datepicker-toggle matSuffix [for]="datepickerTransplantDate"></mat-datepicker-toggle>
@@ -52,8 +56,9 @@
     </div>
 
     <ion-footer class="app-settings-footer">
-      <button mat-raised-button color="primary">Сохранить</button>
+      <button mat-raised-button color="primary" (click)="saveSettingsAction()">Сохранить</button>
     </ion-footer>
   </form>
+</ion-content>
 
 

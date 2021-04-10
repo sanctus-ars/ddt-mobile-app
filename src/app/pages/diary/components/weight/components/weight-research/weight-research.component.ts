@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
 import { WeightItemDialogComponent } from 'src/app/pages/diary/components/weight/components/weight-item-dialog/weight-item-dialog.component';
@@ -9,13 +9,16 @@ import { SettingsService } from 'src/app/pages/settings/services/settings.servic
 import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
 import * as moment from 'moment';
 import { IWeightSettings } from 'src/app/pages/diary/components/weight/interfaces/weight-settings.interface';
+import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
+import { TitleService } from 'src/app/shared/services/title.service';
 
 @Component({
 	selector: 'app-weight-research',
 	templateUrl: './weight-research.component.html',
 	styleUrls: ['./weight-research.component.scss'],
 })
-export class WeightResearchComponent implements OnInit, AfterViewInit {
+export class WeightResearchComponent extends BaseComponent implements AfterViewInit {
 	public lastItem: IWeight;
 	public firstItem: IWeight;
 	public lineChart: any;
@@ -26,58 +29,68 @@ export class WeightResearchComponent implements OnInit, AfterViewInit {
 	@ViewChild('lineCanvas') private lineCanvas: ElementRef;
 
 	constructor(
+		private cd: ChangeDetectorRef,
 		private dialog: MatDialog,
+		private titleService: TitleService,
 		private toastService: ToastService,
 		private weightService: WeightService,
 		private settingsService: SettingsService,
-	) {}
-
-	ngOnInit() {}
+	) {
+		super(cd);
+	}
 
 	ngAfterViewInit() {
 		this.initData();
 		this.lineChartMethod();
 	}
-	initData() {
-		this.settingsService.getSettings().then((settings: ISettings) => {
-			const dateAfterTransplantation: moment.Moment = moment(moment(new Date()).diff(moment(settings.birthday)));
-			// tslint:disable-next-line:radix
-			const userAge = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
-			this.normWeight = this.weightService.getNormWeight(userAge, settings.growth, settings.sex);
-			this.lineChartMethod();
-		});
-		this.weightService.getSettings().then((settings: IWeightSettings) => {
-			if (settings) {
-				this.weightSettings = settings;
-			}
-		});
-		this.weightService.getWeights().then((data: IWeight[]) => {
-			if (data && data.length) {
-				this.lastItem = data[data.length - 1];
-				this.firstItem = data[0];
-				this.weightData = data;
-			}
 
-			this.lineChartMethod();
-		});
+	initData() {
+		this.titleService.setTitle('Обзор веса');
+		this.subscriptions.add([
+			this.settingsService.appSettings.subscribe((settings: ISettings) => {
+				if (settings) {
+					const dateAfterTransplantation: moment.Moment = moment(moment(new Date()).diff(moment(settings.birthday)));
+					const userAge = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
+					this.normWeight = this.weightService.getNormWeight(userAge, settings.growth, settings.sex);
+					this.lineChartMethod();
+				}
+			}),
+			this.weightService.weightSettings.subscribe((settings: IWeightSettings) => {
+				if (settings) {
+					this.weightSettings = settings;
+				}
+			}),
+			this.weightService.weightList.subscribe((data: IWeight[]) => {
+				if (data && data.length) {
+					this.lastItem = data[data.length - 1];
+					this.firstItem = data[0];
+					this.weightData = data;
+				}
+
+				this.lineChartMethod();
+			})
+		]);
 	}
-	openDialog(): void {
+	openDialog() {
 		const dialogRef = this.dialog.open(WeightItemDialogComponent, {
 			width: '100%',
 			height: '100%',
-			data: {}
-		});
-
-		dialogRef.afterClosed().subscribe((result: IWeight) => {
-			if (result.weight) {
-				this.weightService.addWeight(result).then(async () => {
-					this.initData();
-					await this.toastService.showSuccess('Ваш вес сохранен');
-				}).catch(async (error) => {
-					await this.toastService.showError(error);
-				});
+			data: {
+				mode: PopupModeEnum.create
 			}
 		});
+
+		this.subscriptions.add([
+			dialogRef.afterClosed().subscribe(async (result: { item: IWeight, mode: PopupModeEnum }) => {
+				if (result && result.item && result.item.weight && result.mode === PopupModeEnum.create) {
+					await this.weightService.addWeight(result.item).then(async () => {
+						await this.toastService.showSuccess('Ваш вес сохранен');
+					}).catch(async (error) => {
+						await this.toastService.showError(error);
+					});
+				}
+			})
+		]);
 	}
 
 	lineChartMethod() {

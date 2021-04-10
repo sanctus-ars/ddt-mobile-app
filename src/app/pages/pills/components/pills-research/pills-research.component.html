@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div class="pills-research">
+    <div class="pills-research-header" >
+      <div class="pills-research-header_button" (click)="clickByAddButtonAction()">
+        <div>Добавить прием лекарство</div>
+        <div><fa-icon icon="plus-circle"></fa-icon></div>
+      </div>
+      <div class="pills-research-header_button">
+        <div>Добавить посещение врача</div>
+        <div><fa-icon icon="plus-circle"></fa-icon></div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="pills-research-content">
+      <div class="pills-research-content_item" *ngFor="let item of pillsList">
+        <div class="pills-research-content_item-time">
+          {{ item?.time }}
+        </div>
+        <div class="pills-research-content_item-pill">
+          <div  class="pills-research-content_item-pill-content" *ngFor="let pill of item?.list; let last = last;" >
+            <div class="pills-research-content_item-name">{{ pill.name }}</div>
+            <div class="pills-research-content_item-count">{{ pill.count}} шт</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="pillsList.length === 0">
+        На данный момент у вас нету лекарств для приема
+      </div>
+    </div>
+  </div>
+</ion-content>

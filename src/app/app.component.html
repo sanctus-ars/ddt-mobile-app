@@ -3,14 +3,16 @@
     <ion-menu contentId="main-content" menu-id="main" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header class="inbox-list-header">
-            <fa-icon icon="birthday-cake"></fa-icon>
-            <span>{{ afterTransplantationYear }} лет {{ afterTransplantationMonth }} месяцев<br/> после трансплантации</span>
-          </ion-list-header>
-
-          <ion-note>{{ settings?.name }}</ion-note>
-
-            <div  *ngFor="let page of appPages; let i = index">
+          <div class="main-menu-header">
+            <div class="main-menu_avatar"></div>
+            <ion-note>{{ settings?.name }}</ion-note>
+            <ion-list-header class="inbox-list-header" *ngIf="afterTransplantationText">
+              <span> {{ afterTransplantationText }}</span>
+            </ion-list-header>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="main-menu-content">
+            <div *ngFor="let page of appPages; let i = index">
               <ion-item
                       lines="none"
                       detail="false"
@@ -45,6 +47,7 @@
                 </div>
               </div>
             </div>
+          </div>
         </ion-list>
       </ion-content>
     </ion-menu>

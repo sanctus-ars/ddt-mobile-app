@@ -36,6 +36,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 
 const modules = [
 	MatDatepickerModule,
@@ -77,6 +78,7 @@ const modules = [
 	MatTreeModule,
 	CommonModule,
 	Ng2GoogleChartsModule,
+	AmazingTimePickerModule,
 ];
 @NgModule({
 	declarations: [],

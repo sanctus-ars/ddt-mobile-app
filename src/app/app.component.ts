@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { MenuController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -9,20 +9,33 @@ import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/pages/settings/services/settings.service';
 import * as moment from 'moment';
 import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
+import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import { SettingsDialogComponent } from 'src/app/pages/settings/components/settings-dialog/settings-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
+import { PillsService } from 'src/app/pages/pills/services/pills.service';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent extends BaseComponent implements OnInit {
 	public settings: ISettings;
-	public afterTransplantationYear: number;
-	public afterTransplantationMonth: number;
+	public afterTransplantationText: string;
 
 	public selectedIndex = 0;
 	public appPages = [
+		{
+			title: 'Мои лекарства',
+			url: 'pills',
+			icon: 'pills',
+		},
+		{
+			title: 'Визиты к врачу',
+			url: 'doctors',
+			icon: 'user-nurse',
+		},
 		{
 			title: 'Дневник',
 			url: 'diary',
@@ -57,21 +70,35 @@ export class AppComponent implements OnInit {
 			]
 		},
 		{
+			title: 'Результаты анализов',
+			url: 'tests',
+			icon: 'bacterium',
+		},
+		{
 			title: 'Настройки',
 			url: 'pages/settings',
 			icon: 'tools'
 		},
+		{
+			title: 'О приложении',
+			url: 'about',
+			icon: 'question-circle',
+		},
 	];
 
 	constructor(
+		private cd: ChangeDetectorRef,
 		private menu: MenuController,
+		private dialog: MatDialog,
 		private router: Router,
 		private platform: Platform,
 		private statusBar: StatusBar,
 		private splashScreen: SplashScreen,
+		private pillsService: PillsService,
+		private weightService: WeightService,
 		private settingsService: SettingsService,
-		private translateService: TranslateService,
 	) {
+		super(cd);
 		this.initializeApp();
 	}
 
@@ -82,28 +109,36 @@ export class AppComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
-		this.initData();
-		this.initTranslate();
+	async ngOnInit() {
+		await this.initData();
 		const path = window.location.pathname.split('folder/')[1];
 		if (path !== undefined) {
 			this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
 		}
 	}
 
-	private initData(): void {
-		this.settingsService.getSettings().then((settings) => {
-			this.settings = settings;
-			const dateAfterTransplantation: moment.Moment = moment(moment(new Date()).diff(moment(settings.transplantDate)));
-			// tslint:disable-next-line:radix
-			this.afterTransplantationYear = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
-			this.afterTransplantationMonth = Number.parseInt(dateAfterTransplantation.format('MM'));
-		});
+	private async initData() {
+		await this.pillsService.init();
+		await this.weightService.init();
+		await this.settingsService.init();
+		this.subscriptions.add([
+				this.settingsService.appSettings.subscribe((settings) => {
+				  if (settings) {
+						this.settings = settings;
+						const dateAfterTransplantation: moment.Moment = moment(moment(new Date()).diff(moment(settings.transplantDate)));
+						const afterTransplantationYear = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
+						const afterTransplantationMonth = Number.parseInt(dateAfterTransplantation.format('MM'));
+						this.afterTransplantationText = this.getAfterTransplantationText(afterTransplantationYear, afterTransplantationMonth);
+					} else {
+						this.showInitDialog();
+					}
+			}),
+		]);
 	}
 
-	public menuSubItemClickAction(url: string): void {
-		this.menu.toggle();
-		this.router.navigateByUrl(url);
+	public async menuSubItemClickAction(url: string) {
+	 		await this.menu.toggle();
+		  await this.router.navigateByUrl(url);
 	}
 
 	public menuItemClickAction(index: number): void {
@@ -117,9 +152,50 @@ export class AppComponent implements OnInit {
 			}
 	}
 
-	private initTranslate()  {
-		this.translateService.addLangs([ LanguagesShortEnum.en, LanguagesShortEnum.ru]);
-		this.translateService.setDefaultLang(LanguagesShortEnum.ru);
-		this.translateService.use(LanguagesShortEnum.ru);
+	private showInitDialog() {
+		const dialogRef = this.dialog.open(SettingsDialogComponent, {
+			width: '100%',
+			height: '100%'
+		});
+
+		this.subscriptions.add([
+			dialogRef.afterClosed().subscribe(result => {
+				console.log(`Dialog result: ${result}`);
+			}),
+		]);
+	}
+
+	private getAfterTransplantationText(yearNumber: number, monthNumber: number): string {
+		let yearText = 'лет';
+		let monthText = 'месяцев';
+		switch (yearNumber) {
+			case 1:
+			case 21:
+			case 31:
+				yearText = 'год';
+				break;
+			case 2:
+			case 3:
+			case 4:
+			case 22:
+			case 23:
+			case 24:
+			case 32:
+			case 33:
+			case 34:
+				yearText = 'года';
+		}
+
+		switch (monthNumber) {
+			case 1:
+				monthText = 'месяц';
+				break;
+			case 2:
+			case 3:
+			case 4:
+				monthText = 'месяца';
+				break;
+		}
+		return `${yearNumber} ${yearText} ${monthNumber} ${monthText} после трансплантации`;
 	}
 }

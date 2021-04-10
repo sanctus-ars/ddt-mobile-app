@@ -1,0 +1,63 @@
+<ion-content [fullscreen]="true" class="pills-item-dialog">
+  <form [formGroup]="pillsFormGroup">
+    <div class="pills-item-dialog-content">
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
+          <mat-label>Название</mat-label>
+          <input matInput type="text" placeholder="Название лекарства" [formControl]="nameControl" required>
+          <fa-icon matSuffix icon="pills"></fa-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
+          <mat-label>От/Для чего</mat-label>
+          <input matInput type="text" placeholder="Формологическая причина" [formControl]="commentControl">
+          <fa-icon matSuffix icon="comment"></fa-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
+          <mat-label>Дозировка</mat-label>
+          <input matInput type="text" placeholder="Количество таблеток" [formControl]="countControl" required>
+          <fa-icon matSuffix icon="list-ol"></fa-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
+          <mat-label>Время приема</mat-label>
+          <input matInput placeholder="Время приема" atp-time-picker [formControl]="timeControl" required>
+        </mat-form-field>
+      </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field" (click)="startDateDatepicker.open()">
+          <mat-label>Начало приема</mat-label>
+          <input matInput [matDatepicker]="startDateDatepicker" [formControl]="startDateControl" required >
+          <mat-datepicker-toggle matSuffix [for]="startDateDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDateDatepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field" (click)="endDateDatepicker.open()">
+          <mat-label>Конец приема</mat-label>
+          <input matInput [matDatepicker]="endDateDatepicker" [formControl]="endDateControl">
+          <mat-datepicker-toggle matSuffix [for]="endDateDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDateDatepicker></mat-datepicker>
+        </mat-form-field>
+        <div class="pills-item-dialog-content_form-field">
+          <mat-checkbox  class="example-margin" [formControl]="indefiniteControl">Бессрочный прием</mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <ion-footer class="pills-item-dialog-footer">
+      <button mat-stroked-button (click)="cancelAction()">Закрыть</button>
+      <button mat-raised-button color="warn" *ngIf="this.data.mode === 'edit'" (click)="removeAction()">Удалить</button>
+      <button mat-raised-button color="primary" (click)="saveAction()" disabled="{{ pillsFormGroup.invalid }}">Сохранить</button>
+    </ion-footer>
+  </form>
+</ion-content>

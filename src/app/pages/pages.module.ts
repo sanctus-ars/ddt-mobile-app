@@ -14,16 +14,19 @@ import { RouteReuseStrategy } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DiaryModule } from 'src/app/pages/diary/diary.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PillsModule } from 'src/app/pages/pills/pills.module';
+import { SettingsModule } from 'src/app/pages/settings/settings.module';
 
 @NgModule({
 	declarations: [
 		LoginComponent,
-		SettingsComponent,
 		NoContentComponent,
 		RegistrationComponent,
 		PagesComponent,
 	],
 	imports: [
+		SettingsModule,
+		PillsModule,
 		DiaryModule,
 		CoreModule,
 		IonicModule.forRoot(),

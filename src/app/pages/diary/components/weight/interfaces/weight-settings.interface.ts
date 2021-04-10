@@ -1,3 +1,3 @@
 export interface IWeightSettings {
-	plannedWeight: number;
+	plannedWeight?: number;
 }

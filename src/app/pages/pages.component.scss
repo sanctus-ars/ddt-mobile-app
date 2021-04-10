@@ -1,7 +1,27 @@
 ion-menu-button {
   color: var(--ion-color-primary);
 }
+.pages-header {
+  ion-title {
+    color: white;
+    font-weight: normal;
+  }
+  ion-menu-button {
+    color: white;
+  }
+  &_profile {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 1.3em;
 
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
 #container {
   .pages {
     margin-top: 57px;

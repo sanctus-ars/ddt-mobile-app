@@ -3,8 +3,9 @@ import { BaseComponent } from 'src/app/modules/base/components/base.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SettingsService } from 'src/app/pages/settings/services/settings.service';
 import * as moment from 'moment';
-import { ToastController } from '@ionic/angular';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
+
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
@@ -29,19 +30,23 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.initForm();
+		this.initData();
 		this.buildForm();
 	}
 
-	private initForm(): void {
-		this.settingsService.getSettings().then((settings) => {
-			this.sexControl.setValue(settings.sex);
-			this.nameControl.setValue(settings.name);
-			this.growthControl.setValue(settings.growth);
-			this.birthdayControl.setValue(moment(settings.birthday).toDate());
-			this.transplantDateControl.setValue(moment(settings.transplantDate).toDate());
-			this.transplantOrganControl.setValue(settings.transplantOrgan);
-		});
+	private initData() {
+		this.subscriptions.add([
+			this.settingsService.appSettings.subscribe((settings: ISettings) => {
+				if (settings) {
+					this.sexControl.setValue(settings.sex);
+					this.nameControl.setValue(settings.name);
+					this.growthControl.setValue(settings.growth);
+					this.birthdayControl.setValue(moment(settings.birthday).toDate());
+					this.transplantDateControl.setValue(moment(settings.transplantDate).toDate());
+					this.transplantOrganControl.setValue(settings.transplantOrgan);
+				}
+			})
+		]);
 	}
 
 	private buildForm(): void {
@@ -68,9 +73,9 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
 		this.settingsService.setSettings(settingsModel)
 			.then(async () => {
-				this.toastService.showSuccess('Ваши настройки сохранены');
+				await this.toastService.showSuccess('Ваши настройки сохранены');
 			}).catch(async (error) => {
-				this.toastService.showError(error);
+				await this.toastService.showError(error);
 			});
 	}
 }

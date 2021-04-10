@@ -29,12 +29,18 @@ export class WeightItemDialogComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-	public removeAction(): void {
-
+	public saveAction(): void {
+		this.dialogRef.close({
+			item: this.weightFormGroup.value,
+			mode: this.data.mode,
+		});
 	}
 
-	public saveAction(): void {
-		this.dialogRef.close(this.weightFormGroup.value);
+	public removeAction(): void {
+		this.dialogRef.close({
+			item: this.weightFormGroup.value,
+			mode: PopupModeEnum.remove,
+		});
 	}
 
 	private initForm(): void {

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import { TitleService } from 'src/app/shared/services/title.service';
 
 @Component({
 		selector: 'app-pages',
@@ -8,10 +9,10 @@ import { BaseComponent } from 'src/app/modules/base/components/base.component';
 		styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent extends BaseComponent implements OnInit {
-		public pageName: string;
+		public pageName: string = 'sdf';
 		constructor(
 			private cd: ChangeDetectorRef,
-			private cf: ChangeDetectorRef,
+			private titleService: TitleService,
 			private router: Router
 		) {
 				super(cd);
@@ -19,13 +20,9 @@ export class PagesComponent extends BaseComponent implements OnInit {
 
 		ngOnInit() {
 				this.subscriptions.add([
-				    this.router.events.subscribe((v) => {
-								if (v instanceof ActivationEnd) {
-										const isValidRouter: boolean = this.pageName !== v.snapshot.data.title && v.snapshot.data.title !== undefined;
-										this.pageName =  isValidRouter ? v.snapshot.data.title : this.pageName;
-										this.cf.markForCheck();
-								}
-				    }),
+				    this.titleService.title.subscribe((title) => {
+				    	this.pageName = title;
+						})
 				]);
 		}
 }

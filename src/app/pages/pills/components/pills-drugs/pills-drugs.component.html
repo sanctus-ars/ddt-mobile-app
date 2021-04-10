@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <div class="pills-drugs">
+    <div class="pills-drugs-header">
+      Все лекарства
+    </div>
+
+    <div class="pills-drugs-content">
+      <div class="pills-drugs-content_search">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Поиск</mat-label>
+          <input type="text" matInput [formControl]="searchControl" placeholder="Поиск лекарств">
+          <fa-icon matSuffix icon="search"></fa-icon>
+        </mat-form-field>
+      </div>
+      <div *ngFor="let pill of pillListSearch" style="width: 100%">
+        <div class="pills-drugs-content_item" (click)="createPillsTakingAction(pill)">
+          <div class="pills-drugs-content_item-name">
+            <fa-icon icon="plus"></fa-icon>
+            {{ pill.name}}
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div *ngIf="pillListSearch.length === 0">
+        No Data Row
+      </div>
+    </div>
+
+    <div class="pills-drugs-footer">
+
+    </div>
+  </div>
+</ion-content>

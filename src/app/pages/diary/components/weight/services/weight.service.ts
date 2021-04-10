@@ -4,11 +4,15 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { IWeightSettings } from 'src/app/pages/diary/components/weight/interfaces/weight-settings.interface';
+import * as moment from 'moment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class WeightService {
+	public weightList: BehaviorSubject<IWeight[]> = new BehaviorSubject<IWeight[]>([]);
+	public weightSettings: BehaviorSubject<IWeightSettings> = new BehaviorSubject<IWeightSettings>({});
 	constructor(
 		private storageService: StorageService,
 	) {
@@ -22,6 +26,7 @@ export class WeightService {
 	}
 
 	public setSettings(settings: IWeightSettings): Promise<void> {
+		this.weightSettings.next(settings);
 		return this.storageService.setObject(this.storageSettingsKey, settings);
 	}
 
@@ -38,7 +43,9 @@ export class WeightService {
 			} else {
 				result = [data];
 			}
-			return this.storageService.setObject(this.storageListKey, result);
+			const clearResult = this.fixDiffs(result);
+			this.weightList.next(clearResult);
+			return this.storageService.setObject(this.storageListKey, clearResult);
 		});
 	}
 
@@ -46,6 +53,7 @@ export class WeightService {
 		return this.storageService.getObject(this.storageListKey).then((weights: IWeight[]) => {
 			const result = weights.filter((x) => x.id !== id);
 			const clearResult = this.fixDiffs(result);
+			this.weightList.next(clearResult);
 			return this.storageService.setObject(this.storageListKey, clearResult);
 		});
 	}
@@ -56,6 +64,7 @@ export class WeightService {
 				return x.id === weight.id ? weight : x;
 			});
 			const clearResult = this.fixDiffs(result);
+			this.weightList.next(clearResult);
 			return this.storageService.setObject(this.storageListKey, clearResult);
 		});
 	}
@@ -64,10 +73,27 @@ export class WeightService {
 		return this.storageService.getObject(this.storageListKey);
 	}
 
+	public init() {
+		const weightListPromise = this.storageService.getObject(this.storageListKey);
+		const weightSettingsPromise = this.storageService.getObject(this.storageSettingsKey);
+		Promise.all([ weightListPromise, weightSettingsPromise]).then((result: [ IWeight[], IWeightSettings]) => {
+			const [ weightList, weightSettings] = result;
+			this.weightList.next(weightList);
+			this.weightSettings.next(weightSettings);
+		});
+	}
 	private fixDiffs(data: IWeight[]): IWeight[] {
+		data.sort((item, pres) => {
+			if (moment(item.date) <= moment(pres.date)){
+				return  -1;
+			} else if (moment(item.date) >= moment(pres.date)){
+				return 1;
+			} else {
+				return 0;
+			}
+		});
 		return  data.map((item, index, array) => {
 			if (index >= 1) {
-
 				item.diff = item.weight - array[index - 1].weight;
 			}
 			return item;

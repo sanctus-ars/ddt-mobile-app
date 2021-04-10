@@ -21,6 +21,10 @@ import { BodyTemperatureResearchComponent } from 'src/app/pages/diary/components
 import { BodyTemperatureHistoryComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-history/body-temperature-history.component';
 import { WeightSettingsComponent } from 'src/app/pages/diary/components/weight/components/weight-settings/weight-settings.component';
 import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
+import { PillsComponent } from 'src/app/pages/pills/pills.component';
+import { PillsResearchComponent } from 'src/app/pages/pills/components/pills-research/pills-research.component';
+import { PillsDrugsComponent } from 'src/app/pages/pills/components/pills-drugs/pills-drugs.component';
+import { PillsHistoryComponent } from 'src/app/pages/pills/components/pills-history/pills-history.component';
 
 const routes: Routes = [
 		{
@@ -133,6 +137,29 @@ const routes: Routes = [
 								data: {
 									title: 'Well Being'
 								}
+							}
+						]
+					},
+					{
+						path: 'pills',
+						component: PillsComponent,
+						children: [
+							{
+								path: 'research',
+								component: PillsResearchComponent,
+							},
+							{
+								path: 'drugs',
+								component: PillsDrugsComponent,
+							},
+							{
+								path: 'history',
+								component: PillsHistoryComponent,
+							},
+							{
+								path: '**',
+								redirectTo: 'research',
+								pathMatch: 'full',
 							}
 						]
 					},

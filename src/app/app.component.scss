@@ -1,9 +1,19 @@
-.inbox-list-header {
-  padding: 10px;
-
-  span {
-    padding: 0 10px;
+.main-menu {
+  &_avatar {
+    width: 50px;
+    height: 50px;
+    background: gray;
+    border-radius: 50%;
+    margin: 10px;
   }
+
+  &-header {
+    margin-bottom: 10px;
+  }
+}
+.inbox-list-header {
+  font-weight: normal;
+  font-size: 1.24em;
 }
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
 import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight.interface';
 import { SettingsService } from 'src/app/pages/settings/services/settings.service';
 import { IWeightSettings } from 'src/app/pages/diary/components/weight/interfaces/weight-settings.interface';
 import * as moment from 'moment';
+import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import { combineLatest } from 'rxjs';
+import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
 @Component({
 	selector: 'app-weight-statistic',
 	templateUrl: './weight-statistic.component.html',
 	styleUrls: ['./weight-statistic.component.scss'],
 })
-export class WeightStatisticComponent implements OnInit {
+export class WeightStatisticComponent extends BaseComponent implements OnInit {
 
 	public dynamic7days = 0;
 	public dynamic30days = 0;
@@ -24,34 +27,39 @@ export class WeightStatisticComponent implements OnInit {
 	public recordMax = 0;
 
 	constructor(
+		private cd: ChangeDetectorRef,
 		private settingsService: SettingsService,
 		private weightService: WeightService
-	) { }
+	) {
+		super(cd);
+	}
 
 	ngOnInit() {
 		this.initData();
 	}
 
 	private initData(): void {
-		const weightListPromise = this.weightService.getWeights();
-		const userSettingsPromise = this.settingsService.getSettings();
-		const weightSettingsPromise = this.weightService.getSettings();
-	 Promise.all([weightListPromise, weightSettingsPromise, userSettingsPromise]).then(responses => {
-			const [weightList, weightSettings, userSettings] = responses;
-			if (weightList && weightList.length) {
-				const lastWeight = weightList[weightList.length - 1];
-				this.setDynamic(weightList);
-				this.setIMT(userSettings.growth, lastWeight);
-				this.setProgress(weightList, weightSettings);
-				this.setOther(weightList);
-			}
-		});
+		this.subscriptions.add([
+			combineLatest(
+				this.weightService.weightList,
+				this.weightService.weightSettings,
+				this.settingsService.appSettings,
+			).subscribe(([weightList, weightSettings, appSettings]: [IWeight[], IWeightSettings, ISettings]) => {
+				if (weightList && weightList.length) {
+					const lastWeight = weightList[weightList.length - 1];
+					this.setDynamic(weightList);
+					this.setIMT(appSettings.growth, lastWeight);
+					this.setProgress(weightList, weightSettings);
+					this.setOther(weightList);
+				}
+			})
+		]);
 	}
 
 	private setOther(weightList: IWeight[]): void {
 	    const weightArray = weightList.map((item) => item.weight);
-			  const weightCount = weightList.length;
-			  const weightSum = weightList.reduce((acum: number, item: IWeight) => {
+			const weightCount = weightList.length;
+			const weightSum = weightList.reduce((acum: number, item: IWeight) => {
 				acum += item.weight;
 				return acum;
 			}, 0);

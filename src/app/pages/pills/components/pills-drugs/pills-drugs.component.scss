@@ -1,0 +1,22 @@
+.pills-drugs {
+  &-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+  }
+
+  &-content {
+    &_search {
+      padding: 10px 20px;
+
+    }
+
+    &_item {
+      margin: 10px;
+      padding: 10px;
+    }
+  }
+
+
+}

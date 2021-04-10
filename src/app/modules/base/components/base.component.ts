@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Subscriptions } from 'src/app/shared/abstract/subscriptions';
+import { TitleService } from 'src/app/shared/services/title.service';
 
 class BaseComponent  implements OnDestroy {
 	public isLoading = false;
@@ -7,7 +8,9 @@ class BaseComponent  implements OnDestroy {
 
 	private changeDetectorRef: ChangeDetectorRef;
 
-	constructor(cdRef: ChangeDetectorRef) {
+	constructor(
+		cdRef: ChangeDetectorRef,
+	) {
 		this.changeDetectorRef = cdRef;
 		const func = this.ngOnDestroy;
 

@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true">
+  <div class="pills-history">
+    <div class="pills-history-header">
+      Все лекарства
+    </div>
+
+    <div class="pills-history-content">
+      <div *ngFor="let pill of pillsList" style="width: 100%">
+        <div class="pills-history-content_item" (click)="editAction(pill)">
+          <div class="pills-history-content_item-name" >
+            <fa-icon icon="pills" [style.color]="isDrugEnable(pill) ? 'green' : 'gray'"></fa-icon>
+            {{ pill.name}}
+            <span class="pills-history-content_item-name-count">шт:            {{ pill.count }}</span>
+          </div>
+          <div class="pills-history-content_item-content">
+
+            <div class="pills-history-content_item-time" >
+              c {{ pill.startDate | date: 'yyyy-MM-dd' }} по {{ pill.indefinite ? 'Бессрочно' : pill.endDate | date: 'yyyy-MM-dd'}} в {{ pill.time }}
+            </div>
+            <div class="pills-history-content_item-comment">
+              {{ pill.comment }}
+            </div>
+          </div>
+          <div class="pills-history-content_item-edit">
+            <fa-icon icon="edit"></fa-icon>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+
+    <div class="pills-history-footer">
+
+    </div>
+  </div>
+</ion-content>
