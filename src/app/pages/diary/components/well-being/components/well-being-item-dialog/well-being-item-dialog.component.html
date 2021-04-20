@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true" class="well-being-item-dialog">
+  <ion-header class="well-being-item-dialog-header">
+    <h3>
+      Ваше Самочувствие
+    </h3>
+  </ion-header>
+  <form [formGroup]="wellBeingForm">
+    <div class="well-being-item-dialog-content">
+      <div class="well-being-item-dialog-content_form-field">
+        <app-input-date [dateControl]="dateControl"></app-input-date>
+      </div>
+
+      <div class="well-being-item-dialog-content_form-field">
+        <app-input-time [timeControl]="timeControl"></app-input-time>
+      </div>
+
+      <div class="well-being-item-dialog-content_form-field">
+        <app-input-well-being [wellBeingControl]="wellBeingControl"></app-input-well-being>
+      </div>
+
+      <div class="well-being-item-dialog-content_form-field">
+        <app-comment [commentControl]="commentControl" ></app-comment>
+      </div>
+    </div>
+
+    <ion-footer class="well-being-item-dialog-footer">
+      <app-dialog-buttons
+              [mode]="this.data.mode"
+              (saveEmitter)="saveAction()"
+              (cancelEmitter)="cancelAction()"
+              (removeEmitter)="removeAction()"
+      ></app-dialog-buttons>
+    </ion-footer>
+  </form>
+</ion-content>

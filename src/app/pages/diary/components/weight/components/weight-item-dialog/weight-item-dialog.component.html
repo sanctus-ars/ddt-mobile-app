@@ -7,26 +7,27 @@
   <form [formGroup]="weightFormGroup">
     <div class="weight-item-dialog-content">
       <div class="weight-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="weight-item-dialog-content_form-field">
-          <mat-label>Вес</mat-label>
-          <input matInput type="number" placeholder="Ваш текущий вес" [formControl]="weightControl">
-          <fa-icon matSuffix icon="weight"></fa-icon>
-        </mat-form-field>
+        <app-input-number
+                label="Вес"
+                icon="weight"
+                placeholder="Ваш текущий вес"
+                [numberControl]="weightControl"
+              ></app-input-number>
       </div>
+
       <div class="weight-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="weight-item-dialog-content_form-field">
-          <mat-label>Дата</mat-label>
-          <input matInput [matDatepicker]="datepicker" [formControl]="dateControl">
-          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-          <mat-datepicker #datepicker></mat-datepicker>
-        </mat-form-field>
+        <app-input-date  [dateControl]="dateControl"></app-input-date>
       </div>
     </div>
 
     <ion-footer class="weight-item-dialog-footer">
-      <button mat-stroked-button (click)="cancelAction()">Закрыть</button>
-      <button mat-raised-button color="warn" *ngIf="this.data.mode === 'edit'" (click)="removeAction()">Удалить</button>
-      <button mat-raised-button color="primary" (click)="saveAction()">Сохранить</button>
+      <app-dialog-buttons
+        class="weight-item-dialog-footer_content"
+        [mode]="this.data.mode"
+        (saveEmitter)="saveAction()"
+        (cancelEmitter)="cancelAction()"
+        (removeEmitter)="removeAction()"
+      ></app-dialog-buttons>
     </ion-footer>
   </form>
 </ion-content>

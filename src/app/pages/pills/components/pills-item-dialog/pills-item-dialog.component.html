@@ -2,34 +2,27 @@
   <form [formGroup]="pillsFormGroup">
     <div class="pills-item-dialog-content">
       <div class="pills-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
-          <mat-label>Название</mat-label>
-          <input matInput type="text" placeholder="Название лекарства" [formControl]="nameControl" required>
-          <fa-icon matSuffix icon="pills"></fa-icon>
-        </mat-form-field>
+        <app-input-text
+                label="Название лекарства"
+                icon="pills"
+                [textControl]="nameControl"
+        ></app-input-text>
       </div>
 
       <div class="pills-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
-          <mat-label>От/Для чего</mat-label>
-          <input matInput type="text" placeholder="Формологическая причина" [formControl]="commentControl">
-          <fa-icon matSuffix icon="comment"></fa-icon>
-        </mat-form-field>
+        <app-input-number
+              icon="list-ol"
+              label="Количество таблеток/Дозировка"
+              [numberControl]="countControl"
+            ></app-input-number>
       </div>
 
       <div class="pills-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
-          <mat-label>Дозировка</mat-label>
-          <input matInput type="text" placeholder="Количество таблеток" [formControl]="countControl" required>
-          <fa-icon matSuffix icon="list-ol"></fa-icon>
-        </mat-form-field>
-      </div>
-
-      <div class="pills-item-dialog-content_form-field">
-        <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field">
-          <mat-label>Время приема</mat-label>
-          <input matInput placeholder="Время приема" atp-time-picker [formControl]="timeControl" required>
-        </mat-form-field>
+        <app-input-time
+                label="Время приема"
+                placeholder="Введи время приема лекарств"
+                [timeControl]="timeControl"
+        ></app-input-time>
       </div>
 
       <div class="pills-item-dialog-content_form-field">
@@ -52,12 +45,23 @@
           <mat-checkbox  class="example-margin" [formControl]="indefiniteControl">Бессрочный прием</mat-checkbox>
         </div>
       </div>
+
+      <div class="pills-item-dialog-content_form-field">
+        <app-comment
+                label="От/Для чего"
+                placeholder="Формологическая причина"
+                [commentControl]="commentControl"
+        ></app-comment>
+      </div>
     </div>
 
     <ion-footer class="pills-item-dialog-footer">
-      <button mat-stroked-button (click)="cancelAction()">Закрыть</button>
-      <button mat-raised-button color="warn" *ngIf="this.data.mode === 'edit'" (click)="removeAction()">Удалить</button>
-      <button mat-raised-button color="primary" (click)="saveAction()" disabled="{{ pillsFormGroup.invalid }}">Сохранить</button>
+      <app-dialog-buttons
+              [mode]="this.data.mode"
+              (saveEmitter)="saveAction()"
+              (cancelEmitter)="cancelAction()"
+              (removeEmitter)="removeAction()"
+      ></app-dialog-buttons>
     </ion-footer>
   </form>
 </ion-content>

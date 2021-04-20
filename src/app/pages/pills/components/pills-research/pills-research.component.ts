@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PillsItemDialogComponent } from 'src/app/pages/pills/components/pills-item-dialog/pills-item-dialog.component';
 import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
@@ -15,7 +15,7 @@ import { TitleService } from 'src/app/shared/services/title.service';
 	templateUrl: './pills-research.component.html',
 	styleUrls: ['./pills-research.component.scss'],
 })
-export class PillsResearchComponent extends BaseComponent implements OnInit, OnDestroy {
+export class PillsResearchComponent extends BaseComponent implements AfterViewInit {
 	public currentDate: Date = new Date();
 	public pillsList: { time: string, list: IPills[] }[] = [];
 
@@ -29,13 +29,8 @@ export class PillsResearchComponent extends BaseComponent implements OnInit, OnD
 		super(cd);
 	}
 
-	public ngOnInit() {
+	public ngAfterViewInit() {
 		this.initData();
-	}
-
-	public ngOnDestroy() {
-		this.titleService.resetTitle();
-		super.ngOnDestroy();
 	}
 
 	public clickByAddButtonAction(): void {
@@ -74,7 +69,8 @@ export class PillsResearchComponent extends BaseComponent implements OnInit, OnD
 	}
 
 	private initData(): void {
-		this.titleService.setTitle(`Сегодня ${moment(this.currentDate).format('DD.MM.yyyy')}`);
+		const pageTitle = `Сегодня ${moment(this.currentDate).format('DD.MM.yyyy')}`;
+		this.titleService.setTitle(pageTitle);
 		this.subscriptions.add([
 			this.pillsService.pillsList.subscribe((list: IPills[]) => {
 				const currentDatePills: IPills[] = list.filter((item: IPills) => {

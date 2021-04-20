@@ -99,7 +99,10 @@ const modules = [
 		SplashScreen,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
+	exports: [
+
+	]
 })
 export class AppModule {
 	constructor(iconLibrary: FaIconLibrary) {

@@ -7,7 +7,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PagesRoutingModule } from 'src/app/pages/pages-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
-import { SettingsComponent } from 'src/app/pages/settings/settings.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PagesComponent } from 'src/app/pages/pages.component';
 import { RouteReuseStrategy } from '@angular/router';
@@ -16,6 +15,8 @@ import { DiaryModule } from 'src/app/pages/diary/diary.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PillsModule } from 'src/app/pages/pills/pills.module';
 import { SettingsModule } from 'src/app/pages/settings/settings.module';
+import { DoctorsModule } from 'src/app/pages/doctors/doctors.module';
+import { WellBeingModule } from 'src/app/pages/diary/components/well-being/well-being.module';
 
 @NgModule({
 	declarations: [
@@ -27,6 +28,8 @@ import { SettingsModule } from 'src/app/pages/settings/settings.module';
 	imports: [
 		SettingsModule,
 		PillsModule,
+		WellBeingModule,
+		DoctorsModule,
 		DiaryModule,
 		CoreModule,
 		IonicModule.forRoot(),

@@ -1,0 +1,29 @@
+123
+<ion-content [fullscreen]="true">
+  <div class="well-being-research">
+    <div class="well-being-research-header">
+
+      <div class="well-being-research-header_current" *ngIf="wellBeingMiddleValue">
+        <div>
+          <strong>Среднее самочувствие</strong>
+        </div>
+        <div>
+         <span class="color-blue" >
+             <strong>{{ wellBeingMiddleValue}} из 10</strong>
+           </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="well-being-research-content">
+      <canvas #lineCanvas ></canvas>
+    </div>
+    <div class="well-being-research-footer">
+      <div class="well-being-research-footer_new">
+        <button mat-fab color="primary" (click)="openDialog()">
+          <fa-icon icon="plus"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,99 @@
+.doctor-visit{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 10px;
+  margin-bottom: 60px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    align-content: center;
+    font-size: 1em;
+    margin-bottom: 20px;
+    color: #2C98F0;
+
+    fa-icon {
+      color: var(--main-color);
+    }
+
+    &_button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 2px solid var(--main-color);
+      padding: 10px;
+    }
+  }
+
+  &-content {
+    min-height: 220px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+
+    &_item {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 10px;
+      border-radius: 5px;
+      border: 2px solid var(--main-color);
+      margin: 10px;
+      font-size: 1.3em;
+
+      &-date {
+        margin-top: 20px;
+        min-width: 50px;
+      }
+
+      &-time {
+        margin: 0 10px;
+      }
+
+      &-comment {
+        width: 100%;
+        margin: 10px;
+        font-size: 0.85em;
+        color: gray;
+      }
+      &-specialty {
+        width: 100%;
+      }
+      &-visit {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      &-button {
+        fa-icon {
+          color: var(--main-color)
+        }
+      }
+
+      &-width {
+        width: 100%;
+      }
+      &-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin: 20px 0;
+        width: 100%;
+      }
+    }
+  }
+}

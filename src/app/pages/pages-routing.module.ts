@@ -18,13 +18,18 @@ import { BloodPressureHistoryComponent } from 'src/app/pages/diary/components/bl
 import { UrineHistoryComponent } from 'src/app/pages/diary/components/urine/components/urine-history/urine-history.component';
 import { UrineResearchComponent } from 'src/app/pages/diary/components/urine/components/urine-research/urine-research.component';
 import { BodyTemperatureResearchComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-research/body-temperature-research.component';
-import { BodyTemperatureHistoryComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-history/body-temperature-history.component';
 import { WeightSettingsComponent } from 'src/app/pages/diary/components/weight/components/weight-settings/weight-settings.component';
 import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
 import { PillsComponent } from 'src/app/pages/pills/pills.component';
 import { PillsResearchComponent } from 'src/app/pages/pills/components/pills-research/pills-research.component';
 import { PillsDrugsComponent } from 'src/app/pages/pills/components/pills-drugs/pills-drugs.component';
 import { PillsHistoryComponent } from 'src/app/pages/pills/components/pills-history/pills-history.component';
+import { DoctorsComponent } from 'src/app/pages/doctors/doctors.component';
+import { DoctorResearchComponent } from 'src/app/pages/doctors/components/doctor-research/doctor-research.component';
+import { BodyTemperatureRegisterComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-register/body-temperature-register.component';
+import { WellBeingResearchComponent } from 'src/app/pages/diary/components/well-being/components/well-being-research/well-being-research.component';
+import { WellBeingRegistryComponent } from 'src/app/pages/diary/components/well-being/components/well-being-registry/well-being-registry.component';
+import { WellBeingStatisticComponent } from 'src/app/pages/diary/components/well-being/components/well-being-statistic/well-being-statistic.component';
 
 const routes: Routes = [
 		{
@@ -99,8 +104,8 @@ const routes: Routes = [
 										component: BodyTemperatureResearchComponent,
 									},
 									{
-										path: 'history',
-										component: BodyTemperatureHistoryComponent,
+										path: 'register',
+										component: BodyTemperatureRegisterComponent,
 									},
 									{
 										path: '**',
@@ -136,7 +141,26 @@ const routes: Routes = [
 								component: WellBeingComponent,
 								data: {
 									title: 'Well Being'
-								}
+								},
+								children: [
+									{
+										path: 'research',
+										component: WellBeingResearchComponent,
+									},
+									{
+										path: 'registry',
+										component: WellBeingRegistryComponent
+									},
+									{
+										path: 'statistic',
+										component: WellBeingStatisticComponent
+									},
+									{
+										path: '**',
+										redirectTo: 'research',
+										pathMatch: 'full',
+									}
+								]
 							}
 						]
 					},
@@ -164,25 +188,26 @@ const routes: Routes = [
 						]
 					},
 					{
-						path: 'login',
-						component: LoginComponent,
-						data: {
-							title: 'Login'
-						}
-					},
-					{
-						path: 'registration',
-						component: RegistrationComponent,
-						data: {
-							title: 'Registration'
-						}
-					},
-					{
 						path: 'settings',
 						component: SettingsComponent,
 						data: {
 							title: 'Settings'
-						}
+						},
+					},
+					{
+						path: 'doctors',
+						component: DoctorsComponent,
+						children: [
+							{
+								path: 'research',
+								component: DoctorResearchComponent,
+							},
+							{
+								path: '**',
+								redirectTo: 'research',
+								pathMatch: 'full',
+							}
+						]
 					},
 					{
 						path: '**',

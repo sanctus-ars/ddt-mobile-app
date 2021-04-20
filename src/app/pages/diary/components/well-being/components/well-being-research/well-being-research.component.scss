@@ -1,0 +1,22 @@
+.well-being-research {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px;
+
+  &-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_current {
+      text-align: center;
+    }
+  }
+  &-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

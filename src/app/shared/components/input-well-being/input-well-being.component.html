@@ -1,0 +1,12 @@
+<div class="{{ class }}">
+    <mat-label>Ваше самочувствие:  <span>{{ wellBeingControl.value }} из 10 баллов</span></mat-label>
+    <div>
+        <mat-slider thumbLabel
+                    [formControl]="wellBeingControl"
+                    [displayWith]="formatLabel"
+                    min="1"
+                    max="10"
+        ></mat-slider>
+    </div>
+</div>
+

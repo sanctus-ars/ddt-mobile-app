@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
 import { TitleService } from 'src/app/shared/services/title.service';
 
@@ -7,21 +7,23 @@ import { TitleService } from 'src/app/shared/services/title.service';
 		selector: 'app-pages',
 		templateUrl: './pages.component.html',
 		styleUrls: ['./pages.component.scss'],
+		changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagesComponent extends BaseComponent implements OnInit {
-		public pageName: string = 'sdf';
+		public pageName;
+
 		constructor(
 			private cd: ChangeDetectorRef,
 			private titleService: TitleService,
-			private router: Router
 		) {
 				super(cd);
 		}
 
 		ngOnInit() {
-				this.subscriptions.add([
+			this.subscriptions.add([
 				    this.titleService.title.subscribe((title) => {
 				    	this.pageName = title;
+				    	this.cd.markForCheck();
 						})
 				]);
 		}

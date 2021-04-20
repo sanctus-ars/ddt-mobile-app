@@ -9,7 +9,6 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
 export class PillsComponent implements OnInit {
 
 	constructor(
-		private localNotifications: NotificationsService
 	) { }
 
 	ngOnInit() {

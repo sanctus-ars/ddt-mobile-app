@@ -3,16 +3,8 @@
     font-size: 12px;
     padding: 0 10px;
   }
-  &-footer {
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    button {
-      margin: 10px;
-      width: 100%;
-    }
+  &-footer_content {
+    width: 100%;
   }
   &-content {
     display: flex;

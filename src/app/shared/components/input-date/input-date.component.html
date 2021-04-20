@@ -1,0 +1,6 @@
+<mat-form-field appearance="outline" [ngClass]="class">
+    <mat-label>Дата</mat-label>
+    <input matInput [matDatepicker]="datepicker" [formControl]="dateControl">
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+</mat-form-field>

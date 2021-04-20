@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PillsItemDialogComponent } from 'src/app/pages/pills/components/pills-item-dialog/pills-item-dialog.component';
 import { PillsDrugsComponent } from 'src/app/pages/pills/components/pills-drugs/pills-drugs.component';
 import { PillsHistoryComponent } from 'src/app/pages/pills/components/pills-history/pills-history.component';
-import { DoctorItemDialogComponent } from 'src/app/pages/pills/components/doctor-item-dialog/doctor-item-dialog.component';
 
 const declarations = [
 	PillsComponent,
@@ -18,7 +17,6 @@ const declarations = [
 	PillsHistoryComponent,
 	PillsResearchComponent,
 	PillsItemDialogComponent,
-	DoctorItemDialogComponent,
 ];
 @NgModule({
 	declarations: [

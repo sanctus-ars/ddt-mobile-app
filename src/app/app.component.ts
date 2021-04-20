@@ -14,6 +14,9 @@ import { SettingsDialogComponent } from 'src/app/pages/settings/components/setti
 import { MatDialog } from '@angular/material/dialog';
 import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
 import { PillsService } from 'src/app/pages/pills/services/pills.service';
+import { DoctorVisitsService } from 'src/app/pages/doctors/services/doctor.service';
+import { BodyTemperatureService } from 'src/app/pages/diary/components/body-temperature/services/body-temperature.service';
+import { WellBeingService } from 'src/app/pages/diary/components/well-being/services/well-being.service';
 
 @Component({
 	selector: 'app-root',
@@ -97,6 +100,9 @@ export class AppComponent extends BaseComponent implements OnInit {
 		private pillsService: PillsService,
 		private weightService: WeightService,
 		private settingsService: SettingsService,
+		private wellBeingService: WellBeingService,
+		private doctorVisitsService: DoctorVisitsService,
+		private bodyTemperatureService: BodyTemperatureService,
 	) {
 		super(cd);
 		this.initializeApp();
@@ -121,6 +127,9 @@ export class AppComponent extends BaseComponent implements OnInit {
 		await this.pillsService.init();
 		await this.weightService.init();
 		await this.settingsService.init();
+		await this.wellBeingService.init();
+		await this.doctorVisitsService.init();
+		await this.bodyTemperatureService.init();
 		this.subscriptions.add([
 				this.settingsService.appSettings.subscribe((settings) => {
 				  if (settings) {

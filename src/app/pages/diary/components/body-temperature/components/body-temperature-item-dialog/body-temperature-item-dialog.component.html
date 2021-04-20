@@ -1,0 +1,34 @@
+<ion-content [fullscreen]="true" class="body-temperature-item-dialog">
+    <ion-header class="body-temperature-item-dialog-header">
+        <h3>
+            Температура
+        </h3>
+    </ion-header>
+    <form [formGroup]="weightFormGroup">
+        <div class="body-temperature-item-dialog-content">
+            <div class="body-temperature-item-dialog-content_form-field">
+                <mat-form-field appearance="outline" class="body-temperature-item-dialog-content_form-field">
+                    <mat-label>Температура</mat-label>
+                    <input matInput type="number" placeholder="Ваш текущий вес" min="30" max="42" [formControl]="temperatureControl">
+                    <fa-icon matSuffix icon="weight"></fa-icon>
+                </mat-form-field>
+            </div>
+            <div class="body-temperature-item-dialog-content_form-field">
+                <app-date
+                    class="body-temperature-item-dialog-content_form-field"
+                    [dateControl]="dateControl"
+                ></app-date>
+            </div>
+        </div>
+
+        <ion-footer class="body-temperature-item-dialog-footer">
+            <app-dialog-buttons
+                    class="body-temperature-item-dialog-footer_content"
+                    [mode]="this.data.mode"
+                    (saveEmitter)="saveAction()"
+                    (cancelEmitter)="cancelAction()"
+                    (removeEmitter)="removeAction()"
+            ></app-dialog-buttons>
+        </ion-footer>
+    </form>
+</ion-content>

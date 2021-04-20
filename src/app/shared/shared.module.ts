@@ -37,8 +37,27 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DialogButtonsComponent } from 'src/app/shared/components/dialog-buttons/dialog-buttons.component';
+import { InputNumberComponent } from 'src/app/shared/components/input-number/input-number.component';
+import { CommentComponent } from 'src/app/shared/components/comment/comment.component';
+import { InputDateComponent } from 'src/app/shared/components/input-date/input-date.component';
+import { InputWellBeingComponent } from 'src/app/shared/components/input-well-being/input-well-being.component';
+import { InputTimeComponent } from 'src/app/shared/components/input-time/input-time.component';
+import { InputTextComponent } from 'src/app/shared/components/input-text/input-text.component';
+
+const declarations = [
+	CommentComponent,
+	InputTimeComponent,
+	InputTextComponent,
+	InputDateComponent,
+	InputNumberComponent,
+	DialogButtonsComponent,
+	InputWellBeingComponent,
+];
 
 const modules = [
+	ReactiveFormsModule,
 	MatDatepickerModule,
 	FontAwesomeModule,
 	MatTableModule,
@@ -81,12 +100,15 @@ const modules = [
 	AmazingTimePickerModule,
 ];
 @NgModule({
-	declarations: [],
+	declarations: [
+		...declarations,
+	],
 	imports: [
 		...modules
 	],
 	exports: [
-		...modules
+		...modules,
+		...declarations
 	]
 })
 export class SharedModule { }

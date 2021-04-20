@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <div class="doctor-visit">
+    <div class="doctor-visit-header" >
+      <div class="doctor-visit-header_button" (click)="clickByAddButtonAction()">
+        <div>Добавить посещение к врачу</div>
+        <div><fa-icon icon="plus-circle"></fa-icon></div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="doctor-visit-content">
+      <div class="doctor-visit-content_item" *ngFor="let item of doctorVisitsList">
+        <div class="doctor-visit-content_item-date">
+          {{ item?.date | date: 'dd-MM' }}
+        </div>
+        <div class="doctor-visit-content_item-width">
+          <div class="doctor-visit-content_item-content" *ngFor="let visit of item?.list; let last = last;" (click)="editDoctorVisitAction(visit)">
+            <div class="doctor-visit-content_item-visit">
+              <div class="doctor-visit-content_item-time">{{ visit.time}}</div>
+              <div class="doctor-visit-content_item-specialty">{{ visit.specialty }}</div>
+              <div class="doctor-visit-content_item-button"><fa-icon icon="edit"></fa-icon></div>
+            </div>
+            <div class="doctor-visit-content_item-comment" *ngIf="visit.comment">
+              <div>{{ visit.comment}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="doctorVisitsList.length === 0">
+        На данный момент у вас нет посещений к врачам
+      </div>
+    </div>
+  </div>
+</ion-content>
