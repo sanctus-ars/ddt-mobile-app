@@ -1,26 +1,31 @@
 <ion-content [fullscreen]="true">
   <div class="pills-research">
-    <div class="pills-research-header" >
-      <div class="pills-research-header_button" (click)="clickByAddButtonAction()">
-        <div>Добавить прием лекарство</div>
-        <div><fa-icon icon="plus-circle"></fa-icon></div>
+    <div *ngIf="pillsList.length === 0" class="pills-research-no-items">
+      <img src="assets/icon/medication.png"/>
+      <div class="pills-research-no-items_footer">
+        <button class="pills-research-no-items_button" (click)="clickByAddButtonAction()">Добавить первое лекарство</button>
       </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="pills-research-content">
-      <div class="pills-research-content_item" *ngFor="let item of pillsList">
-        <div class="pills-research-content_item-time">
-          {{ item?.time }}
-        </div>
-        <div class="pills-research-content_item-pill">
-          <div  class="pills-research-content_item-pill-content" *ngFor="let pill of item?.list; let last = last;" >
-            <div class="pills-research-content_item-name">{{ pill.name }}</div>
-            <div class="pills-research-content_item-count">{{ pill.count}} шт</div>
-          </div>
+    <div *ngIf="pillsList.length !== 0">
+      <div class="pills-research-header" >
+        <div class="pills-research-header_button" (click)="clickByAddButtonAction()">
+          <div>Добавить прием лекарство</div>
+          <div><fa-icon icon="plus-circle"></fa-icon></div>
         </div>
       </div>
-      <div *ngIf="pillsList.length === 0">
-        На данный момент у вас нету лекарств для приема
+      <mat-divider></mat-divider>
+      <div class="pills-research-content">
+        <div class="pills-research-content_item" *ngFor="let item of pillsList">
+          <div class="pills-research-content_item-time">
+            {{ item?.time }}
+          </div>
+          <div class="pills-research-content_item-pill">
+            <div  class="pills-research-content_item-pill-content" *ngFor="let pill of item?.list; let last = last;" >
+              <div class="pills-research-content_item-name">{{ pill.name }}</div>
+              <div class="pills-research-content_item-count">{{ pill.count}} шт</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

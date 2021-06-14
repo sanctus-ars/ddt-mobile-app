@@ -4,6 +4,11 @@ import * as moment from 'moment';
 import { WellBeingService } from 'src/app/pages/diary/components/well-being/services/well-being.service';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
 import { IWellBeing } from 'src/app/pages/diary/components/well-being/interfaces/well-being.interface';
+import { IBodyTemperature } from 'src/app/pages/diary/components/body-temperature/interfaces/body-temperature.interface';
+import { BodyTemperatureService } from 'src/app/pages/diary/components/body-temperature/services/body-temperature.service';
+import { DateAndTimeService } from 'src/app/shared/abstract/date-and-time.service';
+import { BloodPressureService } from 'src/app/pages/diary/components/blood-pressure/services/blood-pressure-service';
+import { IBloodPressure } from 'src/app/pages/diary/components/blood-pressure/interfaces/blood-pressure.interface';
 
 @Component({
 	selector: 'app-well-being-statistic',
@@ -20,7 +25,10 @@ export class WellBeingStatisticComponent extends BaseComponent implements OnInit
 
 	constructor(
 		private cd: ChangeDetectorRef,
-		private wellBeingService: WellBeingService
+		private wellBeingService: WellBeingService,
+		private dateAndTimeService: DateAndTimeService,
+		private bloodPressureService: BloodPressureService,
+		private bodyTemperatureService: BodyTemperatureService,
 	) {
 		super(cd);
 	}
@@ -33,10 +41,14 @@ export class WellBeingStatisticComponent extends BaseComponent implements OnInit
 		this.subscriptions.add([
 			combineLatest(
 				this.wellBeingService.list,
-			).subscribe(([wellBeingList]: [IWellBeing[]]) => {
-				if (wellBeingList && wellBeingList.length) {
-					this.setOther(wellBeingList);
-					this.setDynamic(wellBeingList);
+				this.bodyTemperatureService.list,
+				this.bloodPressureService.list,
+			).subscribe(([wellBeingList, bodyTemperature, bloodPressureList]: [IWellBeing[], IBodyTemperature[], IBloodPressure[]]) => {
+				const resultArray: IWellBeing[] = [...wellBeingList, ...bodyTemperature, ...bloodPressureList];
+				const clearArray: IWellBeing[] = this.dateAndTimeService.sortArray(resultArray);
+				if (clearArray && clearArray.length) {
+					this.setOther(clearArray);
+					this.setDynamic(clearArray);
 				}
 			})
 		]);

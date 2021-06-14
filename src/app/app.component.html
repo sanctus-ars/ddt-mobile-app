@@ -1,44 +1,67 @@
 <ion-app class="main">
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" menu-id="main" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <div class="main-menu-header">
-            <div class="main-menu_avatar">
-              <img src="./../assets/icon/logo-ddt.png"/>
+    <ion-menu contentId="main-content" menu-id="main" type="overlay" class="main-content">
+      <div class="main-menu-header">
+
+        <div *ngIf="settings?.name">
+          <div class="main-menu-header_name">
+            <div>{{ settings?.name }}</div>
+            <div class="main-menu-header_icon">
+              <fa-icon icon="user-check"></fa-icon>
             </div>
-            <ion-note>{{ settings?.name }}</ion-note>
-            <ion-list-header class="inbox-list-header" *ngIf="afterTransplantationText">
-              <span> {{ afterTransplantationText }}</span>
-            </ion-list-header>
           </div>
-          <mat-divider></mat-divider>
-          <div class="main-menu-content">
+          <div class="main-menu-header_text" *ngIf="afterTransplantationText">
+            <span> {{ afterTransplantationText }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="!settings?.name">
+          <div class="main-menu-header_name">
+            <div>Профиль</div>
+            <div class="main-menu-header_icon">
+              <fa-icon icon="user"></fa-icon>
+            </div>
+          </div>
+          <div class="main-menu-header_text">
+            <span>Ваши данные помогут эффективно вести наблюдение</span>
+          </div>
+        </div>
+
+      </div>
+      <ion-content class="main-menu-content">
+        <ion-list id="inbox-list">
+          <div>
             <div *ngFor="let page of appPages; let i = index">
               <ion-item
                       lines="none"
                       detail="false"
                       routerDirection="root"
+                      color="var(--main-background-color);"
                       [class.selected]="selectedIndex == i"
                       (click)="menuItemClickAction(i)">
-                <div class="main-menu_icon">
+                <div class="main-menu_icon" >
                   <fa-icon icon="{{ page.icon }}"></fa-icon>
                 </div>
                 <ion-label>{{ page.title }}</ion-label>
 
-                <div *ngIf="page.subPages?.length > 0">
-                  <fa-icon *ngIf="page.isOpen" icon="arrow-down"></fa-icon>
-                  <fa-icon *ngIf="!page.isOpen" icon="arrow-right"></fa-icon>
+                <div *ngIf="page.subPages?.length > 0" class="main-menu-content_chevron">
+                  <fa-icon *ngIf="page.isOpen" icon="chevron-down"></fa-icon>
+                  <fa-icon *ngIf="!page.isOpen" icon="chevron-up"></fa-icon>
                 </div>
 
+
               </ion-item>
+              <div *ngIf="page.subPages?.length > 0">
+                <mat-divider></mat-divider>
+              </div>
 
               <div *ngIf="page.subPages?.length > 0 && page.isOpen" class="main-menu_sub-item">
-                <div *ngFor="let sub of page.subPages ">
+                <div *ngFor="let sub of page.subPages; let last = last">
                   <ion-item
                           lines="none"
                           detail="false"
                           routerDirection="root"
+                          color="var(--main-background-color);"
                           [class.selected]="selectedIndex == i"
                           (click)="menuSubItemClickAction(sub.url)">
                     <div class="main-menu_icon">
@@ -46,6 +69,9 @@
                     </div>
                     <ion-label>{{ sub.title }}</ion-label>
                   </ion-item>
+                  <div *ngIf="last" class="main-menu_sub-item-last-divider">
+                    <mat-divider></mat-divider>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,10 @@
+.pills-research-tabs {
+  &_bar {
+    box-shadow: 0px -1px 4px rgba(183, 28, 28, 0.25);
+    border-radius: 8px 8px 0px 0px;
+  }
+  &_button {
+    color: var(--second-text-color);
+    background: var(--main-background-color);
+  }
+}

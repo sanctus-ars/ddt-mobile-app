@@ -3,9 +3,38 @@
 
 /** Ionic CSS Variables **/
 :root {
- // --ion-toolbar-background: #2C98F0;
-  --main-color: rgb(238, 129, 69);
-  --ion-toolbar-background: var(--main-color);
+  // THEME
+  --theme-color-browm-rgba: rgba(78, 52, 46, 0.7);
+  --theme-color-brown-hex: #4E342E;
+  --theme-color-brown-light-rgba: rgba(161, 136, 127, 0,46);
+  --theme-color-brown-light-hex: #A1887F;
+  --theme-color-yellow-light-rgba: rgba(255, 243, 224, 1);
+  --theme-color-yellow-light-hex: #FFF3E0;
+  --theme-color-yellow-50-rgba: rgba(255, 167, 38, 0,5);
+  --theme-color-yellow-50-hex: #FFA726;
+  --theme-color-orange-rgba: rgba(255, 194, 105, 0,5);
+  --theme-color-orange-hex: #FFC269;
+  --theme-color-red-50-rgba: rgba(183, 28, 28, 0,4);
+  --theme-color-red-50-hex: #B71C1C;
+  --theme-color-red-light-rgba: rgba(183, 28, 28, 0,5);
+  --theme-color-red-light-hex: #B71C1C;
+  --theme-color-red-rgba: rgba(183, 28, 28, 1);
+  --theme-color-red-hex: #B71C1C;
+  --theme-color-green-rgba: rgba(165, 214, 167, 1);
+  --theme-color-green-hex: #A5D6A7;
+  --theme-color-blue-64-rgba: rgba(2, 136, 209, 0,64);
+  --theme-color-blue-64-hex: #0288D1;
+  --theme-color-blue-40-rgba: rgba(2, 136, 209, 0,4);
+  --theme-color-blue-40-hex: #0288D1;
+  --theme-color-blue-60-rgba: rgba(179, 229, 252, 0,6);
+  --theme-color-blue-60-hex: #B3E5FC;
+
+  // --ion-toolbar-background: #2C98F0;
+  --main-color: #B71C1C;
+  --main-text-color: var(--main-color);
+  --second-text-color: #714F4F;
+  --main-background-color: #FFF3E0;
+  --ion-toolbar-background: var(--main-background-color);
   --ion-toolbar-color: white;
   /** primary **/
   --ion-color-primary: #3880ff;

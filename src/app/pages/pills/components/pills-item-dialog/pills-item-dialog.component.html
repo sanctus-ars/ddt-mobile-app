@@ -26,6 +26,9 @@
       </div>
 
       <div class="pills-item-dialog-content_form-field">
+        <app-input-date
+          label="Начало приема"
+        ></app-input-date>
         <mat-form-field appearance="outline" class="pills-item-dialog-content_form-field" (click)="startDateDatepicker.open()">
           <mat-label>Начало приема</mat-label>
           <input matInput [matDatepicker]="startDateDatepicker" [formControl]="startDateControl" required >

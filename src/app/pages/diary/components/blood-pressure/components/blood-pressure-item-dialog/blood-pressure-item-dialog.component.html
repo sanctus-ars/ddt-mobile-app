@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true" class="blood-pressure-item-dialog">
+    <ion-header class="blood-pressure-item-dialog-header">
+        <h3>
+            Ваше давление и пульс
+        </h3>
+    </ion-header>
+    <form [formGroup]="wellBeingForm">
+        <div class="blood-pressure-item-dialog-content">
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-date [dateControl]="dateControl"></app-input-date>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-time [timeControl]="timeControl"></app-input-time>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-number label="Верхнее давление" [numberControl]="bloodPressureSystolicControl"></app-input-number>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-number label="Нижнее давление" [numberControl]="bloodPressureDiastolicControl"></app-input-number>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-number label="Пульс" [numberControl]="pulseControl"></app-input-number>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <mat-checkbox [formControl]="arrhythmiaControl" [labelPosition]="'after'">
+                    Аритмия
+                </mat-checkbox>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>На какой руке проводились измерения</mat-label>
+                    <mat-select [formControl]="handControl">
+                        <mat-option value="none">Без тонометра</mat-option>
+                        <mat-option value="left">Левая рука</mat-option>
+                        <mat-option value="right">Правая рука</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-input-well-being [wellBeingControl]="wellBeingControl"></app-input-well-being>
+            </div>
+
+            <div class="blood-pressure-item-dialog-content_form-field">
+                <app-comment [commentControl]="commentControl" ></app-comment>
+            </div>
+        </div>
+
+        <ion-footer class="blood-pressure-item-dialog-footer">
+            <app-dialog-buttons
+                    [mode]="this.data.mode"
+                    (saveEmitter)="saveAction()"
+                    (cancelEmitter)="cancelAction()"
+                    (removeEmitter)="removeAction()"
+            ></app-dialog-buttons>
+        </ion-footer>
+    </form>
+</ion-content>

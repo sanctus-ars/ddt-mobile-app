@@ -6,6 +6,7 @@ export class ISettings {
 	public name?: string;
 	public growth?: number;
 	public birthday?: string;
+	public plannedWeight?: number;
 	public transplantDate?: string;
 	public transplantOrgan?: TransplantOrgansEnum;
 }

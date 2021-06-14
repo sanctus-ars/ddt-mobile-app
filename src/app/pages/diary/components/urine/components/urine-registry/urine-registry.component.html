@@ -7,16 +7,23 @@
       <td mat-cell *matCellDef="let element"> {{element.date | date:'yyyy.MM.dd'}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="urine">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header width="80px"> Диурез </th>
-      <td mat-cell *matCellDef="let element"> {{element.urine}} мл</td>
+    <!-- Position Column -->
+    <ng-container matColumnDef="volume" >
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Объем </th>
+      <td mat-cell *matCellDef="let element"> {{element.volume }} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="diff">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header width="80px"> Разница </th>
-      <td mat-cell *matCellDef="let element" [style.color]="element.diff > 0 ? 'red' : 'green' "> {{ element.diff }} мл</td>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="pain" >
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Интенсивность боли </th>
+      <td mat-cell *matCellDef="let element"> {{element.pain }} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="urgeIntensity" >
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Интенсивность позыва </th>
+      <td mat-cell *matCellDef="let element"> {{element.urgeIntensity }} </td>
     </ng-container>
 
     <!-- Checkbox Column -->
@@ -28,7 +35,7 @@
     </ng-container>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data</td>
+      <td class="mat-cell" colspan="4">Журнал диуреза пуст</td>
     </tr>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

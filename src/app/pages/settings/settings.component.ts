@@ -16,6 +16,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 	public nameControl = new FormControl();
 	public growthControl = new FormControl();
 	public birthdayControl = new FormControl();
+ 	public plannedWeightControl = new FormControl();
 	public transplantDateControl = new FormControl();
 	public transplantOrganControl = new FormControl();
 
@@ -42,6 +43,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 					this.nameControl.setValue(settings.name);
 					this.growthControl.setValue(settings.growth);
 					this.birthdayControl.setValue(moment(settings.birthday).toDate());
+					this.plannedWeightControl.setValue(settings.plannedWeight);
 					this.transplantDateControl.setValue(moment(settings.transplantDate).toDate());
 					this.transplantOrganControl.setValue(settings.transplantOrgan);
 				}
@@ -55,6 +57,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 				name: this.nameControl,
 				growth: this.growthControl,
 				birthday: this.birthdayControl,
+				plannedWeight: this.plannedWeightControl,
 				transplantDate: this.transplantDateControl,
 				transplantOrgan: this.transplantOrganControl,
 			});
@@ -67,6 +70,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 			name: formValue.name,
 			growth: formValue.growth,
 			birthday: moment(formValue.birthday).format('YYYY-MM-DD'),
+			plannedWeight: formValue.plannedWeight,
 			transplantDate: moment(formValue.transplantDate).format('YYYY-MM-DD'),
 			transplantOrgan: formValue.transplantOrgan,
 		};

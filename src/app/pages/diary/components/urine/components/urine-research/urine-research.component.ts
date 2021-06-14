@@ -1,58 +1,97 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
+import * as moment from 'moment';
+import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import { UrineItemDialogComponent } from 'src/app/pages/diary/components/urine/components/urine-item-dialog/urine-item-dialog.component';
+import { IUrine } from 'src/app/pages/diary/components/urine/interfaces/urine.interface';
+import { UrineService } from 'src/app/pages/diary/components/urine/services/urine.service';
 
 @Component({
-  selector: 'app-urine-research',
-  templateUrl: './urine-research.component.html',
-  styleUrls: ['./urine-research.component.scss'],
+	selector: 'app-urine-research',
+	templateUrl: './urine-research.component.html',
+	styleUrls: ['./urine-research.component.scss'],
 })
-export class UrineResearchComponent implements OnInit, AfterViewInit {
+export class UrineResearchComponent extends BaseComponent implements OnInit, AfterViewInit {
+	public lastItem: IUrine;
+	public firstItem: IUrine;
+	public lineChart: any;
 
-  @ViewChild('lineCanvas') private lineCanvas: ElementRef;
-  lineChart: any;
-  constructor() { }
+	public urineList: IUrine[] = [];
+	public bloodPressureMiddleValue: IUrine;
 
-  ngOnInit() {}
-  ngAfterViewInit() {
-    this.lineChartMethod();
-  }
-  lineChartMethod() {
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['10.02', '13.02', '15.02', '17.03', '20.03', '25.03', '01.04', '02.04', '10.04', '15.04', '20.05'],
-        datasets: [
-          {
-            label: 'Норма',
-            data: [ 1500, 1500, 1500, 1500, 1500, 1500, 1500 ],
-            type: 'line',
+	@ViewChild('lineCanvas') private lineCanvas: ElementRef;
 
-          },
-          {
-            label: 'Вес',
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: '#3f51b5',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [1300, 1600, 1500, 1500, 1600, 1700, 1800, 1900],
-            spanGaps: false,
-          }
-        ]
-      }
-    });
-  }
+
+	constructor(
+		private cd: ChangeDetectorRef,
+		private dialog: MatDialog,
+		private toastService: ToastService,
+		private urineService: UrineService,
+	) {
+		super(cd);
+	}
+
+	ngOnInit() {}
+	ngAfterViewInit() {
+		this.initData();
+		this.lineChartMethod();
+	}
+
+	public initData() {
+		this.subscriptions.add([
+			this.urineService.list.subscribe((data: IUrine[]) => {
+				if (data && data.length) {
+					this.lastItem = data[data.length - 1];
+					this.firstItem = data[0];
+					this.urineList = data;
+				}
+
+				this.lineChartMethod();
+			})
+		]);
+	}
+
+	public openDialog() {
+		const dialogRef = this.dialog.open(UrineItemDialogComponent, {
+			width: '100%',
+			height: '100%',
+			data: {
+				mode: PopupModeEnum.create
+			}
+		});
+
+		this.subscriptions.add([
+			dialogRef.afterClosed().subscribe(async (result: { item: IUrine, mode: PopupModeEnum }) => {
+				if (result && result.item && result.mode === PopupModeEnum.create) {
+					await this.urineService.create(result.item).then(async () => {
+						await this.toastService.showSuccess('Ваш диурез успешно сохранено');
+					}).catch(async (error) => {
+						await this.toastService.showError(error);
+					});
+				}
+			})
+		]);
+	}
+
+	lineChartMethod() {
+		const dateArray = this.urineList.map((x) => moment(x.date).format('YYYY-MM-DD'));
+		const urineVolumeList = this.urineList.map((x) => x.volume);
+		this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+			type: 'line',
+			data: {
+				labels: [...dateArray],
+				datasets: [
+					{
+						label: 'Объем',
+						data: [...urineVolumeList ],
+						type: 'line',
+					},
+				]
+			}
+		});
+	}
 
 }

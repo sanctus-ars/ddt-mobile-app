@@ -5,12 +5,16 @@ import { CoreModule } from 'src/app/core/core.module';
 import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { UrineComponent } from 'src/app/pages/diary/components/urine/urine.component';
 import { UrineResearchComponent } from 'src/app/pages/diary/components/urine/components/urine-research/urine-research.component';
-import { UrineHistoryComponent } from 'src/app/pages/diary/components/urine/components/urine-history/urine-history.component';
+import { UrineRegistryComponent } from 'src/app/pages/diary/components/urine/components/urine-registry/urine-registry.component';
+import { UrineStatisticComponent } from 'src/app/pages/diary/components/urine/components/urine-statistic/urine-statistic.component';
+import { UrineItemDialogComponent } from 'src/app/pages/diary/components/urine/components/urine-item-dialog/urine-item-dialog.component';
 
 const declarations = [
 	UrineComponent,
-	UrineHistoryComponent,
+	UrineRegistryComponent,
 	UrineResearchComponent,
+	UrineStatisticComponent,
+	UrineItemDialogComponent,
 ];
 @NgModule({
 	declarations: [

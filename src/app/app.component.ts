@@ -17,6 +17,8 @@ import { PillsService } from 'src/app/pages/pills/services/pills.service';
 import { DoctorVisitsService } from 'src/app/pages/doctors/services/doctor.service';
 import { BodyTemperatureService } from 'src/app/pages/diary/components/body-temperature/services/body-temperature.service';
 import { WellBeingService } from 'src/app/pages/diary/components/well-being/services/well-being.service';
+import { BloodPressureService } from 'src/app/pages/diary/components/blood-pressure/services/blood-pressure-service';
+import { UrineService } from 'src/app/pages/diary/components/urine/services/urine.service';
 
 @Component({
 	selector: 'app-root',
@@ -84,7 +86,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 		},
 		{
 			title: 'О приложении',
-			url: 'about',
+			url: 'pages/about',
 			icon: 'question-circle',
 		},
 	];
@@ -98,10 +100,12 @@ export class AppComponent extends BaseComponent implements OnInit {
 		private statusBar: StatusBar,
 		private splashScreen: SplashScreen,
 		private pillsService: PillsService,
+		private urineService: UrineService,
 		private weightService: WeightService,
 		private settingsService: SettingsService,
 		private wellBeingService: WellBeingService,
 		private doctorVisitsService: DoctorVisitsService,
+		private bloodPressureService: BloodPressureService,
 		private bodyTemperatureService: BodyTemperatureService,
 	) {
 		super(cd);
@@ -124,11 +128,13 @@ export class AppComponent extends BaseComponent implements OnInit {
 	}
 
 	private async initData() {
+		await this.urineService.init();
 		await this.pillsService.init();
 		await this.weightService.init();
 		await this.settingsService.init();
 		await this.wellBeingService.init();
 		await this.doctorVisitsService.init();
+		await this.bloodPressureService.init();
 		await this.bodyTemperatureService.init();
 		this.subscriptions.add([
 				this.settingsService.appSettings.subscribe((settings) => {

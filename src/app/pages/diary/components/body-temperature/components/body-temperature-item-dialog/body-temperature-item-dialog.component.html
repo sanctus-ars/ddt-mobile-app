@@ -7,18 +7,27 @@
     <form [formGroup]="weightFormGroup">
         <div class="body-temperature-item-dialog-content">
             <div class="body-temperature-item-dialog-content_form-field">
-                <mat-form-field appearance="outline" class="body-temperature-item-dialog-content_form-field">
-                    <mat-label>Температура</mat-label>
-                    <input matInput type="number" placeholder="Ваш текущий вес" min="30" max="42" [formControl]="temperatureControl">
-                    <fa-icon matSuffix icon="weight"></fa-icon>
-                </mat-form-field>
+                <app-input-date [dateControl]="dateControl"></app-input-date>
             </div>
             <div class="body-temperature-item-dialog-content_form-field">
-                <app-date
-                    class="body-temperature-item-dialog-content_form-field"
-                    [dateControl]="dateControl"
-                ></app-date>
+                <app-input-time [timeControl]="timeControl"></app-input-time>
             </div>
+            <div class="body-temperature-item-dialog-content_form-field">
+                <app-input-number
+                    label="Температура"
+                    placeholder="Ваш текущий вес"
+                    min="30" max="42"
+                    [numberControl]="temperatureControl"
+                    icon="thermometer"
+                ></app-input-number>
+            </div>
+            <div class="body-temperature-item-dialog-content_form-field">
+                <app-input-well-being [wellBeingControl]="wellBeingControl"></app-input-well-being>
+            </div>
+            <div class="body-temperature-item-dialog-content_form-field">
+                <app-comment label="Как вы себя чувствуете?" [commentControl]="commentControl"></app-comment>
+            </div>
+
         </div>
 
         <ion-footer class="body-temperature-item-dialog-footer">

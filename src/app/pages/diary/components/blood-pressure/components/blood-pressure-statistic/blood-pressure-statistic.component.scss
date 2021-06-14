@@ -1,0 +1,54 @@
+.blood-pressure-statistic {
+  &-ite
+  &_link {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  &-footer {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    &_item {
+      width: 100%;
+      padding: 20px;
+      &-title {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        margin: 10px 0;
+      }
+      &-content {
+        margin: 10px 0px;
+
+        &-field {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+        }
+      }
+    }
+    &_form-field {
+      width: 100%;
+      padding: 0 10px
+    }
+  }
+
+  &-header {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+      margin: 0;
+    }
+  }
+}

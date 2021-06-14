@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from 'src/app/pages/login/login.component';
 import { NoContentComponent } from 'src/app/pages/no-content/no-content.component';
-import { RegistrationComponent } from 'src/app/pages/registration/registration.component';
 import { SettingsComponent } from 'src/app/pages/settings/settings.component';
 import { PagesComponent } from 'src/app/pages/pages.component';
 import { DiaryComponent } from 'src/app/pages/diary/diary.component';
@@ -14,8 +12,6 @@ import { WellBeingComponent } from 'src/app/pages/diary/components/well-being/we
 import { WeightHistoryComponent } from 'src/app/pages/diary/components/weight/components/weight-history/weight-history.component';
 import { WeightResearchComponent } from 'src/app/pages/diary/components/weight/components/weight-research/weight-research.component';
 import { BloodPressureResearchComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-research/blood-pressure-research.component';
-import { BloodPressureHistoryComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-history/blood-pressure-history.component';
-import { UrineHistoryComponent } from 'src/app/pages/diary/components/urine/components/urine-history/urine-history.component';
 import { UrineResearchComponent } from 'src/app/pages/diary/components/urine/components/urine-research/urine-research.component';
 import { BodyTemperatureResearchComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-research/body-temperature-research.component';
 import { WeightSettingsComponent } from 'src/app/pages/diary/components/weight/components/weight-settings/weight-settings.component';
@@ -30,6 +26,13 @@ import { BodyTemperatureRegisterComponent } from 'src/app/pages/diary/components
 import { WellBeingResearchComponent } from 'src/app/pages/diary/components/well-being/components/well-being-research/well-being-research.component';
 import { WellBeingRegistryComponent } from 'src/app/pages/diary/components/well-being/components/well-being-registry/well-being-registry.component';
 import { WellBeingStatisticComponent } from 'src/app/pages/diary/components/well-being/components/well-being-statistic/well-being-statistic.component';
+import { BodyTemperatureStatisticComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-statistic/body-temperature-statistic.component';
+import { BloodPressureRegistryComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-registry/blood-pressure-registry.component';
+import { BloodPressureStatisticComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-statistic/blood-pressure-statistic.component';
+import { UrineRegistryComponent } from 'src/app/pages/diary/components/urine/components/urine-registry/urine-registry.component';
+import { UrineStatisticComponent } from 'src/app/pages/diary/components/urine/components/urine-statistic/urine-statistic.component';
+import { PillsNewItemComponent } from 'src/app/pages/pills/components/pills-new-item/pills-new-item.component';
+import { AboutComponent } from 'src/app/pages/about/about.component';
 
 const routes: Routes = [
 		{
@@ -39,9 +42,6 @@ const routes: Routes = [
 				{
 						path: 'diary',
 						component: DiaryComponent,
-						data: {
-							title: 'Diary'
-						},
 						children: [
 							{
 								path: 'weight',
@@ -73,17 +73,18 @@ const routes: Routes = [
 							{
 								path: 'blood-pressure',
 								component: BloodPressureComponent,
-								data: {
-									title: 'Blood Pressure'
-								},
 								children: [
 									{
 										path: 'research',
 										component: BloodPressureResearchComponent,
 									},
 									{
-										path: 'history',
-										component: BloodPressureHistoryComponent
+										path: 'registry',
+										component: BloodPressureRegistryComponent,
+									},
+									{
+										path: 'statistic',
+										component: BloodPressureStatisticComponent,
 									},
 									{
 										path: '**',
@@ -95,9 +96,6 @@ const routes: Routes = [
 							{
 								path: 'body-temperature',
 								component: BodyTemperatureComponent,
-								data: {
-									title: 'Body Temperature'
-								},
 								children: [
 									{
 										path: 'research',
@@ -106,6 +104,10 @@ const routes: Routes = [
 									{
 										path: 'register',
 										component: BodyTemperatureRegisterComponent,
+									},
+									{
+										path: 'statistic',
+										component: BodyTemperatureStatisticComponent
 									},
 									{
 										path: '**',
@@ -117,17 +119,18 @@ const routes: Routes = [
 							{
 								path: 'urine',
 								component: UrineComponent,
-								data: {
-									title: 'Urine'
-								},
 								children: [
 									{
 										path: 'research',
 										component: UrineResearchComponent,
 									},
 									{
-										path: 'history',
-										component: UrineHistoryComponent,
+										path: 'registry',
+										component: UrineRegistryComponent,
+									},
+									{
+										path: 'statistic',
+										component: UrineStatisticComponent
 									},
 									{
 										path: '**',
@@ -139,9 +142,6 @@ const routes: Routes = [
 							{
 								path: 'well-being',
 								component: WellBeingComponent,
-								data: {
-									title: 'Well Being'
-								},
 								children: [
 									{
 										path: 'research',
@@ -165,6 +165,10 @@ const routes: Routes = [
 						]
 					},
 					{
+						path: 'about',
+						component: AboutComponent,
+					},
+					{
 						path: 'pills',
 						component: PillsComponent,
 						children: [
@@ -179,6 +183,10 @@ const routes: Routes = [
 							{
 								path: 'history',
 								component: PillsHistoryComponent,
+							},
+							{
+								path: 'item-new',
+								component: PillsNewItemComponent
 							},
 							{
 								path: '**',

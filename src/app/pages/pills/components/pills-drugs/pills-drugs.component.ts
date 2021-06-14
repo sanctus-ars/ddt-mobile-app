@@ -15,6 +15,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   styleUrls: ['./pills-drugs.component.scss'],
 })
 export class PillsDrugsComponent extends BaseComponent implements OnInit {
+  public showSearch: boolean = false;
   public searchControl: FormControl = new FormControl();
   public pillsList: IPills[] = [];
   public pillListSearch: IPills[] = [];
@@ -32,6 +33,16 @@ export class PillsDrugsComponent extends BaseComponent implements OnInit {
     this.initData();
   }
 
+  public toggleSearchBarAction() {
+    this.showSearch = !this.showSearch;
+    if (this.showSearch === false) {
+      this.pillListSearch =  this.pillsList;
+    } else {
+      this.pillListSearch = this.pillsList.filter((item) => {
+        return item.name.toLowerCase().indexOf( this.searchControl.value.toLowerCase()) !== -1;
+      });
+    }
+  }
   public isDrugEnable(pill): boolean {
     return moment(pill.startDate) <= moment(new Date()) && pill.indefinite || moment(new Date()) <= moment(pill.endDate);
   }

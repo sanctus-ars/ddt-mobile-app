@@ -1,30 +1,14 @@
 <ion-content [fullscreen]="true">
   <div class="body-temperature-research">
     <div class="body-temperature-research-header">
-      <div class="body-temperature-research-header_initial">
-        <div>
-          <strong>Минимальное</strong>
-        </div>
-        <div>
-          36.5 &#176;
-        </div>
-      </div>
-      <div class="body-temperature-research-header_current">
+      <div class="body-temperature-research-header_current" *ngIf="lastItem">
         <div>
           <strong>Текущее</strong>
         </div>
         <div>
         <span class="color-blue">
-          <strong>36.6 &#176;</strong>
+          <strong>{{ lastItem.temperature}} &#176;</strong>
         </span>
-        </div>
-      </div>
-      <div class="body-temperature-research-header_target">
-        <div>
-          <strong>Максимальное</strong>
-        </div>
-        <div>
-          39.2 &#176;
         </div>
       </div>
     </div>
@@ -32,16 +16,16 @@
       <canvas #lineCanvas ></canvas>
     </div>
     <div class="body-temperature-research-footer">
-      <div class="body-temperature-research-footer_changes">
+      <div class="body-temperature-research-footer_changes" *ngIf="lastItem">
         <div>
           <strong>Изменения</strong>
         </div>
         <div>
-          - 0.1 &#176;
+          {{ +(lastItem.temperature - 36.6).toFixed(2) }} &#176;
         </div>
       </div>
       <div class="body-temperature-research-footer_new">
-        <button mat-fab color="primary">
+        <button mat-fab color="primary" (click)="openDialog()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -50,7 +34,7 @@
           <strong>Норма</strong>
         </div>
         <div>
-          36.7 &#176;
+          {{ normBodyTemperature }} &#176;
         </div>
       </div>
     </div>

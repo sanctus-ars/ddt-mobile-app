@@ -1,6 +1,6 @@
 export interface IBase {
 	id?: string;
-	date: Date;
+	date?: Date;
 	time?: Date;
 	diff?: number;
 }

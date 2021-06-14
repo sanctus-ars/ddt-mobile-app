@@ -1,30 +1,14 @@
 <ion-content [fullscreen]="true">
   <div class="blood-pressure-research">
     <div class="blood-pressure-research-header">
-      <div class="blood-pressure-research-header_initial">
+      <div class="blood-pressure-research-header_current" *ngIf="lastItem">
         <div>
-          <strong>Минимальное</strong>
-        </div>
-        <div>
-          50 / 90
-        </div>
-      </div>
-      <div class="blood-pressure-research-header_current">
-        <div>
-          <strong>Среднее</strong>
+          <strong>Текущее</strong>
         </div>
         <div>
         <span class="color-blue">
-          <strong>90 / 60</strong>
+      <!--    <strong>{{ lastItem.temperature}}</strong>-->
         </span>
-        </div>
-      </div>
-      <div class="blood-pressure-research-header_target">
-        <div>
-          <strong>Максимальное</strong>
-        </div>
-        <div>
-          120 / 90
         </div>
       </div>
     </div>
@@ -32,27 +16,27 @@
       <canvas #lineCanvas ></canvas>
     </div>
     <div class="blood-pressure-research-footer">
-    <!--  <div class="blood-pressure-research-footer_changes">
+      <div class="blood-pressure-research-footer_changes" *ngIf="lastItem">
         <div>
           <strong>Изменения</strong>
         </div>
         <div>
-          - 2.0 kg
+<!--          {{ +(lastItem.temperature - 36.6).toFixed(2) }} &#176;-->
         </div>
-      </div>-->
+      </div>
       <div class="blood-pressure-research-footer_new">
-        <button mat-fab color="primary">
+        <button mat-fab color="primary" (click)="openDialog()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <!--<div class="blood-pressure-research-footer_stock">
+      <div class="blood-pressure-research-footer_stock">
         <div>
-          <strong>Осталось</strong>
+          <strong>Норма</strong>
         </div>
         <div>
-          + 3.0 kg
+        <!--  {{ normBodyTemperature }}-->
         </div>
-      </div>-->
+      </div>
     </div>
   </div>
 </ion-content>

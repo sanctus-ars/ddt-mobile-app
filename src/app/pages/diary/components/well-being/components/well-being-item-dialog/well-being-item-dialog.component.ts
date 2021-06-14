@@ -5,6 +5,7 @@ import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight
 import { IWellBeing } from 'src/app/pages/diary/components/well-being/interfaces/well-being.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import { WellBeingFlow } from 'src/app/pages/diary/components/well-being/enum/well-being-flow.enum';
 
 @Component({
 	selector: 'app-well-being-item-dialog',
@@ -14,6 +15,7 @@ import * as moment from 'moment';
 export class WellBeingItemDialogComponent implements OnInit {
 	public idControl: FormControl = new FormControl();
 	public diffControl: FormControl = new FormControl();
+	public flowControl: FormControl = new FormControl();
 	public timeControl: FormControl = new FormControl();
 	public dateControl: FormControl = new FormControl();
 	public commentControl: FormControl = new FormControl();
@@ -48,40 +50,20 @@ export class WellBeingItemDialogComponent implements OnInit {
 		});
 	}
 
-	public formatLabel(value: number) {
-		switch (value) {
-			case 1:
-			case 2:
-			case 3:
-				return ':(';
-			case 5:
-			case 4:
-			case 6:
-				return ':|';
-			case 7:
-			case 8:
-				return ':)';
-      case 10:
-      case 9:
-        return '^.^';
-		}
-
-		return value;
-	}
-
-
 	private initForm(): void {
 		this.idControl.setValue(!!this.data && !!this.data.item ? this.data.item.id : null);
 		this.diffControl.setValue(!!this.data && !!this.data.item ? this.data.item.diff : null);
+		this.flowControl.setValue( WellBeingFlow.wellBeing);
 		this.dateControl.setValue(!!this.data && !!this.data.item ? this.data.item.date : new Date());
 		this.timeControl.setValue( !!this.data && !!this.data.item ? this.data.item.time : moment(new Date()).format('HH:mm'));
 		this.commentControl.setValue( !!this.data && !!this.data.item ? this.data.item.comment : '');
-		this.wellBeingControl.setValue( !!this.data && !!this.data.item ? this.data.item.wellBeing : 7);
+		this.wellBeingControl.setValue( !!this.data && !!this.data.item ? this.data.item.wellBeing : 5);
 
 		this.wellBeingForm = new FormGroup({
 			id: this.idControl,
 			diff: this.diffControl,
 			date: this.dateControl,
+			flow: this.flowControl,
 			time: this.timeControl,
 			comment: this.commentControl,
 			wellBeing: this.wellBeingControl

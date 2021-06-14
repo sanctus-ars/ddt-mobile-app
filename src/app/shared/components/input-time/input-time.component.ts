@@ -8,7 +8,7 @@ import { FormControl } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTimeComponent {
-	@Input() label: string;
+	@Input() label: string = 'Время';
 	@Input() class: string;
 	@Input() placeholder: string;
 	@Input() timeControl: FormControl = new FormControl();

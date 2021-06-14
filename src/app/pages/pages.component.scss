@@ -1,13 +1,10 @@
-ion-menu-button {
-  color: var(--ion-color-primary);
-}
 .pages-header {
   ion-title {
-    color: white;
+    color: var(--main-color);
     font-weight: normal;
   }
   ion-menu-button {
-    color: white;
+    color: var(--main-color);
   }
   &_profile {
     width: 100%;
@@ -18,13 +15,13 @@ ion-menu-button {
 
     a {
       text-decoration: none;
-      color: white;
+      color: var(--main-color);
     }
   }
 }
 #container {
   .pages {
-    margin-top: 57px;
+    margin-top: 44px;
   }
 
   strong {

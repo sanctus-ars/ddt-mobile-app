@@ -9,12 +9,14 @@ import { BodyTemperatureRegisterComponent } from 'src/app/pages/diary/components
 import { BodyTemperatureItemDialogComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-item-dialog/body-temperature-item-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BodyTemperatureStatisticComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-statistic/body-temperature-statistic.component';
 
 const declarations = [
 	BodyTemperatureComponent,
 	BodyTemperatureRegisterComponent,
 	BodyTemperatureResearchComponent,
-	BodyTemperatureItemDialogComponent
+	BodyTemperatureItemDialogComponent,
+	BodyTemperatureStatisticComponent,
 ];
 @NgModule({
 	declarations: [

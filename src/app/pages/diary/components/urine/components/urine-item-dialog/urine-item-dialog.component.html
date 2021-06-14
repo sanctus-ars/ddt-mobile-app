@@ -1,0 +1,77 @@
+<ion-content [fullscreen]="true" class="urine-item-dialog">
+  <ion-header class="urine-item-dialog-header">
+    <h3>
+      Диурез
+    </h3>
+  </ion-header>
+  <form [formGroup]="urineForm">
+    <div class="urine-item-dialog-content">
+      <div class="urine-item-dialog-content_form-field">
+        <app-input-date [dateControl]="dateControl"></app-input-date>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <app-input-time [timeControl]="timeControl"></app-input-time>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <app-input-number label="Объем, в мл" [numberControl]="volumeControl"></app-input-number>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <mat-label>Интенсивность позыва:  <span>{{ urgeIntensityControl.value }} из 10 баллов</span></mat-label>
+        <div>
+          <mat-slider thumbLabel
+                      [formControl]="urgeIntensityControl"
+                      min="1"
+                      max="10"
+          ></mat-slider>
+        </div>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <mat-label> Интенсивность боли:  <span>{{ painControl.value }} из 10 баллов</span></mat-label>
+        <div>
+          <mat-slider thumbLabel
+                      [formControl]="painControl"
+                      min="1"
+                      max="10"
+          ></mat-slider>
+        </div>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <mat-checkbox [formControl]="incontinenceControl" [labelPosition]="'after'">
+          Недержание мочи
+        </mat-checkbox>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Время суток</mat-label>
+          <mat-select [formControl]="uriStatusControl">
+            <mat-option value="wake">Бодрствование</mat-option>
+            <mat-option value="rest">Сон</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <app-input-well-being [wellBeingControl]="wellBeingControl"></app-input-well-being>
+      </div>
+
+      <div class="urine-item-dialog-content_form-field">
+        <app-comment [commentControl]="commentControl" ></app-comment>
+      </div>
+    </div>
+
+    <ion-footer class="urine-item-dialog-footer">
+      <app-dialog-buttons
+              [mode]="this.data.mode"
+              (saveEmitter)="saveAction()"
+              (cancelEmitter)="cancelAction()"
+              (removeEmitter)="removeAction()"
+      ></app-dialog-buttons>
+    </ion-footer>
+  </form>
+</ion-content>

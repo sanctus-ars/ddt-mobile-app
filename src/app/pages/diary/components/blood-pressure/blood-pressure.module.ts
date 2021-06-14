@@ -5,12 +5,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { BloodPressureResearchComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-research/blood-pressure-research.component';
-import { BloodPressureHistoryComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-history/blood-pressure-history.component';
+import { BloodPressureStatisticComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-statistic/blood-pressure-statistic.component';
+import { BloodPressureItemDialogComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-item-dialog/blood-pressure-item-dialog.component';
+import { BloodPressureRegistryComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-registry/blood-pressure-registry.component';
 
 const declarations = [
 	BloodPressureComponent,
-	BloodPressureHistoryComponent,
 	BloodPressureResearchComponent,
+	BloodPressureRegistryComponent,
+	BloodPressureStatisticComponent,
+	BloodPressureItemDialogComponent,
 ];
 @NgModule({
 	declarations: [

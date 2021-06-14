@@ -8,6 +8,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { WellBeingItemDialogComponent } from 'src/app/pages/diary/components/well-being/components/well-being-item-dialog/well-being-item-dialog.component';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Chart } from 'chart.js';
+import { combineLatest } from 'rxjs';
+import { IBodyTemperature } from 'src/app/pages/diary/components/body-temperature/interfaces/body-temperature.interface';
+import { MatTableDataSource } from '@angular/material/table';
+import { DateAndTimeService } from 'src/app/shared/abstract/date-and-time.service';
+import { BodyTemperatureService } from 'src/app/pages/diary/components/body-temperature/services/body-temperature.service';
+import { BloodPressureService } from 'src/app/pages/diary/components/blood-pressure/services/blood-pressure-service';
+import { IBloodPressure } from 'src/app/pages/diary/components/blood-pressure/interfaces/blood-pressure.interface';
 
 @Component({
 	selector: 'app-well-being-research',
@@ -26,6 +33,9 @@ export class WellBeingResearchComponent extends BaseComponent implements AfterVi
 		private dialog: MatDialog,
 		private toastService: ToastService,
 		private wellBeingService: WellBeingService,
+		private dateAndTimeService: DateAndTimeService,
+		private bloodPressureService: BloodPressureService,
+		private bodyTemperatureService: BodyTemperatureService,
 	) {
 		super(cd);
 	}
@@ -37,18 +47,20 @@ export class WellBeingResearchComponent extends BaseComponent implements AfterVi
 	}
 	initData() {
 		this.subscriptions.add([
-			this.wellBeingService.list.subscribe((data: IWellBeing[]) => {
-				if (data && data.length) {
-					this.wellBeingList = data;
-					this.wellBeingMiddleValue = data.reduce((acum, item) => {
-					  acum += item.wellBeing;
-					  return acum;
-          }, 0) / data.length;
-          this.lineChartMethod();
-				}
-
+			combineLatest([
+				this.wellBeingService.list,
+				this.bodyTemperatureService.list,
+				this.bloodPressureService.list,
+			]).subscribe(([wellBeing, bodyTemperature, bloodPressureList]: [IWellBeing[], IBodyTemperature[], IBloodPressure[]]) => {
+				const resultArray: IWellBeing[] = [...wellBeing, ...bodyTemperature, ...bloodPressureList];
+				const clearArray: IWellBeing[] = this.dateAndTimeService.sortArray(resultArray);
+				this.wellBeingList = clearArray;
+				this.wellBeingMiddleValue = clearArray.reduce((acum, item) => {
+					acum += item.wellBeing;
+					return acum;
+				}, 0) / clearArray.length;
 				this.lineChartMethod();
-			})
+			}),
 		]);
 	}
 	openDialog() {
@@ -64,7 +76,7 @@ export class WellBeingResearchComponent extends BaseComponent implements AfterVi
 			dialogRef.afterClosed().subscribe(async (result: { item: IWellBeing, mode: PopupModeEnum }) => {
 				if (result && result.item && result.mode === PopupModeEnum.create) {
 					await this.wellBeingService.create(result.item).then(async () => {
-						await this.toastService.showSuccess('Ваш вес сохранен');
+						await this.toastService.showSuccess('Ваше самочувствие успешно сохранено');
 					}).catch(async (error) => {
 						await this.toastService.showError(error);
 					});

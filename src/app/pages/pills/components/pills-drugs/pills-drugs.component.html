@@ -1,28 +1,34 @@
-<ion-content [fullscreen]="true">
+<ion-content [scrollEvents]="true">
   <div class="pills-drugs">
     <div class="pills-drugs-header">
-      Все лекарства
+      <div class="pills-drugs-header_search">
+        <span *ngIf="!showSearch">Список лекарств</span>
+        <input *ngIf="showSearch" type="text" matInput [formControl]="searchControl" autofocus  placeholder="Поиск лекарств">
+      </div>
+      <div (click)="toggleSearchBarAction()">
+        <fa-icon matSuffix icon="search"></fa-icon>
+      </div>
     </div>
 
     <div class="pills-drugs-content">
-      <div class="pills-drugs-content_search">
-        <mat-form-field appearance="outline" style="width: 100%">
-          <mat-label>Поиск</mat-label>
-          <input type="text" matInput [formControl]="searchControl" placeholder="Поиск лекарств">
-          <fa-icon matSuffix icon="search"></fa-icon>
-        </mat-form-field>
-      </div>
-      <div *ngFor="let pill of pillListSearch" style="width: 100%">
+      <div *ngFor="let pill of pillListSearch">
         <div class="pills-drugs-content_item" (click)="createPillsTakingAction(pill)">
           <div class="pills-drugs-content_item-name">
-            <fa-icon icon="plus"></fa-icon>
             {{ pill.name}}
           </div>
         </div>
-        <mat-divider></mat-divider>
       </div>
       <div *ngIf="pillListSearch.length === 0">
-        No Data Row
+
+        <div class="pills-drugs-content_item-new"(click)="createPillsTakingAction({})">
+          <div>
+            Добавить лекарство
+          </div>
+          <div class="pills-drugs-content_item-new-icon">
+            <fa-icon icon="plus"></fa-icon>
+          </div>
+
+        </div>
       </div>
     </div>
 

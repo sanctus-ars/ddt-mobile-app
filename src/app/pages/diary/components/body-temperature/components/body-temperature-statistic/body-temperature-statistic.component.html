@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="body-temperature-statistic">
+    <ion-header class="body-temperature-statistic-header">
+        <h3> Статистика </h3>
+    </ion-header>
+    <div class="body-temperature-statistic-content">
+        <div class="body-temperature-statistic-content_item">
+            <div class="body-temperature-statistic-content_item-title">Тенденция</div>
+            <mat-divider></mat-divider>
+            <div class="body-temperature-statistic-content_item-content">
+                <div class="body-temperature-statistic-content_item-content-field">
+                    <div>Динамика за посл. 7 дней:</div>
+                    <div><span style="color: {{ dynamic7days > 0 ? 'green' : 'red' }}">{{ dynamic7days}}</span></div>
+                </div>
+                <div class="body-temperature-statistic-content_item-content-field">
+                    <div>Динамика за посл. 30 дней: </div>
+                    <div><span style="color: {{ dynamic7days > 0 ? 'green' : 'red' }}">{{ dynamic30days}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="body-temperature-statistic-content_item">
+            <div class="body-temperature-statistic-content_item-title">В среднем</div>
+            <mat-divider></mat-divider>
+            <div class="body-temperature-statistic-content_item-content">
+                <div class="body-temperature-statistic-content_item-content-field">
+                    <div>Средний: </div>
+                    <div>{{ middleWeight}} &#176;</div>
+                </div>
+                <div class="body-temperature-statistic-content_item-content-field">
+                    <div>Рекорд (максимум): </div>
+                    <div>{{ recordMax}} &#176;</div>
+                </div>
+                <div class="body-temperature-statistic-content_item-content-field">
+                    <div>Рекорд (минимум): </div>
+                    <div>{{ recordMin}} &#176;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ion-footer class="body-temperature-statistic-footer">
+
+    </ion-footer>
+</ion-content>

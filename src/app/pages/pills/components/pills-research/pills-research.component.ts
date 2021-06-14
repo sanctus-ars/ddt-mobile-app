@@ -9,6 +9,7 @@ import { BaseComponent } from 'src/app/modules/base/components/base.component';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { TitleService } from 'src/app/shared/services/title.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-pills-research',
@@ -22,6 +23,7 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 	constructor(
 		private cd: ChangeDetectorRef,
 		private dialog: MatDialog,
+		private router: Router,
 		private titleService: TitleService,
 		private pillsService: PillsService,
 		private toastService: ToastService,
@@ -34,7 +36,7 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 	}
 
 	public clickByAddButtonAction(): void {
-		this.openDialog(PopupModeEnum.create);
+		this.router.navigateByUrl('./pages/pills/item-new');
 	}
 
 	public pillEditAction(item: IPills): void {
@@ -73,28 +75,30 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 		this.titleService.setTitle(pageTitle);
 		this.subscriptions.add([
 			this.pillsService.pillsList.subscribe((list: IPills[]) => {
-				const currentDatePills: IPills[] = list.filter((item: IPills) => {
-					 return moment(item.startDate) <= moment(new Date()) && item.indefinite || moment(new Date()) <= moment(item.endDate);
-				});
-				const sortedPills: IPills[] = currentDatePills.sort((a: IPills, b: IPills) => {
-					if (moment().add(a.time, 'hours') < moment().add(b.time, 'hours')) {
-						return -1;
-					} else  if (moment().add(a.time, 'hours') > moment().add(b.time, 'hours')) {
-						return 1;
-					} else {
-						return  0;
-					}
-				});
-				const result = _.groupBy(sortedPills, 'time');
-				const timesList = Object.keys(result);
-				const clearResult = timesList.reduce((accum: { time: string, list: IPills[]}[], time: string) => {
-					accum.push({
+				if (list && list.length) {
+					const currentDatePills: IPills[] = list.filter((item: IPills) => {
+						return moment(item.startDate) <= moment(new Date()) && item.indefinite || moment(new Date()) <= moment(item.endDate);
+					});
+					const sortedPills: IPills[] = currentDatePills.sort((a: IPills, b: IPills) => {
+						if (moment().add(a.time, 'hours') < moment().add(b.time, 'hours')) {
+							return -1;
+						} else  if (moment().add(a.time, 'hours') > moment().add(b.time, 'hours')) {
+							return 1;
+						} else {
+							return  0;
+						}
+					});
+					const result = _.groupBy(sortedPills, 'time');
+					const timesList = Object.keys(result);
+					const clearResult = timesList.reduce((accum: { time: string, list: IPills[]}[], time: string) => {
+						accum.push({
 							time,
 							list: result[time],
-					});
-					return accum;
-				}, []);
-		  	this.pillsList = clearResult;
+						});
+						return accum;
+					}, []);
+					this.pillsList = clearResult;
+				}
 			}),
 		]);
 	}
