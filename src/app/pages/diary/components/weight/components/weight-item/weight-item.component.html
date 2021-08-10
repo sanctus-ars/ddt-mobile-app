@@ -1,0 +1,36 @@
+<div class="weight-item">
+  <ion-content [fullscreen]="true" class="weight-item_content">
+    <form [formGroup]="weightFormGroup" class="weight-item_content">
+      <div class="weight-item-content">
+        <div class="weight-item-content_form-field">
+          <app-input-number
+                  label="Вес"
+                  icon="weight"
+                  placeholder="Ваш текущий вес"
+                  [required]="true"
+                  [control]="weightControl"
+          ></app-input-number>
+        </div>
+
+        <div class="weight-item-content_form-field">
+          <app-input-date [required]="true" [control]="dateControl"></app-input-date>
+        </div>
+
+        <div class="weight-item-content_form-field">
+          <app-comment [control]="commentControl" size="max"></app-comment>
+        </div>
+      </div>
+
+      <ion-footer class="weight-item-footer">
+        <app-dialog-buttons
+                class="weight-item-dialog-footer_content"
+                [disabled]="weightFormGroup.invalid"
+                [mode]="this.data['mode']"
+                (saveEmitter)="saveAction()"
+                (cancelEmitter)="cancelAction()"
+                (removeEmitter)="removeAction()"
+        ></app-dialog-buttons>
+      </ion-footer>
+    </form>
+  </ion-content>
+</div>

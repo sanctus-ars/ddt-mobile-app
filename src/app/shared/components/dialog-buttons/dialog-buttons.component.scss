@@ -5,6 +5,27 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+
+  &_save {
+    background: rgba(183, 28, 28, 0.8);
+    color: #fff;
+    border-radius: 8px;
+  }
+
+  &_remove {
+    box-shadow: 0px 1px 4px rgba(183, 28, 28, 0.25);
+    border-radius: 8px;
+    border: 2px solid  rgba(183, 28, 28, 0.8);
+    color: rgba(183, 28, 28, 0.8)
+  }
+
+  &_cancel {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 4px rgba(183, 28, 28, 0.25);
+    border-radius: 8px;
+    color: rgba(113, 79, 79, 0.74)
+  }
+
   button {
     margin: 10px;
     width: 100%;

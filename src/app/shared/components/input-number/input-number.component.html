@@ -1,5 +1,8 @@
-<mat-form-field appearance="outline" class="{{ class }}">
+<mat-form-field appearance="outline" [ngClass]="class">
     <mat-label>{{ label }}</mat-label>
-    <input matInput type="number" min="{{ min }}" max="{{ max }}" placeholder="{{ placeholder }}" [formControl]="numberControl">
-    <fa-icon matSuffix icon="{{ icon }}"></fa-icon>
+    <input matInput type="number" min="{{ min }}" max="{{ max }}" [required]="required" placeholder="{{ placeholder }}" [formControl]="control">
+    <fa-icon *ngIf="icon" matSuffix icon="{{ icon }}"></fa-icon>
+    <div *ngIf="control.errors?.required" class="error">Поле обязательное</div>
+    <div *ngIf="control.errors?.min" class="error">Минимальное значение {{ min }}</div>
+    <div *ngIf="control.errors?.max" class="error">Максимальное значение {{ min }}</div>
 </mat-form-field>

@@ -1,6 +1,6 @@
 <div class="app-dialog-buttons">
-    <button mat-stroked-button (click)="cancelAction()">Закрыть</button>
-    <button mat-raised-button color="warn" *ngIf="this.mode === 'edit'" (click)="removeAction()">Удалить</button>
-    <button mat-raised-button color="primary" (click)="saveAction()">Сохранить</button>
+    <button mat-raised-button class="app-dialog-buttons_save" (click)="saveAction()" [disabled]="disabled">Сохранить</button>
+    <button mat-raised-button class="app-dialog-buttons_remove" *ngIf="this.mode === 'edit'" (click)="removeAction()">Удалить</button>
+    <button mat-stroked-button class="app-dialog-buttons_cancel" (click)="cancelAction()">Отменить</button>
 </div>
 

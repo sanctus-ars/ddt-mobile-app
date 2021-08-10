@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,6 @@ export class InputTextComponent {
 	@Input() icon: string;
 	@Input() label: string;
 	@Input() class: string;
+	@Input() control: FormControl = new FormControl();
 	@Input() placeholder: string;
-	@Input() textControl: FormControl = new FormControl();
 }

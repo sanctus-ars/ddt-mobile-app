@@ -5,6 +5,8 @@ import { SettingsService } from 'src/app/pages/settings/services/settings.servic
 import * as moment from 'moment';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
+import { SexEnum } from 'src/app/shared/enum/sex.enum';
+import { TransplantOrgansEnum } from 'src/app/shared/enum/transplant-organs.enum';
 
 @Component({
 	selector: 'app-settings',
@@ -12,6 +14,38 @@ import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface'
 	styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent extends BaseComponent implements OnInit {
+	public transplantOrgan = [
+		{
+			key: 'Почка',
+			value: TransplantOrgansEnum.KIDNEY
+		},
+		{
+			key: 'Легкие',
+			value: TransplantOrgansEnum.LUNGS
+		},
+		{
+			key: 'Печень',
+			value: TransplantOrgansEnum.LIVER
+		},
+		{
+			key: 'Сердце',
+			value: TransplantOrgansEnum.HEART
+		},
+		{
+			key: 'Поджелудочная железа',
+			value: TransplantOrgansEnum.PANCREAS
+		}
+	];
+	public sexList = [
+		{
+			key: 'Мужской',
+			value: SexEnum.man
+		},
+		{
+			key: 'Женский',
+			value: SexEnum.woman
+		}
+	];
 	public sexControl = new FormControl();
 	public nameControl = new FormControl();
 	public growthControl = new FormControl();

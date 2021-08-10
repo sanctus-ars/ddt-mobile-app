@@ -8,10 +8,11 @@ import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogButtonsComponent {
- @Input() mode: PopupModeEnum = PopupModeEnum.create;
- @Output() saveEmitter: EventEmitter<void> = new EventEmitter<void>();
- @Output() cancelEmitter: EventEmitter<void> = new EventEmitter<void>();
- @Output() removeEmitter: EventEmitter<void> = new EventEmitter<void>();
+ 	@Input() mode: PopupModeEnum = PopupModeEnum.create;
+	@Input() disabled: boolean = false;
+ 	@Output() saveEmitter: EventEmitter<void> = new EventEmitter<void>();
+ 	@Output() cancelEmitter: EventEmitter<void> = new EventEmitter<void>();
+ 	@Output() removeEmitter: EventEmitter<void> = new EventEmitter<void>();
 
  public cancelAction(): void {
  	this.cancelEmitter.emit();

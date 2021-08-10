@@ -7,19 +7,17 @@ import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { WeightHistoryComponent } from 'src/app/pages/diary/components/weight/components/weight-history/weight-history.component';
 import { WeightResearchComponent } from 'src/app/pages/diary/components/weight/components/weight-research/weight-research.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { WeightItemDialogComponent } from 'src/app/pages/diary/components/weight/components/weight-item-dialog/weight-item-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { WeightSettingsComponent } from 'src/app/pages/diary/components/weight/components/weight-settings/weight-settings.component';
 import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
+import { WeightItemComponent } from 'src/app/pages/diary/components/weight/components/weight-item/weight-item.component';
 
 
 const declarations = [
 	WeightComponent,
+	WeightItemComponent,
 	WeightHistoryComponent,
-	WeightSettingsComponent,
 	WeightResearchComponent,
 	WeightStatisticComponent,
-	WeightItemDialogComponent,
 ];
 @NgModule({
 	declarations: [

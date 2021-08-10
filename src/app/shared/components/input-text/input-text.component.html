@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline" class="{{ class }}">
     <mat-label>{{ label }}</mat-label>
-    <input matInput type="text" placeholder="{{ placeholder }}" [formControl]="textControl">
-    <fa-icon matSuffix icon="{{ icon }}"></fa-icon>
+    <input matInput type="text" placeholder="{{ placeholder }}" [formControl]="control">
+    <fa-icon *ngIf="icon" matSuffix icon="{{ icon }}"></fa-icon>
 </mat-form-field>

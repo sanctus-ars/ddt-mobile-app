@@ -13,6 +13,7 @@ export class InputNumberComponent {
 	@Input() icon: string;
 	@Input() label: string;
 	@Input() class: string;
+	@Input() required: boolean = false;
+	@Input() control: FormControl = new FormControl();
 	@Input() placeholder: string;
-	@Input() numberControl: FormControl = new FormControl();
 }

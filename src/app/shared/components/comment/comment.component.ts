@@ -8,9 +8,10 @@ import { FormControl } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent {
+	@Input() size: string = 'max';
 	@Input() label: string = 'Комментарий';
  	@Input() class: string;
-	@Input() placeholder: string;
+	@Input() placeholder: string = 'Добавить комментарий';
 
-	@Input() commentControl: FormControl = new FormControl();
+	@Input() control: FormControl = new FormControl();
 }

@@ -45,12 +45,14 @@ import { InputDateComponent } from 'src/app/shared/components/input-date/input-d
 import { InputWellBeingComponent } from 'src/app/shared/components/input-well-being/input-well-being.component';
 import { InputTimeComponent } from 'src/app/shared/components/input-time/input-time.component';
 import { InputTextComponent } from 'src/app/shared/components/input-text/input-text.component';
+import { InputSelectComponent } from 'src/app/shared/components/input-select/input-select.component';
 
 const declarations = [
 	CommentComponent,
 	InputTimeComponent,
 	InputTextComponent,
 	InputDateComponent,
+	InputSelectComponent,
 	InputNumberComponent,
 	DialogButtonsComponent,
 	InputWellBeingComponent,

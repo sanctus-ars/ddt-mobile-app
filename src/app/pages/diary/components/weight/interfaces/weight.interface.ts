@@ -3,4 +3,5 @@ export interface IWeight {
 	date: Date;
 	diff: number;
 	weight: number;
+	comment: string;
 }

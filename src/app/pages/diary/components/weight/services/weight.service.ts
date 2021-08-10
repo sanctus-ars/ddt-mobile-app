@@ -3,32 +3,22 @@ import { SexEnum } from 'src/app/shared/enum/sex.enum';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { IWeightSettings } from 'src/app/pages/diary/components/weight/interfaces/weight-settings.interface';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import { IMTCategoryEnum } from 'src/app/pages/diary/components/weight/enum/imt.enum';
+import { IIMT } from 'src/app/pages/diary/components/weight/interfaces/imt.interface';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class WeightService {
 	public weightList: BehaviorSubject<IWeight[]> = new BehaviorSubject<IWeight[]>([]);
-	public weightSettings: BehaviorSubject<IWeightSettings> = new BehaviorSubject<IWeightSettings>({});
 	constructor(
 		private storageService: StorageService,
 	) {
 	}
 
 	public storageListKey = 'weight-list';
-	public storageSettingsKey = 'weight-settings';
-
-	public getSettings(): Promise<IWeightSettings> {
-		return this.storageService.getObject(this.storageSettingsKey);
-	}
-
-	public setSettings(settings: IWeightSettings): Promise<void> {
-		this.weightSettings.next(settings);
-		return this.storageService.setObject(this.storageSettingsKey, settings);
-	}
 
 	public addWeight(data: IWeight): Promise<void> {
 		return this.storageService.getObject(this.storageListKey).then((weights: IWeight[] = []) => {
@@ -75,11 +65,9 @@ export class WeightService {
 
 	public init() {
 		const weightListPromise = this.storageService.getObject(this.storageListKey);
-		const weightSettingsPromise = this.storageService.getObject(this.storageSettingsKey);
-		Promise.all([ weightListPromise, weightSettingsPromise]).then((result: [ IWeight[], IWeightSettings]) => {
-			const [ weightList, weightSettings] = result;
+		Promise.all([ weightListPromise]).then((result: [ IWeight[]]) => {
+			const [ weightList] = result;
 			this.weightList.next(weightList);
-			this.weightSettings.next(weightSettings);
 		});
 	}
 	private fixDiffs(data: IWeight[]): IWeight[] {
@@ -94,11 +82,45 @@ export class WeightService {
 		});
 		return  data.map((item, index, array) => {
 			if (index >= 1) {
-				item.diff = item.weight - array[index - 1].weight;
+				item.diff = Math.round(item.weight - array[index - 1].weight);
 			}
 			return item;
 		});
 	}
+
+	public getIMT(currentGrowth: number, currentWeight: number): IIMT {
+		const imtValue =  Math.round(currentWeight / ((currentGrowth / 100) * (currentGrowth / 100)));
+		let imtCategory = IMTCategoryEnum.NORM;
+		let imtDescription = 'Нормальный вес';
+		if (imtValue < 16.5) {
+			imtCategory = IMTCategoryEnum.MINIMAL;
+			imtDescription = 'Крайний недостаток веса';
+		} else if (imtValue >= 16.5 && imtValue <= 18.4) {
+			imtCategory = IMTCategoryEnum.LOW;
+			imtDescription = 'Недостаток в весе';
+		} else if (imtValue >= 18.5 && imtValue <= 24.9) {
+			imtCategory = IMTCategoryEnum.NORM;
+			imtDescription = 'Нормальный вес';
+		} else if (imtValue >= 25 && imtValue <= 30) {
+			imtCategory = IMTCategoryEnum.HEIGHT;
+			imtDescription = 'Избыточная масса тела';
+		} else if (imtValue => 30.1 && imtValue <= 34.9) {
+			imtCategory = IMTCategoryEnum.OBESITY_ONE;
+			imtDescription = 'Ожирение (Класс I)';
+		} else if (imtValue => 35 && imtValue < 40) {
+			imtCategory = IMTCategoryEnum.OBESITY_TWO;
+			imtDescription = 'Ожирение (Класс II - тяжелое)';
+		} else if (imtValue => 40 ){
+			imtCategory = IMTCategoryEnum.OBESITY_THREE;
+			imtDescription = 'Ожирение (Класс III - крайне тяжелое)';
+		}
+		return  {
+			value: imtValue,
+			category: imtCategory,
+			description: imtDescription,
+		};
+	}
+
 	public getNormWeight(age: number, growth: number, sex: SexEnum): number {
 	    if (growth < 150 && growth >= 148 ) {
 				switch (sex) {

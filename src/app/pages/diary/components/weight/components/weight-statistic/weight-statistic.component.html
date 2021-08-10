@@ -1,67 +1,102 @@
-<ion-content [fullscreen]="true" class="weight-statistic">
-  <ion-header class="weight-statistic-header">
-    <h3> Статистика </h3>
-  </ion-header>
-  <div class="weight-statistic-content">
-    <div class="weight-statistic-content_item">
-      <div class="weight-statistic-content_item-title">Тенденция</div>
-      <mat-divider></mat-divider>
-      <div class="weight-statistic-content_item-content">
-        <div class="weight-statistic-content_item-content-field">
-          <div>Динамика за посл. 7 дней:</div>
-          <div> {{ dynamic7days}} kg</div>
-        </div>
-        <div class="weight-statistic-content_item-content-field">
-          <div>Динамика за посл. 30 дней: </div>
-          <div> {{ dynamic30days}} kg</div>
-        </div>
-      </div>
-    </div>
-    <div class="weight-statistic-content_item">
-      <div class="weight-statistic-content_item-title">ИМТ</div>
-      <mat-divider></mat-divider>
-      <div class="weight-statistic-content_item-content">
-        <div class="weight-statistic-content_item-content-field">
-          <div>Категория: </div>
-          <div>{{ imtCategory }}</div>
-        </div>
-      </div>
-    </div>
-    <div class="weight-statistic-content_item">
-      <div class="weight-statistic-content_item-title">Прогресс</div>
-      <mat-divider></mat-divider>
-      <div class="weight-statistic-content_item-content">
-        <div class="weight-statistic-content_item-content-field">
-          <div>Среднее изменение за неделю: </div>
-          <div>{{ progress7days}} kg</div>
-        </div>
-        <div class="weight-statistic-content_item-content-field">
-          <div>Среднее изменение за месяц: </div>
-          <div>{{ progress30days}} kg</div>
-        </div>
-      </div>
-    </div>
-    <div class="weight-statistic-content_item">
-      <div class="weight-statistic-content_item-title">В среднем</div>
-      <mat-divider></mat-divider>
-      <div class="weight-statistic-content_item-content">
-        <div class="weight-statistic-content_item-content-field">
-          <div>Средний: </div>
-          <div>{{ middleWeight}} kg</div>
-        </div>
-        <div class="weight-statistic-content_item-content-field">
-          <div>Рекорд (максимум): </div>
-          <div>{{ recordMax}} kg</div>
-        </div>
-        <div class="weight-statistic-content_item-content-field">
-          <div>Рекорд (минимум): </div>
-          <div>{{ recordMin}} kg</div>
-        </div>
-      </div>
-    </div>
+<div class="weight-statistic">
+  <div class="weight-statistic-new-item">
+    <button mat-fab color="primary" (click)="newWeightAction()">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
   </div>
+  <ion-content [fullscreen]="true" class="weight-statistic">
+    <div class="weight-statistic-header">
+      <div class="weight-statistic-header_row">
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Начальный</div>
+          <div class="weight-statistic-header_item-value">{{ lastWeight?.weight }} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Текущий</div>
+          <div class="weight-statistic-header_item-value">{{ firstWeight?.weight }} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Цель</div>
+          <div class="weight-statistic-header_item-value">{{ appSettings?.plannedWeight }} кг</div>
+        </div>
+      </div>
+      <div class="weight-statistic-header_row">
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Изменения</div>
+          <div class="weight-statistic-header_item-value">{{ firstWeight?.diff | number: '1.0-0'}} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Максимальный</div>
+          <div class="weight-statistic-header_item-value">{{ recordMax}} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Осталось</div>
+          <div class="weight-statistic-header_item-value">
+            <div *ngIf="appSettings?.plannedWeight && firstWeight?.weight" [style.color]="appSettings?.plannedWeight - firstWeight?.weight > 0 ? 'red' : 'green' ">
+              {{ appSettings?.plannedWeight - firstWeight?.weight | number: '1.0-0'}} кг
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="weight-statistic-header">
+      <div class="weight-statistic-header_row">
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Средний вес</div>
+          <div class="weight-statistic-header_item-value">{{ middleWeight}} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Рекорд (макс)</div>
+          <div class="weight-statistic-header_item-value">{{ recordMax }} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">Рекорд (мин)</div>
+          <div class="weight-statistic-header_item-value">{{ recordMin}} кг</div>
+        </div>
+      </div>
+    </div>
 
-  <ion-footer class="weight-statistic-footer">
+    <div class="weight-statistic-header">
+      <div class="weight-statistic-header_row-title">
+        <div>Динамика</div>
+      </div>
+      <div class="weight-statistic-header_row">
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 7 дней</div>
+          <div class="weight-statistic-header_item-value">{{ dynamic7days}} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 30 дней</div>
+          <div class="weight-statistic-header_item-value">{{ dynamic30days }} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 90 дней</div>
+          <div class="weight-statistic-header_item-value">{{ dynamic90days}} кг</div>
+        </div>
+      </div>
+    </div>
 
-  </ion-footer>
-</ion-content>
+    <div class="weight-statistic-header">
+      <div class="weight-statistic-header_row-title">
+        <div>Прогресс</div>
+      </div>
+      <div class="weight-statistic-header_row">
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 7 дней</div>
+          <div class="weight-statistic-header_item-value">{{ progress7days}} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 30 дней</div>
+          <div class="weight-statistic-header_item-value">{{ progress30days }} кг</div>
+        </div>
+        <div class="weight-statistic-header_item">
+          <div class="weight-statistic-header_item-name">за посл. 90 дней</div>
+          <div class="weight-statistic-header_item-value">{{ progress90days}} кг</div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</div>
+

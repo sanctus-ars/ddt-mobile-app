@@ -1,74 +1,84 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
 import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { WeightItemDialogComponent } from 'src/app/pages/diary/components/weight/components/weight-item-dialog/weight-item-dialog.component';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
+import * as moment from 'moment';
+import { WeightHistoryModel } from 'src/app/pages/diary/components/weight/models/weight-history.model';
+import { Router } from '@angular/router';
 
+interface IWeightHistorySortedMonths {
+	month: number;
+	items: WeightHistoryModel[];
+}
+interface IWeightHistorySorted {
+	year: number;
+	months: IWeightHistorySortedMonths[];
+}
 @Component({
 	selector: 'app-weight-history',
 	templateUrl: './weight-history.component.html',
 	styleUrls: ['./weight-history.component.scss'],
 })
-export class WeightHistoryComponent extends BaseComponent implements OnInit, AfterViewInit {
-	public dataSource: MatTableDataSource<IWeight>;
-	public displayedColumns: string[] = ['date', 'weight', 'diff', 'icon'];
-
-	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
+export class WeightHistoryComponent extends BaseComponent implements OnInit {
+	public dataList: IWeightHistorySorted[];
 
 	constructor(
 		private cd: ChangeDetectorRef,
+		private router: Router,
 		private dialog: MatDialog,
 		private toastService: ToastService,
 		private weightService: WeightService,
 	) {
 		super(cd);
-
-		this.dataSource = new MatTableDataSource([]);
-	}
-
-	ngAfterViewInit() {
-		this.dataSource.sort = this.sort;
-		this.dataSource.paginator = this.paginator;
-	}
-
-	public clickByRowAction(row) {
-		const dialogRef = this.dialog.open(WeightItemDialogComponent, {
-			width: '100%',
-			height: '100%',
-			data: {
-				mode: PopupModeEnum.edit,
-				item: row,
-			}
-		});
-
-		this.subscriptions.add([
-			dialogRef.afterClosed().subscribe((result: any) => {
-				if (result && result.mode === PopupModeEnum.edit) {
-					this.editWeight(result.item);
-				} else if (result && result.mode === PopupModeEnum.remove) {
-					this.removeWeight(result.item.id);
-				}
-			})
-		])
 	}
 
 	ngOnInit() {
 		this.initData();
 	}
 
-	private editWeight(item: IWeight): void {
-		this.weightService.editWeight(item).then(() => {
-			this.initData();
-		}).catch(async (error) => {
-			await this.toastService.showError(error);
+	public newWeightDialogAction() {
+		this.router.navigate(['/pages/diary/weight/item', {
+			id: null,
+			diff: null,
+			date: null,
+			mode: PopupModeEnum.create,
+			weight: null,
+			comment: null,
+		}]);
+	}
+
+	public toggleSubMenu(item: WeightHistoryModel): void {
+		item.showSubMenu = !item.showSubMenu;
+		this.dataList = this.dataList.map((year) => {
+			year.months = year.months.map((month) => {
+				month.items = month.items.map((x) => {
+					if (x.id !== item.id) {
+						x.showSubMenu = false;
+					}
+					return x;
+				});
+				return month;
+			});
+			return year;
 		});
+	}
+
+	public removeWeightAction(item: IWeight): void {
+		this.removeWeight(item.id);
+	}
+
+	public editWeightDialogAction(row: WeightHistoryModel) {
+		this.router.navigate(['/pages/diary/weight/item', {
+			id: row.id,
+			diff: row.diff,
+			date: row.date,
+			mode: PopupModeEnum.edit,
+			weight: row.weight,
+			comment: row.comment,
+		}]);
 	}
 
 	private removeWeight(id: string): void {
@@ -82,8 +92,46 @@ export class WeightHistoryComponent extends BaseComponent implements OnInit, Aft
 	private initData(): void {
 		this.subscriptions.add([
 				this.weightService.weightList.subscribe((list: IWeight[]) => {
-					this.dataSource = new MatTableDataSource(list);
+					const weightData = this.sortWeightByDate(list).map((x) => WeightHistoryModel.create(x));
+					const resultData = [];
+					weightData.forEach((x) => {
+						const dateYear = moment(x.date).year();
+						const dateMonth = moment(x.date).lang('ru').format('MMMM');
+						const ifYearExist = resultData.find((item) => item.year === dateYear);
+						if (ifYearExist) {
+							const ifMonthExist = ifYearExist.months.find((item) => item.month === dateMonth);
+							if (ifMonthExist) {
+								ifMonthExist.items.push(x);
+							} else {
+								ifYearExist.months.push({
+									month: dateMonth,
+									items: [x],
+								});
+							}
+						} else {
+							resultData.push({
+								year: dateYear,
+								months: [{
+									month: dateMonth,
+									items: [x],
+								}]
+							});
+						}
+						this.dataList = resultData;
+					});
 				}),
 		]);
+	}
+
+	private sortWeightByDate(weightList: IWeight[]): IWeight[] {
+		return weightList.sort((item, pres) => {
+			if (moment(item.date) <= moment(pres.date)) {
+				return 1;
+			} else if (moment(item.date) >= moment(pres.date)) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
 	}
 }

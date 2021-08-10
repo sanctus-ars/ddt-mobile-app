@@ -4,7 +4,7 @@
 
 .main-menu-content::part(background) {
     border-radius: 10px !important;
-    background: #fff !important;
+    background: var(--theme-color-yellow-light-rgba) !important;
     top: -10px !important;
 }
 

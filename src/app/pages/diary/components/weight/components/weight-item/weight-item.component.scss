@@ -1,4 +1,10 @@
-.weight-item-dialog {
+.weight-item {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  overflow: auto;
+  background: var(--theme-color-yellow-light-rgba);
+
   &_link {
     font-size: 12px;
     padding: 0 10px;
@@ -6,16 +12,27 @@
   &-footer_content {
     width: 100%;
   }
+
+
+
   &-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
+
     &_form-field {
       width: 100%;
+      height: 100%;
       padding: 0 10px
     }
+  }
+
+  &_content {
+    --offset-top: 0px !important;
+    --offset-bottom: 0px !important;
+    background: var(--theme-color-yellow-light-rgba);
   }
 
   &-header {

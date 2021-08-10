@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" class="{{class}}" >
+<mat-form-field appearance="outline" [ngClass]="size" >
     <mat-label>{{ label }}</mat-label>
-    <textarea matInput placeholder="{{ placeholder }}" [formControl]="commentControl"></textarea>
+    <textarea matInput placeholder="{{ placeholder }}" [formControl]="control"></textarea>
 </mat-form-field>

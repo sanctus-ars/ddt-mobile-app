@@ -1,58 +1,52 @@
-<ion-content [fullscreen]="true">
 <div class="weight-research">
-  <div class="weight-research-header">
-    <div class="weight-research-header_initial">
-      <div>
-        <strong>Начальный</strong>
-      </div>
-      <div *ngIf="firstItem?.weight">
-        {{ firstItem?.weight }} kg
-      </div>
-    </div>
-    <div class="weight-research-header_current">
-      <div>
-        <strong>Текущий</strong>
-      </div>
-      <div>
-        <span class="color-blue" *ngIf="lastItem?.weight">
-          <strong>{{ lastItem?.weight}} kg</strong>
-        </span>
-      </div>
-    </div>
-    <div class="weight-research-header_target">
-      <div>
-        <strong>Цель</strong>
-      </div>
-      <div *ngIf="weightSettings?.plannedWeight">
-        {{ weightSettings?.plannedWeight }} kg
-      </div>
-    </div>
+  <div class="weight-research-new-item">
+    <button mat-fab color="primary" (click)="openDialog()">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
   </div>
-  <div class="weight-research-content">
-    <canvas #lineCanvas ></canvas>
-  </div>
-  <div class="weight-research-footer">
-    <div class="weight-research-footer_changes">
-      <div>
-        <strong>Изменения</strong>
+  <ion-content [fullscreen]="true">
+    <div class="weight-research">
+      <div class="weight-research-chart">
+        <div class="weight-research-chart_header" *ngIf="firstItem?.weight">
+          <div class="weight-research-chart_header-title">
+            Вес <span>(кг)</span>
+          </div>
+          <div class="weight-research-chart_header-value">
+            <strong>{{ firstItem?.weight}}</strong>
+          </div>
+        </div>
+        <div class="weight-research-chart_content">
+          <canvas #lineCanvas ></canvas>
+        </div>
       </div>
-      <div *ngIf="lastItem?.diff" [style.color]="lastItem?.diff > 0 ? 'red' : 'green' ">
-        {{ lastItem?.diff }} kg
+      <div class="weight-research-imt">
+        <div class="weight-research-imt_header" *ngIf="imt">
+          <div class="weight-research-imt_header-title">
+            ИМТ <span>(кг/m2)</span>
+          </div>
+          <div class="weight-research-imt_header-value">
+            <strong>{{ imt.value }}</strong>
+          </div>
+        </div>
+        <div class="weight-research-imt_content">
+          <div class="weight-research-imt_content-chart">
+            <div class="weight-research-imt_content-chart-item minimal"></div>
+            <div class="weight-research-imt_content-chart-item low" [ngClass]="{'opacity': !(imt.value >= 16.5), 'marker': imt.value  >= 16.5 && imt.value  <= 18.4  }"></div>
+            <div class="weight-research-imt_content-chart-item norm" [ngClass]="{'opacity': !(imt.value >= 18.5), 'marker': imt.value  >= 18.5 && imt.value  <= 24.9  }"></div>
+            <div class="weight-research-imt_content-chart-item height" [ngClass]="{'opacity': !(imt.value >= 25), 'marker': imt.value  >= 25 && imt.value  <= 30  }"></div>
+            <div class="weight-research-imt_content-chart-item obesity_one" [ngClass]="{'opacity': !(imt.value >= 30.1), 'marker': imt.value  >= 30.1 && imt.value  <= 34.9  }"></div>
+            <div class="weight-research-imt_content-chart-item obesity_two" [ngClass]="{'opacity': !(imt.value >= 35), 'marker': imt.value  >= 35  }"></div>
+          </div>
+          <div class="weight-research-imt_content-description">
+            <div class="weight-research-imt_content-description-circle"
+                 [ngClass]="{
+              'minimal': imt.category === imtCategory.MINIMAL,  'low': imt.category === imtCategory.LOW, 'norm': imt.category === imtCategory.NORM, 'height': imt.category === imtCategory.HEIGHT, 'obesity_one': imt.category === imtCategory.OBESITY_ONE, 'obesity_two': imt.category === imtCategory.OBESITY_TWO, 'obesity_three': imt.category === imtCategory.OBESITY_THREE
+            }"></div>
+            <div>{{ imt.description }}</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="weight-research-footer_new">
-      <button mat-fab color="primary" (click)="openDialog()">
-        <fa-icon icon="plus"></fa-icon>
-      </button>
-    </div>
-    <div class="weight-research-footer_stock">
-      <div>
-        <strong>Осталось</strong>
-      </div>
-      <div *ngIf="weightSettings?.plannedWeight && lastItem?.weight" [style.color]="weightSettings?.plannedWeight - lastItem?.weight > 0 ? 'red' : 'green' ">
-        {{ weightSettings?.plannedWeight - lastItem?.weight}} kg
-      </div>
-    </div>
-  </div>
+  </ion-content>
 </div>
-</ion-content>
+

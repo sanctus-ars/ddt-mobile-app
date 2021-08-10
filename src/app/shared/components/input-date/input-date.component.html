@@ -1,6 +1,7 @@
 <mat-form-field appearance="outline" [ngClass]="class">
-    <mat-label>Дата</mat-label>
-    <input matInput [matDatepicker]="datepicker" [formControl]="dateControl">
+    <mat-label>{{ label }}</mat-label>
+    <input [required]="required" matInput [matDatepicker]="datepicker" [formControl]="control">
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker #datepicker></mat-datepicker>
+    <div *ngIf="control.errors?.required" class="error">Поле обязательное</div>
 </mat-form-field>

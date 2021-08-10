@@ -14,7 +14,6 @@ import { WeightResearchComponent } from 'src/app/pages/diary/components/weight/c
 import { BloodPressureResearchComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-research/blood-pressure-research.component';
 import { UrineResearchComponent } from 'src/app/pages/diary/components/urine/components/urine-research/urine-research.component';
 import { BodyTemperatureResearchComponent } from 'src/app/pages/diary/components/body-temperature/components/body-temperature-research/body-temperature-research.component';
-import { WeightSettingsComponent } from 'src/app/pages/diary/components/weight/components/weight-settings/weight-settings.component';
 import { WeightStatisticComponent } from 'src/app/pages/diary/components/weight/components/weight-statistic/weight-statistic.component';
 import { PillsComponent } from 'src/app/pages/pills/pills.component';
 import { PillsResearchComponent } from 'src/app/pages/pills/components/pills-research/pills-research.component';
@@ -33,6 +32,7 @@ import { UrineRegistryComponent } from 'src/app/pages/diary/components/urine/com
 import { UrineStatisticComponent } from 'src/app/pages/diary/components/urine/components/urine-statistic/urine-statistic.component';
 import { PillsNewItemComponent } from 'src/app/pages/pills/components/pills-new-item/pills-new-item.component';
 import { AboutComponent } from 'src/app/pages/about/about.component';
+import { WeightItemComponent } from 'src/app/pages/diary/components/weight/components/weight-item/weight-item.component';
 
 const routes: Routes = [
 		{
@@ -48,16 +48,16 @@ const routes: Routes = [
 								component: WeightComponent,
 								children: [
 									{
+										path: 'item',
+										component: WeightItemComponent,
+									},
+									{
 										path: 'research',
 										component: WeightResearchComponent,
 									},
 									{
 										path: 'history',
 										component: WeightHistoryComponent
-									},
-									{
-										path: 'settings',
-										component: WeightSettingsComponent,
 									},
 									{
 										path: 'statistic',
