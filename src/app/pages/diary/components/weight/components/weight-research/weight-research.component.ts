@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartDataSets, ChartType } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
 import { IWeight } from 'src/app/pages/diary/components/weight/interfaces/weight.interface';
 import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
@@ -29,6 +29,17 @@ export class WeightResearchComponent extends BaseComponent implements AfterViewI
 	public normWeight = 0;
 	public weightData: IWeight[] = [];
 	public appSettings: ISettings;
+
+	public chartType: ChartType = 'bar';
+	public chartLabels = [];
+	public chartData: ChartDataSets[] = [];
+	public chartColors = [
+		{
+			borderColor: 'rgba(2, 136, 209, 0.4)',
+			backgroundColor: 'rgba(255,0,0,0)',
+			pointBorderColor: 'rgba(2, 136, 209, 0.4)',
+		}
+	];
 
 	@ViewChild('lineCanvas') private lineCanvas: ElementRef;
 
@@ -61,16 +72,21 @@ export class WeightResearchComponent extends BaseComponent implements AfterViewI
 					const userAge = Number.parseInt(dateAfterTransplantation.format('YYYY')) - 1970;
 					this.normWeight = this.weightService.getNormWeight(userAge, appSettings.growth, appSettings.sex);
 					this.appSettings = appSettings;
-					this.lineChartMethod();
-
+				} else {
+					this.toastService.showError('Настройки приложения не заполнены. Некоторые функции могут работать не правильно.');
 				}
 				if (weightList && weightList.length) {
 					const weights = this.sortWeightByDate(weightList);
 					this.lastItem = weights[weights.length - 1];
 					this.firstItem = weights[0];
 					this.weightData = weights;
-					this.lineChartMethod();
+				} else {
+					this.lastItem = null;
+					this.firstItem = null;
+					this.weightData = [];
 				}
+
+				this.lineChartMethod();
 
 				if (appSettings && appSettings.growth && weightList && weightList[weightList.length - 1]) {
 					this.imt = this.weightService.getIMT(appSettings.growth, weightList[weightList.length - 1].weight);
@@ -78,7 +94,7 @@ export class WeightResearchComponent extends BaseComponent implements AfterViewI
 			}),
 		]);
 	}
-	openDialog() {
+	createWeightItemAction() {
 		this.router.navigate(['/pages/diary/weight/item', {
 			id: null,
 			diff: null,
@@ -92,23 +108,12 @@ export class WeightResearchComponent extends BaseComponent implements AfterViewI
 	lineChartMethod() {
 		const dateArray = this.weightData.map((x) => moment(x.date).format('YYYY-MM-DD'));
 		const weightArray = this.weightData.map((x) => x.weight);
-
-		this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-			type: 'bar',
-			data: {
-				labels: [...dateArray],
-				datasets: [
-          {
-            label: 'Вес',
-            data: [ ...weightArray ],
-						fill: false,
-						borderColor: 'rgba(2, 136, 209, 0.4)',
-						pointBorderColor: 'rgba(2, 136, 209, 0.4)',
-            type: 'line',
-          },
-				]
-			}
-		});
+		this.chartLabels = [...dateArray];
+		this.chartData = [{
+			label: 'Вес',
+			data: [...weightArray ],
+			type: 'line',
+		}];
 	}
 
 	private sortWeightByDate(weightList: IWeight[]): IWeight[] {

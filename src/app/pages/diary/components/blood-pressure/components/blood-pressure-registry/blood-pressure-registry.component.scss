@@ -1,4 +1,133 @@
-table {
+.app-blood-pressure-registry {
   width: 100%;
   height: 100%;
+  padding: 0 0 70px 0;
+  overflow: auto;
+  background: var(--theme-color-yellow-light-rgba);
+
+  &_date {
+    padding: 7px 20px;
+    width: 100px;
+    color: #FFFFFF;
+    margin: 25px 16px;
+    background: linear-gradient(0deg, #FFC269, #FFC269), linear-gradient(144.03deg, #FFFFFF 50%, rgba(255, 255, 255, 0) 82.87%);
+    border-radius: 14px;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  &-new-item {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    button {
+      background: #B71C1C;
+    }
+  }
+
+  &_item {
+    padding: 17px 13px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 8px 16px;
+    background: var(--theme-color-white-hex);
+    box-shadow: 0px 1px 4px var(--theme-color-red-50-rgba);
+    border-radius: 8px;
+
+    &-row {
+      display: flex;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    &-comment {
+      width: 100%;
+      text-align: left;
+      padding: 10px 0;
+      color: rgba(113, 79, 79, 0.4);
+    }
+
+    &-actions {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: 10px 0;
+
+      button {
+        width: 50%;
+      }
+
+      button:first-child {
+        margin-right: 10px;
+      }
+
+      &-edit {
+        background: rgba(183, 28, 28, 0.8);
+        color: #fff;
+        border-radius: 8px;
+      }
+
+      &-remove {
+        box-shadow: 0px 1px 4px rgba(183, 28, 28, 0.25);
+        border-radius: 8px;
+        border: 2px solid  rgba(183, 28, 28, 0.8);
+        color: rgba(183, 28, 28, 0.8)
+      }
+    }
+
+    &-date {
+      width: 30%;
+      color: rgba(113, 79, 79, 0.74);
+      font-size: 14px;
+      font-weight: bold;
+    }
+    &-weight {
+      width: 30%;
+      font-size: 18px;
+      color: rgba(255, 194, 105, 1);
+      font-weight: bold;
+    }
+    &-diff {
+      width: 30%;
+
+      &-icon {
+        color: var(--theme-color-orange-rgba);
+      }
+      &-value {
+        font-size: 18px;
+        color: rgba(255, 194, 105, 1);
+        font-weight: bold;
+      }
+    }
+    &-menu {
+      width: 10%;
+      text-align: right;
+      position: relative;
+
+      &-sub {
+        position: absolute;
+        right: 5px;
+        background: var(--theme-color-yellow-light-rgba);
+        border-radius: 5px;
+        text-align: center;
+        padding: 5px;
+
+        button {
+          width: 100%;
+          margin: 5px 0;
+        }
+      }
+
+      &-button {
+        background: none;
+        color: #B71C1C;
+        opacity: 0.5;
+      }
+    }
+  }
 }

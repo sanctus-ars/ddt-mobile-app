@@ -1,3 +1,28 @@
+.weight-research_content-empty {
+  display: flex;
+  align-items: center;
+  padding-top: 50px;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+  &-button {
+    margin: 20px 0;
+
+    button {
+      width: 270px;
+      height: 32px;
+      background: linear-gradient(0deg, rgba(255, 243, 224, 0.8), rgba(255, 243, 224, 0.8)), #FFFFFF;
+      /* Toolbars/text/red */
+      color: rgba(113, 79, 79, 0.74);
+      font-size: 12px;
+      border: 1px solid #B71C1C;
+      box-sizing: border-box;
+      border-radius: 28px;
+    }
+  }
+}
+
 .weight-research {
   position: relative;
   width: 100%;
@@ -141,10 +166,6 @@
         font-size: 18px;
         font-weight: bold;
       }
-    }
-
-    &_content {
-
     }
   }
 }

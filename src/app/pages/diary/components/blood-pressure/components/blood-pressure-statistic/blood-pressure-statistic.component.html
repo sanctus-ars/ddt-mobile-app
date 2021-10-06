@@ -1,43 +1,25 @@
-<ion-content [fullscreen]="true" class="blood-pressure-statistic">
-    <ion-header class="blood-pressure-statistic-header">
-        <h3> Статистика </h3>
-    </ion-header>
-    <div class="blood-pressure-statistic-content">
-        <div class="blood-pressure-statistic-content_item">
-            <div class="blood-pressure-statistic-content_item-title">Тенденция</div>
-            <mat-divider></mat-divider>
-            <div class="blood-pressure-statistic-content_item-content">
-                <div class="blood-pressure-statistic-content_item-content-field">
-                    <div>Динамика за посл. 7 дней:</div>
-                    <div><span style="color: {{ dynamic7days > 0 ? 'green' : 'red' }}">{{ dynamic7days}}</span></div>
-                </div>
-                <div class="blood-pressure-statistic-content_item-content-field">
-                    <div>Динамика за посл. 30 дней: </div>
-                    <div><span style="color: {{ dynamic7days > 0 ? 'green' : 'red' }}">{{ dynamic30days}}</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="blood-pressure-statistic-content_item">
-            <div class="blood-pressure-statistic-content_item-title">В среднем</div>
-            <mat-divider></mat-divider>
-            <div class="blood-pressure-statistic-content_item-content">
-                <div class="blood-pressure-statistic-content_item-content-field">
-                    <div>Средний: </div>
-                    <div>{{ middleWeight}}</div>
-                </div>
-                <div class="blood-pressure-statistic-content_item-content-field">
-                    <div>Рекорд (максимум): </div>
-                    <div>{{ recordMax}}</div>
-                </div>
-                <div class="blood-pressure-statistic-content_item-content-field">
-                    <div>Рекорд (минимум): </div>
-                    <div>{{ recordMin}}</div>
-                </div>
-            </div>
-        </div>
+<div class="blood-pressure-statistic">
+    <div class="blood-pressure-statistic-new-item">
+        <button mat-fab color="primary" (click)="newItemAction()">
+            <fa-icon icon="plus"></fa-icon>
+        </button>
     </div>
-
-    <ion-footer class="blood-pressure-statistic-footer">
-
-    </ion-footer>
-</ion-content>
+    <ion-content [fullscreen]="true" class="blood-pressure-statistic">
+        <div class="blood-pressure-statistic-header">
+            <div class="blood-pressure-statistic-header_row">
+                <div class="blood-pressure-statistic-header_item">
+                    <div class="blood-pressure-statistic-header_item-name">Среднее давление</div>
+                    <div class="blood-pressure-statistic-header_item-value">{{ middleItem.bloodPressureSystolic}} / {{ middleItem.bloodPressureDiastolic}} </div>
+                </div>
+                <div class="blood-pressure-statistic-header_item">
+                    <div class="blood-pressure-statistic-header_item-name">Рекорд (макс)</div>
+                    <div class="blood-pressure-statistic-header_item-value">{{ recordMax }}</div>
+                </div>
+                <div class="blood-pressure-statistic-header_item">
+                    <div class="blood-pressure-statistic-header_item-name">Рекорд (мин)</div>
+                    <div class="blood-pressure-statistic-header_item-value">{{ recordMin}}</div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

@@ -28,6 +28,8 @@ export class WeightService {
 				if (weights.length >= 1) {
 					const lastItem: IWeight = weights[weights.length - 1];
 					data.diff = data.weight - lastItem.weight;
+				} else {
+					data.diff = 0;
 				}
 				result = [...weights, data];
 			} else {

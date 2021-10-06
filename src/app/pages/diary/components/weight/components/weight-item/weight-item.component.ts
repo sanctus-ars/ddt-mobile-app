@@ -99,8 +99,9 @@ export class WeightItemComponent implements OnInit {
 			});
 	}
 
-	public removeAction(): void {
-		this.location.back();
+	public async removeAction() {
+		const item = this.weightFormGroup.value;
+		await this.removeWeight(item.id);
 	}
 
 	private initForm(): void {

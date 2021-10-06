@@ -33,6 +33,7 @@ import { UrineStatisticComponent } from 'src/app/pages/diary/components/urine/co
 import { PillsNewItemComponent } from 'src/app/pages/pills/components/pills-new-item/pills-new-item.component';
 import { AboutComponent } from 'src/app/pages/about/about.component';
 import { WeightItemComponent } from 'src/app/pages/diary/components/weight/components/weight-item/weight-item.component';
+import { BloodPressureItemComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-item/blood-pressure-item.component';
 
 const routes: Routes = [
 		{
@@ -74,6 +75,10 @@ const routes: Routes = [
 								path: 'blood-pressure',
 								component: BloodPressureComponent,
 								children: [
+									{
+										path: 'item',
+										component: BloodPressureItemComponent,
+									},
 									{
 										path: 'research',
 										component: BloodPressureResearchComponent,

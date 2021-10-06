@@ -9,4 +9,5 @@ export class ISettings {
 	public plannedWeight?: number;
 	public transplantDate?: string;
 	public transplantOrgan?: TransplantOrgansEnum;
+	public isTransplantation?: boolean;
 }

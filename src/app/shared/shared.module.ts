@@ -46,6 +46,8 @@ import { InputWellBeingComponent } from 'src/app/shared/components/input-well-be
 import { InputTimeComponent } from 'src/app/shared/components/input-time/input-time.component';
 import { InputTextComponent } from 'src/app/shared/components/input-text/input-text.component';
 import { InputSelectComponent } from 'src/app/shared/components/input-select/input-select.component';
+import { ChartsModule } from 'ng2-charts';
+import { InputCheckboxComponent } from 'src/app/shared/components/input-checkbox/input-checkbox.component';
 
 const declarations = [
 	CommentComponent,
@@ -54,11 +56,13 @@ const declarations = [
 	InputDateComponent,
 	InputSelectComponent,
 	InputNumberComponent,
+	InputCheckboxComponent,
 	DialogButtonsComponent,
 	InputWellBeingComponent,
 ];
 
 const modules = [
+	ChartsModule,
 	ReactiveFormsModule,
 	MatDatepickerModule,
 	FontAwesomeModule,

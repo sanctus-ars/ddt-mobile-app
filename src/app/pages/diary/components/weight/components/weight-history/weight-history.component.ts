@@ -94,31 +94,35 @@ export class WeightHistoryComponent extends BaseComponent implements OnInit {
 				this.weightService.weightList.subscribe((list: IWeight[]) => {
 					const weightData = this.sortWeightByDate(list).map((x) => WeightHistoryModel.create(x));
 					const resultData = [];
-					weightData.forEach((x) => {
-						const dateYear = moment(x.date).year();
-						const dateMonth = moment(x.date).lang('ru').format('MMMM');
-						const ifYearExist = resultData.find((item) => item.year === dateYear);
-						if (ifYearExist) {
-							const ifMonthExist = ifYearExist.months.find((item) => item.month === dateMonth);
-							if (ifMonthExist) {
-								ifMonthExist.items.push(x);
+					if (weightData.length) {
+						weightData.forEach((x) => {
+							const dateYear = moment(x.date).year();
+							const dateMonth = moment(x.date).lang('ru').format('MMMM');
+							const ifYearExist = resultData.find((item) => item.year === dateYear);
+							if (ifYearExist) {
+								const ifMonthExist = ifYearExist.months.find((item) => item.month === dateMonth);
+								if (ifMonthExist) {
+									ifMonthExist.items.push(x);
+								} else {
+									ifYearExist.months.push({
+										month: dateMonth,
+										items: [x],
+									});
+								}
 							} else {
-								ifYearExist.months.push({
-									month: dateMonth,
-									items: [x],
+								resultData.push({
+									year: dateYear,
+									months: [{
+										month: dateMonth,
+										items: [x],
+									}]
 								});
 							}
-						} else {
-							resultData.push({
-								year: dateYear,
-								months: [{
-									month: dateMonth,
-									items: [x],
-								}]
-							});
-						}
-						this.dataList = resultData;
-					});
+							this.dataList = resultData;
+						});
+					} else {
+						this.dataList = [];
+					}
 				}),
 		]);
 	}

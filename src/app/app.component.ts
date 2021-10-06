@@ -3,14 +3,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from '@ngx-translate/core';
-import { LanguagesShortEnum } from 'src/app/shared/enum/languages-short.enum';
 import { Router } from '@angular/router';
 import { SettingsService } from 'src/app/pages/settings/services/settings.service';
 import * as moment from 'moment';
 import { ISettings } from 'src/app/pages/settings/interfaces/settings.interface';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
-import { SettingsDialogComponent } from 'src/app/pages/settings/components/settings-dialog/settings-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { WeightService } from 'src/app/pages/diary/components/weight/services/weight.service';
 import { PillsService } from 'src/app/pages/pills/services/pills.service';
@@ -36,11 +33,11 @@ export class AppComponent extends BaseComponent implements OnInit {
 			url: 'pills',
 			icon: 'pills',
 		},
-		{
+/*		{
 			title: 'Визиты к врачу',
 			url: 'doctors',
 			icon: 'user-nurse',
-		},
+		},*/
 		{
 			title: 'Дневник',
 			url: 'diary',
@@ -74,11 +71,11 @@ export class AppComponent extends BaseComponent implements OnInit {
 				},
 			]
 		},
-		{
+	/*	{
 			title: 'Результаты анализов',
 			url: 'tests',
 			icon: 'bacterium',
-		},
+		},*/
 		{
 			title: 'Настройки',
 			url: 'pages/settings',
@@ -145,7 +142,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 						const afterTransplantationMonth = Number.parseInt(dateAfterTransplantation.format('MM'));
 						this.afterTransplantationText = this.getAfterTransplantationText(afterTransplantationYear, afterTransplantationMonth);
 					} else {
-						this.showInitDialog();
+						this.router.navigateByUrl('pages/settings');
 					}
 			}),
 		]);
@@ -165,19 +162,6 @@ export class AppComponent extends BaseComponent implements OnInit {
 				this.router.navigateByUrl(this.appPages[index].url);
 				this.selectedIndex = index;
 			}
-	}
-
-	private showInitDialog() {
-		const dialogRef = this.dialog.open(SettingsDialogComponent, {
-			width: '100%',
-			height: '100%'
-		});
-
-		this.subscriptions.add([
-			dialogRef.afterClosed().subscribe(result => {
-				console.log(`Dialog result: ${result}`);
-			}),
-		]);
 	}
 
 	private getAfterTransplantationText(yearNumber: number, monthNumber: number): string {

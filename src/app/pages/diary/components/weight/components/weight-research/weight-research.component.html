@@ -1,11 +1,19 @@
 <div class="weight-research">
-  <div class="weight-research-new-item">
-    <button mat-fab color="primary" (click)="openDialog()">
+  <div class="weight-research-new-item" *ngIf="weightData.length !== 0">
+    <button mat-fab color="primary" (click)="createWeightItemAction()">
       <fa-icon icon="plus"></fa-icon>
     </button>
   </div>
   <ion-content [fullscreen]="true">
-    <div class="weight-research">
+    <div *ngIf="weightData.length === 0" class="weight-research_content-empty">
+      <img src="assets/icon/blood-pressure-empty.png" alt="Журнал давления пуст"/>
+      <div class="weight-research_content-empty-button">
+        <button (click)="createWeightItemAction()">
+          Добавить первое измерение
+        </button>
+      </div>
+    </div>
+    <div class="weight-research" *ngIf="weightData.length !== 0">
       <div class="weight-research-chart">
         <div class="weight-research-chart_header" *ngIf="firstItem?.weight">
           <div class="weight-research-chart_header-title">
@@ -16,10 +24,16 @@
           </div>
         </div>
         <div class="weight-research-chart_content">
-          <canvas #lineCanvas ></canvas>
+          <canvas baseChart
+                  [colors]="chartColors"
+                  [datasets]="chartData"
+                  [labels]="chartLabels"
+                  [chartType]="chartType"
+          >
+          </canvas>
         </div>
       </div>
-      <div class="weight-research-imt">
+      <div class="weight-research-imt" *ngIf="appSettings?.growth">
         <div class="weight-research-imt_header" *ngIf="imt">
           <div class="weight-research-imt_header-title">
             ИМТ <span>(кг/m2)</span>

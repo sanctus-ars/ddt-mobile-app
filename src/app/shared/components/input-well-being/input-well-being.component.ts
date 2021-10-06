@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class InputWellBeingComponent {
 	@Input() class: string;
-	@Input() wellBeingControl: FormControl = new FormControl();
+	@Input() control: FormControl = new FormControl();
 
 	public formatLabel(value: number) {
 		switch (value) {

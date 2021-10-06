@@ -6,11 +6,9 @@ import { IonicModule, IonicRouteStrategy, IonTabs } from '@ionic/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingsComponent } from 'src/app/pages/settings/settings.component';
-import { SettingsDialogComponent } from 'src/app/pages/settings/components/settings-dialog/settings-dialog.component';
 
 const declarations = [
 	SettingsComponent,
-	SettingsDialogComponent,
 ];
 @NgModule({
 	declarations: [

@@ -1,42 +1,57 @@
-<ion-content [fullscreen]="true">
-  <div class="blood-pressure-research">
-    <div class="blood-pressure-research-header">
-      <div class="blood-pressure-research-header_current" *ngIf="lastItem">
-        <div>
-          <strong>Текущее</strong>
-        </div>
-        <div>
-        <span class="color-blue">
-      <!--    <strong>{{ lastItem.temperature}}</strong>-->
-        </span>
-        </div>
-      </div>
-    </div>
-    <div class="blood-pressure-research-content">
-      <canvas #lineCanvas ></canvas>
-    </div>
-    <div class="blood-pressure-research-footer">
-      <div class="blood-pressure-research-footer_changes" *ngIf="lastItem">
-        <div>
-          <strong>Изменения</strong>
-        </div>
-        <div>
-<!--          {{ +(lastItem.temperature - 36.6).toFixed(2) }} &#176;-->
-        </div>
-      </div>
-      <div class="blood-pressure-research-footer_new">
-        <button mat-fab color="primary" (click)="openDialog()">
-          <mat-icon>add</mat-icon>
+<div class="blood-pressure-research">
+  <div class="blood-pressure-research-new-item" *ngIf="bloodPressureList.length !== 0">
+    <button mat-fab color="primary" (click)="createBloodPressureAction()">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
+  </div>
+  <ion-content [fullscreen]="true">
+    <div *ngIf="bloodPressureList.length === 0" class="blood-pressure-research_content-empty">
+      <img src="assets/icon/blood-pressure-empty.png" alt="Журнал давления пуст"/>
+      <div class="blood-pressure-research_content-empty-button">
+        <button (click)="createBloodPressureAction()">
+          Добавить первое измерение
         </button>
       </div>
-      <div class="blood-pressure-research-footer_stock">
-        <div>
-          <strong>Норма</strong>
+    </div>
+    <div *ngIf="bloodPressureList.length !== 0" class="blood-pressure-research_content-full">
+      <div class="blood-pressure-research_content-pressure">
+        <div class="blood-pressure-research_content-pressure-header" *ngIf="lastItem">
+          <div class="blood-pressure-research_content-pressure-header-title">
+            Давление
+          </div>
+          <div class="blood-pressure-research_content-pressure-header-value">
+            <strong>{{ lastItem?.bloodPressureDiastolic}} / {{ lastItem?.bloodPressureSystolic }}</strong>
+          </div>
         </div>
-        <div>
-        <!--  {{ normBodyTemperature }}-->
+        <div class="blood-pressure-research_content-pressure-chart">
+          <canvas baseChart
+                  [colors]="lineChartColors"
+                  [datasets]="lineChartPressureData"
+                  [labels]="lineChartLabels"
+                  [chartType]="lineChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="blood-pressure-research_content-pulse">
+        <div class="blood-pressure-research_content-pulse-header" *ngIf="lastItem">
+          <div class="blood-pressure-research_content-pulse-header-title">
+            Пульс <span>(уд/мин)</span>
+          </div>
+          <div class="blood-pressure-research_content-pulse-header-value">
+            <strong>{{ lastItem?.pulse}}</strong>
+          </div>
+        </div>
+        <div class="blood-pressure-research_content-pulse-chart">
+          <canvas baseChart
+                  [colors]="lineChartColors"
+                  [datasets]="lineChartPulseData"
+                  [labels]="lineChartLabels"
+                  [chartType]="lineChartType"
+          >
+          </canvas>
         </div>
       </div>
     </div>
-  </div>
-</ion-content>
+  </ion-content>
+</div>

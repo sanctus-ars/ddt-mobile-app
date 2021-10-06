@@ -1,8 +1,9 @@
 <div class="{{ class }}">
-    <mat-label>Ваше самочувствие:  <span>{{ wellBeingControl.value }} из 10 баллов</span></mat-label>
+    <mat-label>Ваше самочувствие:  <span>{{ control.value }} из 10 баллов</span></mat-label>
     <div>
         <mat-slider thumbLabel
-                    [formControl]="wellBeingControl"
+                    style="width: 100%;"
+                    [formControl]="control"
                     [displayWith]="formatLabel"
                     min="1"
                     max="10"

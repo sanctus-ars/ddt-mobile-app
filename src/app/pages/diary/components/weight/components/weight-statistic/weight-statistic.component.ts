@@ -46,7 +46,7 @@ export class WeightStatisticComponent extends BaseComponent implements OnInit {
 		this.initData();
 	}
 
-	public newWeightAction() {
+	public newItemAction() {
 		this.router.navigate(['/pages/diary/weight/item', {
 			id: null,
 			diff: null,

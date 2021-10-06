@@ -44,13 +44,19 @@
         ></app-input-date>
       </div>
       <div class="app-settings-content_form-field">
+        <app-input-checkbox
+                [label]="'После трансплантации'"
+                [control]="isTransplantationControl"
+        ></app-input-checkbox>
+      </div>
+      <div class="app-settings-content_form-field" *ngIf="isTransplantationControl.value">
         <app-input-select
                 label="Пересаженный орган"
                 [control]="transplantOrganControl"
                 [selectList]="transplantOrgan"
         ></app-input-select>
       </div>
-      <div class="app-settings-content_form-field">
+      <div class="app-settings-content_form-field"  *ngIf="isTransplantationControl.value">
         <app-input-date
                 class="app-settings-content_form-field"
                 label="Дата трансплантации"

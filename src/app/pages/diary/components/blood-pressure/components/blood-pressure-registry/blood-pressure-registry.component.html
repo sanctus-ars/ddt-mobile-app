@@ -1,44 +1,47 @@
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="date" >
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Дата </th>
-            <td mat-cell *matCellDef="let element"> {{element.date | date:'yyyy.MM.dd'}} </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="bloodPressureSystolic">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header width="80px"> Верхнее давление </th>
-            <td mat-cell *matCellDef="let element"> {{element.bloodPressureSystolic}}</td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="bloodPressureDiastolic">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header width="80px"> Нижнее давление </th>
-            <td mat-cell *matCellDef="let element"> {{element.bloodPressureDiastolic}}</td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="pulse">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header width="80px"> Пульс </th>
-            <td mat-cell *matCellDef="let element"> {{element.pulse}}</td>
-        </ng-container>
-
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="icon">
-            <th mat-header-cell *matHeaderCellDef width="20px"></th>
-            <td mat-cell *matCellDef="let row">
-                <fa-icon icon="arrow-right"></fa-icon>
-            </td>
-        </ng-container>
-
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">Журнал давления и пульса пуст</td>
-        </tr>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickByRowAction(row)"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+<div class="app-blood-pressure-registry">
+    <div class="app-blood-pressure-registry-new-item">
+        <button mat-fab color="primary" (click)="newBloodPressureAction()">
+            <fa-icon icon="plus"></fa-icon>
+        </button>
+    </div>
+    <div *ngFor="let year of dataList" >
+        <div class="app-blood-pressure-registry_date">
+            <span>{{ year.year }}</span>
+        </div>
+        <div *ngFor="let month of year.months">
+            <div class="app-blood-pressure-registry_date">
+                <span>{{ month.month }}</span>
+            </div>
+            <div class="app-blood-pressure-registry_item" *ngFor="let item of month.items">
+                <div class="app-blood-pressure-registry_item-row" (click)="toggleSubMenu(item)">
+                    <div class="app-blood-pressure-registry_item-date" >
+                        <span>{{ item.date | date:'dd' }}</span>
+                    </div>
+                    <div class="app-blood-pressure-registry_item-weight">
+                        {{ item.bloodPressureSystolic }} /  {{ item.bloodPressureDiastolic }}
+                    </div>
+                    <div class="app-blood-pressure-registry_item-diff">
+                      <span class="app-blood-pressure-registry_item-diff-icon" *ngIf="item.pulse">
+                          <fa-icon icon="heart" ></fa-icon>
+                      </span>
+                        <span class="app-blood-pressure-registry_item-diff-value">
+                          {{ item.pulse }}
+                      </span>
+                    </div>
+                    <div class="app-blood-pressure-registry_item-menu">
+                        <button class="app-blood-pressure-registry_item-menu-button">
+                            <fa-icon icon="ellipsis-v"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-blood-pressure-registry_item-comment" *ngIf="item.comment">
+                    <span>{{ item.comment }}</span>
+                </div>
+                <div *ngIf="item.showSubMenu" class="app-blood-pressure-registry_item-actions">
+                    <button class="app-blood-pressure-registry_item-actions-edit" mat-raised-button (click)="editBloodPressureAction(item)">Изменить</button>
+                    <button class="app-blood-pressure-registry_item-actions-remove" mat-raised-button  (click)="removeBloodPressureAction(item)">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

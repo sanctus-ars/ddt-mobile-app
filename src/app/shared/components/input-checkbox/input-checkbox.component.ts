@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-	selector: 'app-input-time',
-	templateUrl: './input-time.component.html',
-	styleUrls: ['./input-time.component.scss'],
+	selector: 'app-input-checkbox',
+	templateUrl: './input-checkbox.component.html',
+	styleUrls: ['./input-checkbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputTimeComponent {
-	@Input() label: string = 'Время';
+export class InputCheckboxComponent {
+	@Input() label: string;
 	@Input() class: string;
-	@Input() placeholder: string;
+	@Input() labelPosition: 'before' | 'after' = 'after';
 	@Input() control: FormControl = new FormControl();
 }

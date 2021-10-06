@@ -1,0 +1,53 @@
+<div class="blood-pressure-item">
+    <ion-content [fullscreen]="true">
+        <form [formGroup]="bloodPressureForm">
+            <div class="blood-pressure-item-content">
+                <div class="blood-pressure-item-content_form-field">
+                    <app-input-date [control]="dateControl"></app-input-date>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <app-input-number label="Верхнее давление" [control]="bloodPressureSystolicControl"></app-input-number>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <app-input-number label="Нижнее давление" [control]="bloodPressureDiastolicControl"></app-input-number>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <app-input-number label="Пульс" [control]="pulseControl"></app-input-number>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>На какой руке проводились измерения</mat-label>
+                        <mat-select [formControl]="handControl">
+                            <mat-option value="none">Без тонометра</mat-option>
+                            <mat-option value="left">Левая рука</mat-option>
+                            <mat-option value="right">Правая рука</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <app-input-well-being [control]="wellBeingControl"></app-input-well-being>
+                </div>
+
+                <div class="blood-pressure-item-content_form-field">
+                    <app-comment [control]="commentControl" ></app-comment>
+                </div>
+            </div>
+
+            <ion-footer class="blood-pressure-item-footer">
+                <app-dialog-buttons
+                        [disabled]="bloodPressureForm.invalid"
+                        [mode]="this.data.mode"
+                        (saveEmitter)="saveAction()"
+                        (cancelEmitter)="cancelAction()"
+                        (removeEmitter)="removeAction()"
+                ></app-dialog-buttons>
+            </ion-footer>
+        </form>
+    </ion-content>
+</div>
+
