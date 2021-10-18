@@ -1,0 +1,67 @@
+<div class="pills-item">
+    <ion-content [fullscreen]="true" class="pills-item_content">
+        <form [formGroup]="pillsFormGroup" class="pills-item_content">
+            <div class="pills-item-content">
+                <div class="pills-item-content_form-field">
+                    <app-input-text
+                            icon="pills"
+                            label="Название"
+                            placeholder="Название лекарства"
+                            [control]="nameControl"
+                    ></app-input-text>
+                </div>
+
+                <div class="pills-item-content_form-field">
+                    <app-input-number
+                            icon="list-ol"
+                            label="Количество таблеток, шт"
+                            [control]="countControl"
+                    ></app-input-number>
+                </div>
+
+                <div class="pills-item-content_form-field">
+                    <app-input-date
+                            icon="list-ol"
+                            label="Дата начала приема"
+                            [control]="startDateControl"
+                    ></app-input-date>
+                </div>
+
+                <div class="pills-item-content_form-field">
+                    <app-input-date
+                            icon="list-ol"
+                            label="Дата окончания приема"
+                            [control]="endDateControl"
+                    ></app-input-date>
+                </div>
+
+                <div class="pills-item-content_form-field">
+                    <app-input-time
+                            label="Время приема"
+                            [control]="timeControl"
+                    ></app-input-time>
+                </div>
+
+                <div class="pills-item-content_form-field">
+                    <app-comment
+                            label="От/Для чего"
+                            placeholder="Формологическая причина"
+                            [control]="commentControl"
+                    ></app-comment>
+                </div>
+            </div>
+
+            <ion-footer class="pills-item-footer">
+                <app-dialog-buttons
+                        class="pills-item-dialog-footer_content"
+                        [disabled]="pillsFormGroup.invalid"
+                        [mode]="this.data['mode']"
+                        (saveEmitter)="saveAction()"
+                        (cancelEmitter)="cancelAction()"
+                        (removeEmitter)="removeAction()"
+                ></app-dialog-buttons>
+            </ion-footer>
+        </form>
+    </ion-content>
+</div>
+

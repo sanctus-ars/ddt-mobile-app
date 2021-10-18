@@ -30,7 +30,7 @@ import { BloodPressureRegistryComponent } from 'src/app/pages/diary/components/b
 import { BloodPressureStatisticComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-statistic/blood-pressure-statistic.component';
 import { UrineRegistryComponent } from 'src/app/pages/diary/components/urine/components/urine-registry/urine-registry.component';
 import { UrineStatisticComponent } from 'src/app/pages/diary/components/urine/components/urine-statistic/urine-statistic.component';
-import { PillsNewItemComponent } from 'src/app/pages/pills/components/pills-new-item/pills-new-item.component';
+import { PillsItemComponent } from 'src/app/pages/pills/components/pills-item/pills-item.component';
 import { AboutComponent } from 'src/app/pages/about/about.component';
 import { WeightItemComponent } from 'src/app/pages/diary/components/weight/components/weight-item/weight-item.component';
 import { BloodPressureItemComponent } from 'src/app/pages/diary/components/blood-pressure/components/blood-pressure-item/blood-pressure-item.component';
@@ -190,8 +190,8 @@ const routes: Routes = [
 								component: PillsHistoryComponent,
 							},
 							{
-								path: 'item-new',
-								component: PillsNewItemComponent
+								path: 'item',
+								component: PillsItemComponent
 							},
 							{
 								path: '**',

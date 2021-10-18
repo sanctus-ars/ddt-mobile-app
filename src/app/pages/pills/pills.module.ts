@@ -10,13 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PillsItemDialogComponent } from 'src/app/pages/pills/components/pills-item-dialog/pills-item-dialog.component';
 import { PillsDrugsComponent } from 'src/app/pages/pills/components/pills-drugs/pills-drugs.component';
 import { PillsHistoryComponent } from 'src/app/pages/pills/components/pills-history/pills-history.component';
-import { PillsNewItemComponent } from 'src/app/pages/pills/components/pills-new-item/pills-new-item.component';
+import { PillsItemComponent } from 'src/app/pages/pills/components/pills-item/pills-item.component';
 
 const declarations = [
 	PillsComponent,
 	PillsDrugsComponent,
 	PillsHistoryComponent,
-	PillsNewItemComponent,
+	PillsItemComponent,
 	PillsResearchComponent,
 	PillsItemDialogComponent,
 ];

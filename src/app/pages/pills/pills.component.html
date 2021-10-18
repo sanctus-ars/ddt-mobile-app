@@ -2,5 +2,25 @@
     <div id="container">
         <ion-router-outlet class="pages"></ion-router-outlet>
     </div>
+    <ion-app>
+        <ion-tabs>
+            <ion-tab-bar slot="bottom">
+                <ion-tab-button tab="research">
+                    <ion-icon name="calendar"></ion-icon>
+                    <ion-label>Обзор</ion-label>
+                </ion-tab-button>
+
+                <ion-tab-button tab="drugs">
+                    <ion-icon name="stats-chart-outline"></ion-icon>
+                    <ion-label>Статистика</ion-label>
+                </ion-tab-button>
+
+                <ion-tab-button tab="history">
+                    <ion-icon name="map"></ion-icon>
+                    <ion-label>Журнал приема лекарств</ion-label>
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+    </ion-app>
 </ion-content>
 

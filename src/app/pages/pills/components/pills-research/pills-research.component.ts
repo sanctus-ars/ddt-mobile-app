@@ -1,10 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PillsItemDialogComponent } from 'src/app/pages/pills/components/pills-item-dialog/pills-item-dialog.component';
 import { PopupModeEnum } from 'src/app/shared/enum/popup-mode.enum';
 import { IPills } from 'src/app/pages/pills/interface/pills.interface';
 import { PillsService } from 'src/app/pages/pills/services/pills.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { BaseComponent } from 'src/app/modules/base/components/base.component';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -26,7 +24,6 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 		private router: Router,
 		private titleService: TitleService,
 		private pillsService: PillsService,
-		private toastService: ToastService,
 	) {
 		super(cd);
 	}
@@ -36,48 +33,17 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 	}
 
 	public clickByAddButtonAction(): void {
-		this.router.navigateByUrl('./pages/pills/item-new');
-	}
-
-	public pillEditAction(item: IPills): void {
-	  this.openDialog(PopupModeEnum.edit, item);
-	}
-
-	private async editPill(item: IPills): Promise<void> {
-		return this.pillsService.editPills(item)
-			.then(async () => {
-				await this.toastService.showSuccess('Прием лекарства успешно отредактирован');
-			}).catch(async (error) => {
-				await this.toastService.showError(error);
-			});
-	}
-
-	private async addPill(item: IPills): Promise<void> {
-		return this.pillsService.addPill(item)
-			.then(async () => {
-				await this.toastService.showSuccess('Прием лекарства успешно добавлен');
-			}).catch(async (error) => {
-				await this.toastService.showError(error);
-			});
-	}
-
-	private removePill(id: string): Promise<void> {
-		return this.pillsService.removePill(id)
-			.then(async () => {
-				await this.toastService.showSuccess('Лекарство успешно удалено');
-			}).catch(async (error) => {
-				await this.toastService.showError(error);
-			});
+		this.router.navigate(['/pages/pills/item', {
+			mode: PopupModeEnum.create,
+		}]);
 	}
 
 	private initData(): void {
-		const pageTitle = `Сегодня ${moment(this.currentDate).format('DD.MM.yyyy')}`;
-		this.titleService.setTitle(pageTitle);
 		this.subscriptions.add([
 			this.pillsService.pillsList.subscribe((list: IPills[]) => {
 				if (list && list.length) {
 					const currentDatePills: IPills[] = list.filter((item: IPills) => {
-						return moment(item.startDate) <= moment(new Date()) && item.indefinite || moment(new Date()) <= moment(item.endDate);
+						return moment(item.startDate) <= moment(new Date()) || moment(new Date()) <= moment(item.endDate);
 					});
 					const sortedPills: IPills[] = currentDatePills.sort((a: IPills, b: IPills) => {
 						if (moment().add(a.time, 'hours') < moment().add(b.time, 'hours')) {
@@ -100,29 +66,6 @@ export class PillsResearchComponent extends BaseComponent implements AfterViewIn
 					this.pillsList = clearResult;
 				}
 			}),
-		]);
-	}
-
-	private openDialog(mode: PopupModeEnum, item?: IPills): void {
-		const dialogRef = this.dialog.open(PillsItemDialogComponent, {
-			width: '100%',
-			height: '100%',
-			data: {
-				item,
-				mode
-			}
-		});
-
-		this.subscriptions.add([
-			dialogRef.afterClosed().subscribe(async (result: { item: IPills, mode: PopupModeEnum }) => {
-				if (result && result.item && result.mode === PopupModeEnum.create) {
-					await this.addPill(result.item);
-				} else if (result && result.item && result.mode === PopupModeEnum.remove) {
-					await this.removePill(result.item.id);
-				} else if (result && result.item && result.mode === PopupModeEnum.edit){
-					await this.editPill(result.item);
-				}
-			})
 		]);
 	}
 }

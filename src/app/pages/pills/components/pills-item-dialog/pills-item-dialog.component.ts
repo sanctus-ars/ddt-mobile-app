@@ -62,11 +62,6 @@ export class PillsItemDialogComponent extends BaseComponent implements OnInit {
     this.commentControl.setValue( !!this.data && !!this.data.item ? this.data.item.comment : '');
     this.endDateControl.setValue( !!this.data && !!this.data.item ? this.data.item.endDate : moment().add(30, 'days').toDate());
     this.startDateControl.setValue( !!this.data && !!this.data.item ? this.data.item.startDate : moment().toDate());
-    this.indefiniteControl.setValue( !!this.data && !!this.data.item ? this.data.item.indefinite : false);
-
-    if (this.data?.item?.indefinite) {
-    	this.endDateControl.disable();
-		}
 
     this.nameControl.setValidators(Validators.required);
 		this.timeControl.setValidators(Validators.required);
